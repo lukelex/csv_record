@@ -80,4 +80,16 @@ describe CsvRecord::Document do
     second_car.save
     second_car.id.must_equal 2
   end
+
+  it "Creates the object through create method" do
+    created_car = Car.create(
+      year: 2007,
+      make: 'Chevrolet',
+      model: 'F450',
+      description: 'ac, abs, moon',
+      price: 5000.00
+    )
+    created_car.wont_be_nil
+    created_car.must_be_instance_of Car
+  end
 end

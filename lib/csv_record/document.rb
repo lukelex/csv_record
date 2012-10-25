@@ -13,7 +13,7 @@ module CsvRecord
       def initialize_db
         initialize_db_directory
         unless db_initialized?
-          CSV.open(DATABASE_LOCATION, 'wb') do |csv|
+          open_database_file 'wb' do |csv|
             csv << fields
           end
         end
@@ -28,9 +28,21 @@ module CsvRecord
       end
 
       def all
-        CSV.open(Car::DATABASE_LOCATION, 'r', :headers => true) do |csv|
+        open_database_file do |csv|
           csv.entries.map { |attributes| self.new attributes }
         end
+      end
+
+      def open_database_file(mode='r')
+        CSV.open(Car::DATABASE_LOCATION, mode, :headers => true) do |csv|
+          yield(csv)
+        end
+      end
+
+      def create(attributes={})
+        instance = self.new attributes
+        instance.save
+        instance
       end
     end
 
@@ -52,7 +64,7 @@ module CsvRecord
 
       def write_object
         calculate_id
-        CSV.open(DATABASE_LOCATION, 'a') do |csv|
+        self.class.open_database_file 'a' do |csv|
           csv << values
         end
         true

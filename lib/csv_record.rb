@@ -34,10 +34,8 @@ module CsvRecord
   #   CsvRecord.configure do |config|
   #   end
   #
-  # @return [ Config ] The configuration object.
-  #
-  # @since 1.0.0
+  # @return [ self ] The CsvRecord object.
   def configure
-    block_given? ? yield(Config) : Config
+    block_given? ? yield(self) : self
   end
 end
