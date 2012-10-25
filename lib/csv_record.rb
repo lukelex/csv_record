@@ -21,8 +21,19 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #++
 
+require 'csv'
+
+require 'csv_record/document'
+
 require "csv_record/version"
 
 module CsvRecord
-  # Your code goes here...
+
+private
+  def write_object
+    CSV.open(DATABASE_LOCATION, 'wb', :col_sep => ',') do |csv|
+      csv << fields unless db_initialized? csv
+      csv << values
+    end
+  end
 end

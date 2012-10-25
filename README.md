@@ -1,20 +1,26 @@
 # CsvRecord
 
-TODO: Write a gem description
+CSV Record connects classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'csv_record'
+```ruby
+gem 'csv_record'
+```
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install csv_record
+```
+$ gem install csv_record
+```
 
 ## Usage
 
