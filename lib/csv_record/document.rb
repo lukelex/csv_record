@@ -1,3 +1,5 @@
+require 'csv_record/writer'
+
 module CsvRecord
 
   # This is the base module for all domain objects that need to be persisted to
@@ -38,53 +40,22 @@ module CsvRecord
           yield(csv)
         end
       end
-
-      def create(attributes={})
-        instance = self.new attributes
-        instance.save
-        instance
-      end
     end
 
-    module InstanceMethods
-      attr_reader :id
+    def values
+      Car.fields.map { |attribute| self.public_send(attribute) }
+    end
 
-      def save
-        Car.initialize_db
-        write_object
-        @new_record = false
-      end
-
-      def values
-        Car.fields.map { |attribute| self.public_send(attribute) }
-      end
-
-      def attributes
-        Hash[Car.fields.zip self.values]
-      end
-
-      def write_object
-        calculate_id
-        self.class.open_database_file 'a' do |csv|
-          csv << values
-        end
-        true
-      end
-
-      def calculate_id
-        @id = Car.all.size + 1
-      end
-
-      def new_record?
-        @new_record.nil? ? true : @new_record
-      end
+    def attributes
+      Hash[Car.fields.zip self.values]
     end
 
     def self.included(receiver)
       self.const_set('DATABASE_LOCATION',"db/#{parse_caller(caller[1]).downcase}.csv")
 
       receiver.extend         ClassMethods
-      receiver.send :include, InstanceMethods
+      receiver.extend         CsvRecord::Writer::ClassMethods
+      receiver.send :include, CsvRecord::Writer::InstanceMethods
     end
 
     def self.parse_caller(at)
