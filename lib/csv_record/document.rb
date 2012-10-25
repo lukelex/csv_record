@@ -4,41 +4,48 @@ module CsvRecord
   # the database.
   module Document
     module ClassMethods
-    end
-
-    module InstanceMethods
-      attr_accessor :id
-
-      def save
-        create_db_file
-        write_object
-      end
-
-      def create_db_file
-        unless File.exists?(DATABASE_LOCATION)
+      def initialize_db_directory
+        unless Dir.exists? 'db'
           FileUtils.mkdir_p('db')
         end
       end
 
+      def initialize_db
+        initialize_db_directory
+        unless db_initialized?
+          CSV.open(DATABASE_LOCATION, 'wb') do |csv|
+            csv << fields
+          end
+        end
+      end
+
+      def db_initialized?
+        File.exist? DATABASE_LOCATION
+      end
+
       def fields
-        self.class.instance_methods(false).select { |m| m.to_s !~ /=$/ }
+        instance_methods(false).select { |m| m.to_s !~ /=$/ }
+      end
+    end
+
+    module InstanceMethods
+      attr_reader :id
+
+      def save
+        Car.initialize_db
+        write_object
       end
 
       def values
-        self.fields.map { |attribute| self.public_send(attribute) }
+        Car.fields.map { |attribute| self.public_send(attribute) }
       end
 
       def attributes
-        Hash[self.fields.zip self.values]
-      end
-
-      def db_initialized?(csv)
-        !csv.lineno.zero?
+        Hash[Car.fields.zip self.values]
       end
 
       def write_object
-        CSV.open(DATABASE_LOCATION, 'wb', :col_sep => ',') do |csv|
-          csv << fields unless db_initialized? csv
+        CSV.open(DATABASE_LOCATION, 'a') do |csv|
           csv << values
         end
       end

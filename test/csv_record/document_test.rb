@@ -1,5 +1,6 @@
 require 'minitest/spec'
 require 'minitest/autorun'
+require 'csv'
 
 require_relative '../models/car'
 
@@ -18,13 +19,13 @@ describe CsvRecord::Document do
     )
   end
 
-  it "Creates the database file" do
-    car.save
-    File.exists?(Car::DATABASE_LOCATION).must_equal true
+  it "Creates the database folder" do
+    Car.initialize_db_directory.wont_be_nil
+    Dir.exists?('db').must_equal true
   end
 
   it "Check the current fields" do
-    car.fields.must_equal [:year, :make, :model, :description, :price]
+    Car.fields.must_equal [:year, :make, :model, :description, :price]
   end
 
   it "Check the current values" do
@@ -34,5 +35,31 @@ describe CsvRecord::Document do
   it "Check the current attributes" do
     expected_result = {:year=>1997, :make=>"Ford", :model=>"E350", :description=>"ac, abs, moon", :price=>3000.0}
     car.attributes.must_equal expected_result
+  end
+
+  it "Creates the database file" do
+    car.save
+    File.exists?(Car::DATABASE_LOCATION).must_equal true
+  end
+
+  it "Checks the database initialization state" do
+    Car.db_initialized?.must_equal false
+    car.save
+    Car.db_initialized?.must_equal true
+  end
+
+  it "Creates more than one registry" do
+    car.save
+    Car.new(
+      year: 2007,
+      make: 'Chevrolet',
+      model: 'F450',
+      description: 'ac, abs, moon',
+      price: 5000.00
+    ).save
+    CSV.open(Car::DATABASE_LOCATION, 'r', :headers => true) do |csv|
+      # p csv.entries
+      csv.entries.size.must_equal 2
+    end
   end
 end

@@ -28,12 +28,16 @@ require 'csv_record/document'
 require "csv_record/version"
 
 module CsvRecord
-
-private
-  def write_object
-    CSV.open(DATABASE_LOCATION, 'wb', :col_sep => ',') do |csv|
-      csv << fields unless db_initialized? csv
-      csv << values
-    end
+  # Sets the CsvRecord configuration options. Best used by passing a block.
+  #
+  # @example Set up configuration options.
+  #   CsvRecord.configure do |config|
+  #   end
+  #
+  # @return [ Config ] The configuration object.
+  #
+  # @since 1.0.0
+  def configure
+    block_given? ? yield(Config) : Config
   end
 end
