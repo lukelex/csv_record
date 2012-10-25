@@ -7,6 +7,7 @@ module CsvRecord
         instance
       end
     end
+
     module InstanceMethods
       attr_reader :id
 
@@ -16,12 +17,14 @@ module CsvRecord
         @new_record = false
       end
 
-      def calculate_id
-        @id = Car.all.size + 1
-      end
-
       def new_record?
         @new_record.nil? ? true : @new_record
+      end
+
+      protected
+
+      def calculate_id
+        @id = Car.all.size + 1
       end
 
       def write_object
