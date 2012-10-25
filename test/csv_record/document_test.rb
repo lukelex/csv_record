@@ -19,6 +19,16 @@ describe CsvRecord::Document do
     )
   end
 
+  let(:second_car) do
+    Car.new(
+      year: 2007,
+      make: 'Chevrolet',
+      model: 'F450',
+      description: 'ac, abs, moon',
+      price: 5000.00
+    )
+  end
+
   it "Creates the database folder" do
     Car.initialize_db_directory.wont_be_nil
     Dir.exists?('db').must_equal true
@@ -50,16 +60,24 @@ describe CsvRecord::Document do
 
   it "Creates more than one registry" do
     car.save
-    Car.new(
-      year: 2007,
-      make: 'Chevrolet',
-      model: 'F450',
-      description: 'ac, abs, moon',
-      price: 5000.00
-    ).save
+    second_car.save
     CSV.open(Car::DATABASE_LOCATION, 'r', :headers => true) do |csv|
-      # p csv.entries
       csv.entries.size.must_equal 2
     end
+  end
+
+  it "Retrieves the amount of registries" do
+    car.save
+    Car.all.size.must_equal 1
+    second_car.save
+    Car.all.size.must_equal 2
+  end
+
+  it "Sets the ID of the created object" do
+    car.id.must_be_nil
+    car.save
+    car.id.must_equal 1
+    second_car.save
+    second_car.id.must_equal 2
   end
 end

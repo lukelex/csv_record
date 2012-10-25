@@ -26,6 +26,12 @@ module CsvRecord
       def fields
         instance_methods(false).select { |m| m.to_s !~ /=$/ }
       end
+
+      def all
+        CSV.open(Car::DATABASE_LOCATION, 'r', :headers => true) do |csv|
+          csv.entries.map { |attributes| self.new attributes }
+        end
+      end
     end
 
     module InstanceMethods
@@ -45,9 +51,15 @@ module CsvRecord
       end
 
       def write_object
+        calculate_id
         CSV.open(DATABASE_LOCATION, 'a') do |csv|
           csv << values
         end
+        true
+      end
+
+      def calculate_id
+        @id = Car.all.size + 1
       end
     end
 
