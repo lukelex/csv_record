@@ -1,3 +1,5 @@
+require 'csv_record'
+
 class Car
   include CsvRecord::Document
 
