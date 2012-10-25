@@ -52,6 +52,7 @@ module CsvRecord
       def save
         Car.initialize_db
         write_object
+        @new_record = false
       end
 
       def values
@@ -72,6 +73,10 @@ module CsvRecord
 
       def calculate_id
         @id = Car.all.size + 1
+      end
+
+      def new_record?
+        @new_record.nil? ? true : @new_record
       end
     end
 

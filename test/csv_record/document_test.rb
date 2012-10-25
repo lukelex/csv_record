@@ -92,4 +92,10 @@ describe CsvRecord::Document do
     created_car.wont_be_nil
     created_car.must_be_instance_of Car
   end
+
+  it "Checks whether is a new record" do
+    car.new_record?.must_equal true
+    car.save
+    car.new_record?.must_equal false
+  end
 end
