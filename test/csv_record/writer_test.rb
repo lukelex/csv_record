@@ -1,7 +1,5 @@
 require_relative '../test_helper'
 
-require 'csv'
-
 require_relative '../models/car'
 
 describe CsvRecord::Writer do
