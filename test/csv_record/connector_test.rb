@@ -11,20 +11,6 @@ describe CsvRecord::Connector do
   end
 
   describe 'validating the methods behavior' do
-    after :each do
-      FileUtils.rm_rf 'db'
-    end
-
-    let(:car) do
-      Car.new(
-        year: 1997,
-        make: 'Ford',
-        model: 'E350',
-        description: 'ac, abs, moon',
-        price: 3000.00
-      )
-    end
-
     it "Creates the database folder" do
       Car.initialize_db_directory.wont_be_nil
       Dir.exists?('db').must_equal true

@@ -14,20 +14,6 @@ describe CsvRecord::Reader do
   end
 
   describe 'validating the methods behavior' do
-    after :each do
-      FileUtils.rm_rf 'db'
-    end
-
-    let(:car) do
-      Car.new(
-        year: 1997,
-        make: 'Ford',
-        model: 'E350',
-        description: 'ac, abs, moon',
-        price: 3000.00
-      )
-    end
-
     let(:second_car) do
       Car.new(
         year: 2007,

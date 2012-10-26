@@ -13,23 +13,12 @@ describe CsvRecord::Timestamps do
   end
 
   describe 'setting its values' do
-    let(:car) do
-      Car.new(
-        year: 1997,
-        make: 'Ford',
-        model: 'E350',
-        description: 'ac, abs, moon',
-        price: 3000.00
-      )
-    end
-
     before do
       Timecop.freeze(Time.new)
     end
 
     after do
       Timecop.return
-      FileUtils.rm_rf 'db'
     end
 
     it 'sets the time wich the object was created' do

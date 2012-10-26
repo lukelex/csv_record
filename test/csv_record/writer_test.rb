@@ -12,8 +12,6 @@ describe CsvRecord::Writer do
   end
 
   describe 'initializing instance methods' do
-    let (:car) { Car.new }
-
     it ('responds to save') { car.must_respond_to :save }
     it ('responds to new_record?') { car.must_respond_to :new_record? }
     it ('responds to calculate_id') { car.must_respond_to :calculate_id }
@@ -22,20 +20,6 @@ describe CsvRecord::Writer do
   end
 
   describe 'validating the methods behavior' do
-    after :each do
-      FileUtils.rm_rf 'db'
-    end
-
-    let(:car) do
-      Car.new(
-        year: 1997,
-        make: 'Ford',
-        model: 'E350',
-        description: 'ac, abs, moon',
-        price: 3000.00
-      )
-    end
-
     let(:second_car) do
       Car.new(
         year: 2007,

@@ -9,3 +9,19 @@ module TestHelper
     File.join(BASE_PATH, path)
   end
 end
+
+class MiniTest::Spec
+  after :each do
+    FileUtils.rm_rf 'db'
+  end
+
+  let(:car) do
+    Car.new(
+      year: 1997,
+      make: 'Ford',
+      model: 'E350',
+      description: 'ac, abs, moon',
+      price: 3000.00
+    )
+  end
+end
