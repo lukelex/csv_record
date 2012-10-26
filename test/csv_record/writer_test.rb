@@ -33,9 +33,7 @@ describe CsvRecord::Writer do
     it "Creates more than one registry" do
       car.save
       second_car.save
-      CSV.open(Car::DATABASE_LOCATION, 'r', :headers => true) do |csv|
-        csv.entries.size.must_equal 2
-      end
+      Car.all.size.must_equal 2
     end
 
     it "Checks whether is a new record" do
