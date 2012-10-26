@@ -8,5 +8,6 @@ class Car
       self.public_send("#{key}=", value)
     end
   end
+
   attr_accessor :year, :make, :model, :description, :price
 end

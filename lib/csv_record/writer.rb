@@ -9,11 +9,13 @@ module CsvRecord
     end
 
     module InstanceMethods
-      attr_reader :id
+      def self.included(receiver)
+        receiver.send :attr_accessor, :id
+      end
 
       def save
         Car.initialize_db
-        set_creation_time
+        set_created_at
         write_object
         @new_record = false
       end
