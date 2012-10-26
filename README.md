@@ -24,7 +24,11 @@ $ gem install csv_record
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class Car
+  include CsvRecord::Document
+end
+```
 
 ## Contributing
 

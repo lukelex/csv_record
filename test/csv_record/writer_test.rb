@@ -12,10 +12,13 @@ describe CsvRecord::Writer do
   end
 
   describe 'initializing instance methods' do
-    it ('responds to save') { Car.new.must_respond_to :save }
-    it ('responds to new_record?') { Car.new.must_respond_to :new_record? }
-    it ('responds to calculate_id') { Car.new.must_respond_to :calculate_id }
-    it ('responds to write_object') { Car.new.must_respond_to :write_object }
+    let (:car) { Car.new }
+
+    it ('responds to save') { car.must_respond_to :save }
+    it ('responds to new_record?') { car.must_respond_to :new_record? }
+    it ('responds to calculate_id') { car.must_respond_to :calculate_id }
+    it ('responds to write_object') { car.must_respond_to :write_object }
+    it ('responds to id') { car.must_respond_to :id }
   end
 
   describe 'validating the methods behavior' do

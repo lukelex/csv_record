@@ -13,6 +13,7 @@ module CsvRecord
 
       def save
         Car.initialize_db
+        set_creation_time
         write_object
         @new_record = false
       end
