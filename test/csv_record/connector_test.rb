@@ -1,5 +1,4 @@
-require 'minitest/spec'
-require 'minitest/autorun'
+require_relative '../test_helper'
 
 require_relative '../models/car'
 
