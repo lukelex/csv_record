@@ -43,5 +43,13 @@ describe CsvRecord::Reader do
       second_car.save
       Car.all.size.must_equal 2
     end
+
+    it 'querying by id' do
+      3.times do
+        car.clone.save
+      end
+      object = Car.find(2)
+      object.wont_be_nil
+    end
   end
 end

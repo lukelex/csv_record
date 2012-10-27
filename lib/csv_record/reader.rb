@@ -10,6 +10,12 @@ module CsvRecord
           csv.entries.map { |attributes| self.new attributes }
         end
       end
+
+      def find(id)
+        open_database_file do |csv|
+          csv.entries.select { |attributes| attributes['id'] == id.to_s }.first
+        end
+      end
     end
 
     module InstanceMethods
