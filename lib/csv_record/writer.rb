@@ -1,11 +1,13 @@
 module CsvRecord
   module Writer
     module ClassMethods
-      def create(attributes={})
+      def __create__(attributes={})
         instance = self.new attributes
         instance.save
         instance
       end
+
+      alias :create :__create__
     end
 
     module InstanceMethods
@@ -13,7 +15,7 @@ module CsvRecord
         receiver.send :attr_accessor, :id
       end
 
-      def save
+      def __save__
         Car.initialize_db
         set_created_at
         write_object
@@ -30,13 +32,16 @@ module CsvRecord
         @id = Car.all.size + 1
       end
 
-      def write_object
+      def __write_object__
         calculate_id
         self.class.open_database_file 'a' do |csv|
           csv << values
         end
         true
       end
+
+      alias :save :__save__
+      alias :write_object :__write_object__
     end
   end
 end

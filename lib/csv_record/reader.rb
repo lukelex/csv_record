@@ -17,22 +17,27 @@ module CsvRecord
         end
       end
 
-      def find(param)
+      def __find__(param)
         param = param.id unless param.is_a? Integer
         open_database_file do |csv|
           csv.entries.select { |attributes| attributes['id'] == param.to_s }.first
         end
       end
+
+      alias :find :__find__
     end
 
     module InstanceMethods
-      def values
+      def __values__
         Car.fields.map { |attribute| self.public_send(attribute) }
       end
 
-      def attributes
+      def __attributes__
         Hash[Car.fields.zip self.values]
       end
+
+      alias :attributes :__attributes__
+      alias :values :__values__
     end
   end
 end

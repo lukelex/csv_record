@@ -2,6 +2,7 @@ require 'csv_record/connector'
 require 'csv_record/writer'
 require 'csv_record/reader'
 require 'csv_record/timestamps'
+require 'csv_record/callbacks'
 
 module CsvRecord
 
@@ -17,6 +18,7 @@ module CsvRecord
       receiver.send :include, CsvRecord::Writer::InstanceMethods
       receiver.send :include, CsvRecord::Reader::InstanceMethods
       receiver.send :include, CsvRecord::Timestamps
+      receiver.send :include, CsvRecord::Callbacks
     end
 
     def self.parse_caller(at)

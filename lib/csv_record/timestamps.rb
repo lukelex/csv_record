@@ -11,12 +11,14 @@ module CsvRecord
     #
     # @example Set the created at time.
     #   person.set_created_at
-    def set_created_at
+    def __set_created_at__
       if !created_at
         time = Time.now.utc
         # self.updated_at = time if is_a?(Updated) && !updated_at_changed?
         @created_at = time
       end
     end
+
+    alias :set_created_at :__set_created_at__
   end
 end
