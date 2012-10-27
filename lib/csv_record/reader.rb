@@ -11,9 +11,10 @@ module CsvRecord
         end
       end
 
-      def find(id)
+      def find(param)
+        param = param.id unless param.is_a? Integer
         open_database_file do |csv|
-          csv.entries.select { |attributes| attributes['id'] == id.to_s }.first
+          csv.entries.select { |attributes| attributes['id'] == param.to_s }.first
         end
       end
     end

@@ -45,11 +45,21 @@ describe CsvRecord::Reader do
     end
 
     it 'querying by id' do
+      cars = []
       3.times do
-        car.clone.save
+        cars << car.clone
+        cars.last.save
       end
-      object = Car.find(2)
-      object.wont_be_nil
+      Car.find(cars.first.id).wont_be_nil
+    end
+
+    it 'querying by object' do
+      cars = []
+      3.times do
+        cars << car.clone
+        cars.last.save
+      end
+      Car.find(cars.first).wont_be_nil
     end
   end
 end
