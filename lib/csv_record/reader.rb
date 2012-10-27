@@ -29,11 +29,11 @@ module CsvRecord
 
     module InstanceMethods
       def __values__
-        Car.fields.map { |attribute| self.public_send(attribute) }
+        self.class.fields.map { |attribute| self.public_send(attribute) }
       end
 
       def __attributes__
-        Hash[Car.fields.zip self.values]
+        Hash[self.class.fields.zip self.values]
       end
 
       alias :attributes :__attributes__
