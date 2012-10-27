@@ -37,11 +37,18 @@ describe CsvRecord::Reader do
       car.attributes.must_equal expected_result
     end
 
-    it "Retrieves the amount of registries" do
+    it "Retrieves all registries" do
       car.save
       Car.all.size.must_equal 1
       second_car.save
       Car.all.size.must_equal 2
+    end
+
+    it "Retrieves all registries" do
+      car.save
+      Car.count.must_equal 1
+      second_car.save
+      Car.count.must_equal 2
     end
 
     it 'querying by id' do

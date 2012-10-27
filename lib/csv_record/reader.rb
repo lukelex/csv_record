@@ -11,6 +11,12 @@ module CsvRecord
         end
       end
 
+      def count
+        open_database_file do |csv|
+          csv.entries.inject(0) { |s, n| s+1 }
+        end
+      end
+
       def find(param)
         param = param.id unless param.is_a? Integer
         open_database_file do |csv|
