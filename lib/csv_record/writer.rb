@@ -3,7 +3,9 @@ module CsvRecord
     module ClassMethods
       def __create__(attributes={})
         instance = self.new attributes
-        instance.save
+        instance.run_before_create_callbacks
+        result = instance.save
+        instance.run_after_create_callbacks if result
         instance
       end
 
@@ -18,8 +20,8 @@ module CsvRecord
       def __save__
         Car.initialize_db
         set_created_at
-        write_object
         @new_record = false
+        write_object
       end
 
       def new_record?
