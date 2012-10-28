@@ -20,7 +20,8 @@ module CsvRecord
       def __find__(param)
         param = param.id unless param.is_a? Integer
         open_database_file do |csv|
-          csv.entries.select { |attributes| attributes['id'] == param.to_s }.first
+          row = csv.entries.select { |attributes| attributes['id'] == param.to_s }.first
+          self.new row.to_hash
         end
       end
 

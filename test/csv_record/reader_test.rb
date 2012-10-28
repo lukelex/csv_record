@@ -58,6 +58,7 @@ describe CsvRecord::Reader do
         cars.last.save
       end
       Car.find(cars.first.id).wont_be_nil
+      Car.find(cars.first.id).class.must_equal Car
     end
 
     it 'querying by object' do
@@ -67,6 +68,7 @@ describe CsvRecord::Reader do
         cars.last.save
       end
       Car.find(cars.first).wont_be_nil
+      Car.find(cars.first.id).class.must_equal Car
     end
   end
 end
