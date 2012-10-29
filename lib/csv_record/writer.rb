@@ -48,9 +48,7 @@ module CsvRecord
       def update_registry
         self.class.parse_database_file do |row|
           new_row = row
-          if self.id.to_s == row.field('id')
-            new_row = self.values
-          end
+          new_row = self.values if self.id.to_s == row.field('id')
           new_row
         end
       end
