@@ -13,7 +13,7 @@ module CsvRecord
 
       def __count__
         open_database_file do |csv|
-          csv.entries.inject(0) { |s, n| s+1 }
+          csv.entries.size
         end
       end
 
