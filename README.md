@@ -57,6 +57,19 @@ Class.find car # find through the record
 Car.count # returns the amount of records in the database
 ```
 
+##Callbacks
+Callbacks can be used to execute code on predetermined moments.
+
+```ruby
+before_create do |obj|
+  obj.do_something
+end
+
+after_create do |obj|
+  obj.do_something
+end
+```
+
 ##Precautions
 CsvRecord creates a `db` folder in the root of your application. Be sure that it has permission to do so.
 
