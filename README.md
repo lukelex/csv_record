@@ -1,5 +1,7 @@
 # CsvRecord
 
+[![Build Status](https://secure.travis-ci.org/lukasalexandre/csv_record.png)](http://travis-ci.org/lukasalexandre/csv_record) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lukasalexandre/csv_record)
+
 CSV Record connects classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.
 
 ## Installation
