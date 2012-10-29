@@ -45,7 +45,7 @@ module CsvRecord
       protected
 
       def calculate_id
-        @id = Car.all.size + 1
+        @id = Car.count + 1
       end
 
       def append_registry
