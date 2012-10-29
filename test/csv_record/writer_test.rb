@@ -72,5 +72,14 @@ describe CsvRecord::Writer do
       car.update_attribute :year, 2008
       Car.find(car).year.must_equal '2008'
     end
+
+    it "Updates multiple fields using save" do
+      car.save
+      car.year = 2008
+      car.model = 'E846'
+      car.save
+      Car.find(car).year.must_equal '2008'
+      Car.find(car).model.must_equal 'E846'
+    end
   end
 end
