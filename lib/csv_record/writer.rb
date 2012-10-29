@@ -45,11 +45,13 @@ module CsvRecord
       end
 
       def update_registry
+        set_updated_at
         self.class.parse_database_file do |row|
           new_row = row
           new_row = self.values if self.id == row.field('id').to_i
           new_row
         end
+        true
       end
 
       def __write_object__

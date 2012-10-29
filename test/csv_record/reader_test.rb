@@ -25,15 +25,15 @@ describe CsvRecord::Reader do
     end
 
     it "Check the current fields" do
-      Car.fields.must_equal [:id, :created_at, :year, :make, :model, :description, :price]
+      Car.fields.must_equal [:id, :created_at, :updated_at, :year, :make, :model, :description, :price]
     end
 
     it "Check the current values" do
-      car.values.must_equal [nil, nil, 1997, 'Ford', 'E350', 'ac, abs, moon', 3000.00]
+      car.values.must_equal [nil, nil, nil, 1997, 'Ford', 'E350', 'ac, abs, moon', 3000.00]
     end
 
     it "Check the current attributes" do
-      expected_result = {:id=>nil, :created_at=>nil, :year=>1997, :make=>"Ford", :model=>"E350", :description=>"ac, abs, moon", :price=>3000.0}
+      expected_result = {:id=>nil, :created_at=>nil, :updated_at=>nil, :year=>1997, :make=>"Ford", :model=>"E350", :description=>"ac, abs, moon", :price=>3000.0}
       car.attributes.must_equal expected_result
     end
 

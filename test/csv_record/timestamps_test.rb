@@ -14,9 +14,9 @@ describe CsvRecord::Timestamps do
     it ('checking created_at') { Car.fields.must_include :created_at }
   end
 
-  describe 'setting its values' do
+  describe 'defines on create' do
     before do
-      Timecop.freeze(Time.new)
+      Timecop.freeze(Time.now.utc)
     end
 
     after do
@@ -25,12 +25,21 @@ describe CsvRecord::Timestamps do
 
     it 'sets the time wich the object was created' do
       car.save
-      car.created_at.must_equal Time.new
+      car.created_at.must_equal Time.now.utc
     end
 
-    it 'sets the time wich the object was created' do
+    it 'sets the updated time on created' do
       car.save
-      car.created_at.must_equal Time.new
+      car.updated_at.must_equal Time.now.utc
+    end
+  end
+
+  describe 'update on update' do
+    it 'sets the updated_at attribute on every save' do
+      car.save
+      previous_time = car.updated_at
+      car.update_attribute :year, '1800'
+      car.updated_at.wont_equal previous_time
     end
   end
 end

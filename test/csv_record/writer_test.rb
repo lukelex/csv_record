@@ -78,8 +78,9 @@ describe CsvRecord::Writer do
       car.year = 2008
       car.model = 'E846'
       car.save
-      Car.find(car).year.must_equal '2008'
-      Car.find(car).model.must_equal 'E846'
+      retrieved_car = Car.find(car)
+      retrieved_car.year.must_equal '2008'
+      retrieved_car.model.must_equal 'E846'
     end
   end
 end
