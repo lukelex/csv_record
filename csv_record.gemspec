@@ -3,7 +3,7 @@ require File.expand_path('../lib/csv_record/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Lukas Alexandre"]
-  gem.email         = ["lukeskytm@gmail.com"]
+  gem.email         = ["lukasalexandre@gmail.com"]
   gem.description   = %q{CSV Object-relational mapping}
   gem.summary       = %q{CSV Record connects classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.}
   gem.homepage      = "https://github.com/lukasalexandre/csv_record"
