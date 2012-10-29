@@ -11,7 +11,7 @@ module CsvRecord
         end
       end
 
-      def count
+      def __count__
         open_database_file do |csv|
           csv.entries.inject(0) { |s, n| s+1 }
         end
@@ -26,6 +26,7 @@ module CsvRecord
       end
 
       alias :find :__find__
+      alias :count :__count__
     end
 
     module InstanceMethods

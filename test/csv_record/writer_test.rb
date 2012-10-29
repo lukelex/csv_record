@@ -15,6 +15,7 @@ describe CsvRecord::Writer do
     it ('responds to calculate_id') { car.must_respond_to :calculate_id }
     it ('responds to write_object') { car.must_respond_to :write_object }
     it ('responds to id') { car.must_respond_to :id }
+    it ('responds to update_attribute') { car.must_respond_to :update_attribute }
   end
 
   describe 'validating the methods behavior' do
@@ -59,6 +60,12 @@ describe CsvRecord::Writer do
       car.id.must_equal 1
       second_car.save
       second_car.id.must_equal 2
+    end
+
+    it "Updates a single field" do
+      car.save
+      car.update_attribute :year, 2008
+      Car.find(car).year.must_equal '2008'
     end
   end
 end
