@@ -1,7 +1,7 @@
 module CsvRecord
   module Reader
     module ClassMethods
-      def fields
+      def __fields__
         instance_methods(false).select { |m| m.to_s !~ /=$/ }
       end
 
@@ -25,6 +25,7 @@ module CsvRecord
         end
       end
 
+      alias :fields :__fields__
       alias :find :__find__
       alias :count :__count__
     end
