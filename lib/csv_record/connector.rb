@@ -31,7 +31,7 @@ module CsvRecord
           copy << fields
           csv.entries.each do |entry|
             new_row = yield(entry)
-            copy << new_row
+            copy << new_row if new_row
           end
         end
       end

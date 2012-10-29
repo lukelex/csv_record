@@ -32,6 +32,16 @@ module CsvRecord
         self.save
       end
 
+      def __destroy__
+        self.class.parse_database_file do |row|
+          new_row = row
+          new_row = nil if self.id == row.field('id').to_i
+          new_row
+        end
+        empty_fields
+        true
+      end
+
       protected
 
       def calculate_id
@@ -62,9 +72,16 @@ module CsvRecord
         true
       end
 
+      def empty_fields
+        %w(id created_at updated_at).each do |field|
+          self.public_send "#{field}=", nil
+        end
+      end
+
       alias :save :__save__
       alias :write_object :__write_object__
       alias :update_attribute :__update_attribute__
+      alias :destroy :__destroy__
     end
   end
 end
