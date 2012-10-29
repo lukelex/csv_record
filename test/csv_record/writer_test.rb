@@ -41,6 +41,11 @@ describe CsvRecord::Writer do
       car.new_record?.must_equal false
     end
 
+    it "Checks whether a previously saved record is a new record" do
+      car.save
+      Car.find(car).new_record?.must_equal false
+    end
+
     it "Creates the object through create method" do
       created_car = Car.create(
         year: 2007,

@@ -24,7 +24,7 @@ module CsvRecord
       end
 
       def new_record?
-        @new_record.nil? ? true : @new_record
+        self.created_at.nil? || self.id.nil?
       end
 
       def __update_attribute__(field, value)
@@ -41,14 +41,13 @@ module CsvRecord
       def append_registry
         Car.initialize_db
         set_created_at
-        @new_record = false
         write_object
       end
 
       def update_registry
         self.class.parse_database_file do |row|
           new_row = row
-          new_row = self.values if self.id.to_s == row.field('id')
+          new_row = self.values if self.id == row.field('id').to_i
           new_row
         end
       end
