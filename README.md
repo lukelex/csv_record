@@ -51,10 +51,10 @@ car.destroy # removes the record from the database
 
 car.new_record? # checks if the record is new
 
-Class.all # retrieves all saved records
+Car.all # retrieves all saved records
 
-Class.find car.id # find through its id
-Class.find car # find through the record
+Car.find car.id # find through its id
+Car.find car # find through the record
 
 Car.count # returns the amount of records in the database
 ```
