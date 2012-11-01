@@ -45,11 +45,11 @@ module CsvRecord
       protected
 
       def calculate_id
-        @id = Car.count + 1
+        @id = self.class.count + 1
       end
 
       def append_registry
-        Car.initialize_db
+        self.class.initialize_db
         set_created_at
         write_object
       end
