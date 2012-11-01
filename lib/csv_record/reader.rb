@@ -48,7 +48,7 @@ module CsvRecord
         conditions = ''
         index = 0
         params.each_pair do |property, value|
-          conditions << "attributes['#{property.to_s}'] == '#{value}'"
+          conditions << "attributes['#{property}'] == '#{value}'"
           conditions << ' && ' if (params.size > 1) && (index != params.size - 1)
           index += 1
         end
