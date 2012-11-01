@@ -11,6 +11,14 @@ module CsvRecord
         end
       end
 
+      def first
+        all.first
+      end
+
+      def last
+        all.last
+      end
+
       def __count__
         open_database_file do |csv|
           csv.entries.size

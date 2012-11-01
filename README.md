@@ -27,6 +27,8 @@ $ gem install csv_record
 ## Usage
 
 ```ruby
+requite 'csv_record'
+
 class Car
   include CsvRecord::Document
 end
@@ -57,6 +59,9 @@ Car.find car.id # find through its id
 Car.find car # find through the record
 
 Car.count # returns the amount of records in the database
+
+Car.first # retrieves the first record in the database
+Car.last # retrieves the last record in the database
 ```
 
 ##Callbacks

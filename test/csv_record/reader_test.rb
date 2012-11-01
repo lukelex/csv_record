@@ -51,24 +51,37 @@ describe CsvRecord::Reader do
       Car.count.must_equal 2
     end
 
-    it 'querying by id' do
-      cars = []
-      3.times do
-        cars << car.clone
-        cars.last.save
-      end
-      Car.find(cars.first.id).wont_be_nil
-      Car.find(cars.first.id).must_be_instance_of Car
-    end
+    describe 'simple query' do
+      let (:cars) { [] }
 
-    it 'querying by object' do
-      cars = []
-      3.times do
-        cars << car.clone
-        cars.last.save
+      before do
+        3.times do
+          cars << car.clone
+          cars.last.save
+        end
       end
-      Car.find(cars.first).wont_be_nil
-      Car.find(cars.first.id).must_be_instance_of Car
+
+      it 'querying by id' do
+        Car.find(cars.first.id).wont_be_nil
+        Car.find(cars.first.id).must_be_instance_of Car
+      end
+
+      it 'querying by object' do
+        Car.find(cars.first).wont_be_nil
+        Car.find(cars.first.id).must_be_instance_of Car
+      end
+
+      it 'gets the first' do
+        first_car = Car.first
+        first_car.wont_be_nil
+        first_car.must_be_instance_of Car
+      end
+
+      it 'gets the last' do
+        last_car = Car.last
+        last_car.wont_be_nil
+        last_car.must_be_instance_of Car
+      end
     end
   end
 end
