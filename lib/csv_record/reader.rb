@@ -25,11 +25,25 @@ module CsvRecord
         end
       end
 
-      def __find__(param)
-        param = param.id unless param.is_a? Integer
+      def __find__(params)
         open_database_file do |csv|
-          row = csv.entries.select { |attributes| attributes['id'].to_i == param }.first
+          row = search_for csv, params
           self.new row.to_hash
+        end
+      end
+
+      def search_for(csv, params)
+        unless params.is_a? Hash
+          params = params.id unless params.is_a? Integer
+          csv.entries.select { |attributes| attributes['id'].to_i == params }.first
+        else
+          conditions = ''
+          params.each_pair do |property, value|
+            conditions << "attributes['#{property.to_s}'] == '#{value}'"
+          end
+          csv.entries.select do |attributes|
+            eval conditions
+          end.first
         end
       end
 

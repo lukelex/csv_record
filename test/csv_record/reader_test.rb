@@ -83,5 +83,17 @@ describe CsvRecord::Reader do
         last_car.must_be_instance_of Car
       end
     end
+
+    describe 'complex queries' do
+      it 'with params' do
+        car.save
+        second_car.save
+        result = Car.find(
+          year: 2007
+        )
+        result.wont_be_nil
+        result.year.must_equal '2007'
+      end
+    end
   end
 end
