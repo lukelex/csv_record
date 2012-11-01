@@ -1,3 +1,5 @@
+require 'FileUtils'
+
 module CsvRecord
   module Connector
     def __initialize_db_directory__

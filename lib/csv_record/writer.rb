@@ -35,7 +35,7 @@ module CsvRecord
       def __destroy__
         self.class.parse_database_file do |row|
           new_row = row
-          new_row = nil if self.id == row.field('id').to_i
+          new_row = nil if self.id.to_i == row.field('id').to_i
           new_row
         end
         empty_fields
@@ -58,7 +58,7 @@ module CsvRecord
         set_updated_at
         self.class.parse_database_file do |row|
           new_row = row
-          new_row = self.values if self.id == row.field('id').to_i
+          new_row = self.values if self.id.to_i == row.field('id').to_i
           new_row
         end
         true
