@@ -85,12 +85,19 @@ describe CsvRecord::Reader do
     end
 
     describe 'complex queries' do
-      it 'with params' do
+      before do
         car.save
         second_car.save
-        result = Car.find(
-          year: 2007
-        )
+      end
+
+      it 'with a single parameter' do
+        result = Car.find year: 2007
+        result.wont_be_nil
+        result.year.must_equal '2007'
+      end
+
+      it 'with a single parameter' do
+        result = Car.find year: 2007, make: 'Chevrolet', model: 'F450'
         result.wont_be_nil
         result.year.must_equal '2007'
       end

@@ -37,14 +37,22 @@ module CsvRecord
           params = params.id unless params.is_a? Integer
           csv.entries.select { |attributes| attributes['id'].to_i == params }.first
         else
-          conditions = ''
-          params.each_pair do |property, value|
-            conditions << "attributes['#{property.to_s}'] == '#{value}'"
-          end
+          conditions = handle_params params
           csv.entries.select do |attributes|
             eval conditions
           end.first
         end
+      end
+
+      def handle_params(params)
+        conditions = ''
+        index = 0
+        params.each_pair do |property, value|
+          conditions << "attributes['#{property.to_s}'] == '#{value}'"
+          conditions << ' && ' if (params.size > 1) && (index != params.size - 1)
+          index += 1
+        end
+        conditions
       end
 
       alias :fields :__fields__
