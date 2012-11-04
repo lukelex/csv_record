@@ -1,5 +1,3 @@
-# require 'FileUtils'
-
 module CsvRecord
   module Connector
     def __initialize_db_directory__
@@ -22,14 +20,14 @@ module CsvRecord
     end
 
     def __open_database_file__(mode='r')
-      CSV.open(self.const_get('DATABASE_LOCATION'), mode, :headers => true) do |csv|
+      CSV.open(self.const_get('DATABASE_LOCATION'), mode, headers: true) do |csv|
         yield(csv)
       end
     end
 
     def __parse_database_file__
       open_database_file do |csv|
-        CSV.open(self.const_get('DATABASE_LOCATION_TMP'), 'w', :headers => true) do |copy|
+        CSV.open(self.const_get('DATABASE_LOCATION_TMP'), 'w', headers: true) do |copy|
           copy << fields
           csv.entries.each do |entry|
             new_row = yield(entry)

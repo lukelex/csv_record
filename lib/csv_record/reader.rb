@@ -27,7 +27,7 @@ module CsvRecord
 
       def __find__(param)
         param = param.id unless param.is_a? Integer
-        (__where__ :id => param).first
+        (__where__ id: param).first
       end
 
       def __where__(params)

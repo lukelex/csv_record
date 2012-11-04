@@ -33,7 +33,7 @@ describe CsvRecord::Reader do
     end
 
     it "Check the current attributes" do
-      expected_result = {:id=>nil, :created_at=>nil, :updated_at=>nil, :year=>1997, :make=>"Ford", :model=>"E350", :description=>"ac, abs, moon", :price=>3000.0}
+      expected_result = {id: nil, created_at: nil, updated_at: nil, year: 1997, make: 'Ford', model: 'E350', description: 'ac, abs, moon', price: 3000.0}
       car.attributes.must_equal expected_result
     end
 
