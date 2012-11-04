@@ -1,10 +1,10 @@
-require 'FileUtils' if defined? FileUtils
+# require 'FileUtils'
 
 module CsvRecord
   module Connector
     def __initialize_db_directory__
       unless Dir.exists? 'db'
-        FileUtils.mkdir_p('db')
+        Dir.mkdir 'db'
       end
     end
 
