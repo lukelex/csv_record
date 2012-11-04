@@ -58,6 +58,9 @@ Car.all # retrieves all saved records
 Car.find car.id # find through its id
 Car.find car # find through the record
 
+Car.find_by_model 'F450' # find dynamically with a property
+Car.find_by_model_and_price 'F450', 5000.00 # find dynamically with multiple properties
+
 Car.where year: 2007, make: 'Chevrolet', model: 'F450' # find with a multiple parameters hash
 
 Car.count # returns the amount of records in the database
