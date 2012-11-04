@@ -28,7 +28,7 @@ module CsvRecord
       def __find__(params)
         open_database_file do |csv|
           row = search_for csv, params
-          self.new row.to_hash
+          row ? (self.new row.to_hash) : nil
         end
       end
 
