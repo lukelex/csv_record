@@ -91,20 +91,20 @@ describe CsvRecord::Reader do
       end
 
       it 'with a single parameter' do
-        result = Car.find year: 2007
-        result.wont_be_nil
-        result.year.must_equal '2007'
+        result = Car.where year: 2007
+        result.wont_be_empty
+        result.first.year.must_equal '2007'
       end
 
       it 'with multiple parameters' do
-        result = Car.find year: 2007, make: 'Chevrolet', model: 'F450'
-        result.wont_be_nil
-        result.year.must_equal '2007'
+        result = Car.where year: 2007, make: 'Chevrolet', model: 'F450'
+        result.wont_be_empty
+        result.first.year.must_equal '2007'
       end
 
       it 'with invalid parameter' do
-        result = Car.find year: 2008, make: 'Chevroletion'
-        result.must_be_nil
+        result = Car.where year: 2008, make: 'Chevroletion'
+        result.must_be_empty
       end
     end
   end

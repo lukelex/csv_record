@@ -57,7 +57,8 @@ Car.all # retrieves all saved records
 
 Car.find car.id # find through its id
 Car.find car # find through the record
-Car.find year: 2007, make: 'Chevrolet', model: 'F450' # find with a multiple parameters hash
+
+Car.where year: 2007, make: 'Chevrolet', model: 'F450' # find with a multiple parameters hash
 
 Car.count # returns the amount of records in the database
 

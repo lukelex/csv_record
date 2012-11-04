@@ -25,22 +25,22 @@ module CsvRecord
         end
       end
 
-      def __find__(params)
+      def __find__(param)
+        param = param.id unless param.is_a? Integer
+        (__where__ :id => param).first
+      end
+
+      def __where__(params)
         open_database_file do |csv|
-          row = search_for csv, params
-          row ? (self.new row.to_hash) : nil
+          rows = search_for csv, params
+          rows.map { |row| self.new row.to_hash }
         end
       end
 
       def search_for(csv, params)
-        unless params.is_a? Hash
-          params = params.id unless params.is_a? Integer
-          csv.entries.select { |attributes| attributes['id'].to_i == params }.first
-        else
-          conditions = handle_params params
-          csv.entries.select do |attributes|
-            eval conditions
-          end.first
+        conditions = handle_params params
+        csv.entries.select do |attributes|
+          eval conditions
         end
       end
 
@@ -55,9 +55,20 @@ module CsvRecord
         conditions
       end
 
+      def method_missing(meth, *args, &block)
+        if meth.to_s =~ /^find_by_(.+)$/
+          dynamic_finder $1, *args, &block
+        else
+          super # You *must* call super if you don't handle the
+                # method, otherwise you'll mess up Ruby's method
+                # lookup.
+        end
+      end
+
       alias :fields :__fields__
       alias :find :__find__
       alias :count :__count__
+      alias :where :__where__
     end
 
     module InstanceMethods
