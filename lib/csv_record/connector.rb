@@ -1,4 +1,4 @@
-require 'FileUtils'
+require 'FileUtils' if defined? FileUtils
 
 module CsvRecord
   module Connector
