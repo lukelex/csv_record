@@ -32,6 +32,13 @@ module CsvRecord
         self.save
       end
 
+      def __update_attributes__(params={})
+        params.each do |field, value|
+          self.public_send "#{field}=", value
+        end
+        self.save
+      end
+
       def __destroy__
         self.class.parse_database_file do |row|
           new_row = row
@@ -82,6 +89,7 @@ module CsvRecord
       alias :write_object :__write_object__
       alias :update_attribute :__update_attribute__
       alias :destroy :__destroy__
+      alias :update_attributes :__update_attributes__
     end
   end
 end

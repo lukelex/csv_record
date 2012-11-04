@@ -16,6 +16,7 @@ describe CsvRecord::Writer do
     it ('responds to write_object') { car.must_respond_to :write_object }
     it ('responds to id') { car.must_respond_to :id }
     it ('responds to update_attribute') { car.must_respond_to :update_attribute }
+    it ('responds to update_attributes') { car.must_respond_to :update_attributes }
     it ('responds to destroy') { car.must_respond_to :destroy }
   end
 
@@ -77,6 +78,13 @@ describe CsvRecord::Writer do
         car.save
         car.update_attribute :year, 2008
         Car.find(car).year.must_equal '2008'
+      end
+
+      it "Updates multiple fields at the same time" do
+        car.save
+        car.update_attributes year: 2008, model: 'E846'
+        Car.find(car).year.must_equal '2008'
+        Car.find(car).model.must_equal 'E846'
       end
 
       it "Updates multiple fields using save" do

@@ -48,6 +48,7 @@ Car.create( # save the new record in the database
 car.save # save the record in the database (either creating or changing)
 
 car.update_attribute :year, 1999 # update a single field of an object
+car.update_attributes year: 1999, model: 'E762' # update multiple fields at the same time
 
 car.destroy # removes the record from the database
 
