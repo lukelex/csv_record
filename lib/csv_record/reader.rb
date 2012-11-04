@@ -1,6 +1,8 @@
 module CsvRecord
   module Reader
     module ClassMethods
+      DYNAMIC_FINDER_PATTERN = /^find_by_(.+)$/
+
       def __fields__
         instance_methods(false).select { |m| m.to_s !~ /=$/ }
       end
@@ -56,13 +58,25 @@ module CsvRecord
       end
 
       def method_missing(meth, *args, &block)
-        if meth.to_s =~ /^find_by_(.+)$/
+        if meth.to_s =~ DYNAMIC_FINDER_PATTERN
           dynamic_finder $1, *args, &block
         else
           super # You *must* call super if you don't handle the
                 # method, otherwise you'll mess up Ruby's method
                 # lookup.
         end
+      end
+
+      def respond_to?(meth)
+        (meth.to_s =~ DYNAMIC_FINDER_PATTERN) || super
+      end
+
+      protected
+
+      def dynamic_finder(meth, *args, &block)
+        properties = meth.split '_and_'
+        conditions = Hash[properties.zip args]
+        __where__ conditions
       end
 
       alias :fields :__fields__

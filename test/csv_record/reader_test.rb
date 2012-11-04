@@ -106,6 +106,41 @@ describe CsvRecord::Reader do
         result = Car.where year: 2008, make: 'Chevroletion'
         result.must_be_empty
       end
+
+    end
+    describe 'dynamic finders' do
+      before do
+        car.save
+        second_car.save
+      end
+
+      let (:properties) { Car.fields }
+
+      it 'respond to certain dynamic methods' do
+        Car.must_respond_to "find_by_#{properties.sample}"
+      end
+
+      it 'finding with a single field' do
+        found_cars = Car.find_by_year 2007
+        found_cars.wont_be_empty
+        found_cars.first.must_be_instance_of Car
+      end
+
+      it 'finding with multiple fields' do
+        conditions = []
+        properties.each_with_index do |property, i|
+          values = []
+          i.times do |k|
+            conditions[i] = conditions[i] ? "#{conditions[i]}_and_#{properties[k]}" : properties[k]
+            values << car.send(properties[k])
+          end
+          if conditions[i]
+            found_cars = Car.public_send "find_by_#{conditions[i]}", *values
+            found_cars.wont_be_empty
+            found_cars.first.must_be_instance_of Car
+          end
+        end
+      end
     end
   end
 end
