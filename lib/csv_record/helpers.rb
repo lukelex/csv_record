@@ -8,4 +8,8 @@ class Object
     self.to_s =~ /^\d+\.\d+$/
     !$0.empty?
   end
+
+  def to_param
+    self
+  end
 end

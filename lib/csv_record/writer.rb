@@ -1,5 +1,3 @@
-require 'csv'
-
 module CsvRecord
   module Writer
     module ClassMethods
@@ -9,6 +7,12 @@ module CsvRecord
         result = instance.save
         instance.run_after_create_callbacks if result
         instance
+      end
+
+      def attr_accessor(*args)
+        @relevant_instance_variables ||= []
+        args.each { |arg| @relevant_instance_variables << arg }
+        super *args
       end
 
       alias :create :__create__

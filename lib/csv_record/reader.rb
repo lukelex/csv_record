@@ -4,7 +4,7 @@ module CsvRecord
       DYNAMIC_FINDER_PATTERN = /^find_by_(.+)$/
 
       def __fields__
-        instance_methods(false).select { |m| m.to_s !~ /=$/ }
+        @relevant_instance_variables
       end
 
       def all
@@ -27,9 +27,8 @@ module CsvRecord
         end
       end
 
-      def __find__(param)
-        param = param.id unless param.is_a? Integer
-        (__where__ id: param).first
+      def __find__(condition)
+        (__where__ id: condition.to_param).first
       end
 
       def __where__(params)
@@ -94,8 +93,13 @@ module CsvRecord
         Hash[self.class.fields.zip self.values]
       end
 
+      def __to_param__
+        self.id
+      end
+
       alias :attributes :__attributes__
       alias :values :__values__
+      alias :to_param :__to_param__
     end
   end
 end

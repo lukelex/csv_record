@@ -24,4 +24,13 @@ class MiniTest::Spec
       price: 3000.00
     )
   end
+
+  let(:jedi_council) { JediOrder.new rank: 'council' }
+  let(:luke) do
+    Jedi.new(
+      name: 'Luke Skywalker',
+      age: 18,
+      midi_chlorians: '12k'
+    )
+  end
 end

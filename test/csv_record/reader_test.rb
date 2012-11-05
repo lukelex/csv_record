@@ -51,6 +51,13 @@ describe CsvRecord::Reader do
       Car.count.must_equal 2
     end
 
+    it 'checking to_param' do
+      car.save
+      car.to_param.wont_be_nil
+      car.to_param.must_be_instance_of Fixnum
+      car.to_param.must_equal 1
+    end
+
     describe 'simple query' do
       let (:cars) { [] }
 
@@ -106,8 +113,8 @@ describe CsvRecord::Reader do
         result = Car.where year: 2008, make: 'Chevroletion'
         result.must_be_empty
       end
-
     end
+
     describe 'dynamic finders' do
       before do
         car.save
