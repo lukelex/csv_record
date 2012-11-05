@@ -1,3 +1,6 @@
+require 'linguistics'
+Linguistics.use :en
+
 require 'csv_record/connector'
 require 'csv_record/writer'
 require 'csv_record/reader'
@@ -11,8 +14,8 @@ module CsvRecord
   # the database.
   module Document
     def self.included(receiver)
-      self.const_set('DATABASE_LOCATION',"db/#{parse_caller(caller[1]).downcase}.csv")
-      self.const_set('DATABASE_LOCATION_TMP',"db/#{parse_caller(caller[1]).downcase}_tmp.csv")
+      receiver.const_set('DATABASE_LOCATION',"db/#{parse_caller(caller[1]).downcase.en.plural}.csv")
+      receiver.const_set('DATABASE_LOCATION_TMP',"db/#{parse_caller(caller[1]).downcase.en.plural}_tmp.csv")
 
       receiver.extend         CsvRecord::Connector
       receiver.extend         CsvRecord::Writer::ClassMethods
