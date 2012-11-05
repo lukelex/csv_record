@@ -15,13 +15,25 @@ describe CsvRecord::Reader do
 
   describe 'validating the methods behavior' do
     let(:second_car) do
-      Car.new(
+      Car.build(
         year: 2007,
         make: 'Chevrolet',
         model: 'F450',
         description: 'ac, abs, moon',
         price: 5000.00
       )
+    end
+
+    it 'building an instance' do
+      new_car = Car.build(
+        year: 2007,
+        make: 'Chevrolet',
+        model: 'F450',
+        description: 'ac, abs, moon',
+        price: 5000.00
+      )
+      new_car.wont_be_nil
+      new_car.must_be_instance_of Car
     end
 
     it "Check the current fields" do
