@@ -25,9 +25,9 @@ class MiniTest::Spec
     )
   end
 
-  let(:jedi_council) { JediOrder.new rank: 'council' }
+  let(:jedi_council) { JediOrder.build rank: 'council' }
   let(:luke) do
-    Jedi.new(
+    Jedi.build(
       name: 'Luke Skywalker',
       age: 18,
       midi_chlorians: '12k'

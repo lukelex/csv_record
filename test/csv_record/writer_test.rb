@@ -22,7 +22,7 @@ describe CsvRecord::Writer do
 
   describe 'validating the methods behavior' do
     let(:second_car) do
-      Car.new(
+      Car.build(
         year: 2007,
         make: 'Chevrolet',
         model: 'F450',
