@@ -16,7 +16,7 @@ class MiniTest::Spec
   end
 
   let(:car) do
-    Car.new(
+    Car.build(
       year: 1997,
       make: 'Ford',
       model: 'E350',

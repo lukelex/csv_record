@@ -3,13 +3,21 @@ module CsvRecord
     module ClassMethods
       DYNAMIC_FINDER_PATTERN = /^find_by_(.+)$/
 
+      def build(params={})
+        inst = new
+        params.each do |key, value|
+          inst.public_send("#{key}=", value)
+        end
+        inst
+      end
+
       def __fields__
         instance_methods(false).select { |m| m.to_s !~ /=$/ }
       end
 
       def all
         open_database_file do |csv|
-          csv.entries.map { |attributes| self.new attributes }
+          csv.entries.map { |attributes| self.build attributes }
         end
       end
 
@@ -35,7 +43,7 @@ module CsvRecord
       def __where__(params)
         open_database_file do |csv|
           rows = search_for csv, params
-          rows.map { |row| self.new row.to_hash }
+          rows.map { |row| self.build row.to_hash }
         end
       end
 
