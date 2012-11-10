@@ -132,7 +132,7 @@ after_create do |obj|
   obj.do_something
 end
 ```
-`obj` refers to the instance your in
+`obj` refers to the instance you are in
 
 ##Precautions
 CsvRecord creates a `db` folder in the root of your application. Be sure that it has permission to do so.
