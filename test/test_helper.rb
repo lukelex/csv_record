@@ -42,4 +42,11 @@ class MiniTest::Spec
       midi_chlorians: '8k'
     )
   end
+  let(:qui_gon_jinn) do
+    Jedi.build(
+      name: 'Qui-Gon Jinn',
+      age: 37,
+      midi_chlorians: '3k'
+    )
+  end
 end

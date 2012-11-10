@@ -70,6 +70,54 @@ Car.first # retrieves the first record in the database
 Car.last # retrieves the last record in the database
 ```
 
+##Associations
+###Belongs To
+A Belongs To association can be declared through the following method:
+```ruby
+class Company
+  include CsvRecord::Document
+
+  attr_accessor :name
+end
+
+class Car
+  include CsvRecord::Document
+
+  belongs_to :company
+end
+
+company = Company.create :name => 'Chuts'
+
+car = Car.new :model => 'F450'
+
+car.company = company
+or
+car.company_id = company.id
+
+car.save
+
+car.company # #<Company:0x007f9b249b24d8>
+```
+
+###Has Many
+Extending the previous example, you can use the `has_many` method to stablish the inverse relationship:
+```ruby
+class Company
+  include CsvRecord::Document
+
+  has_many :cars
+
+  attr_accessor :name
+end
+
+company = Company.create :name => 'Chutz'
+
+car.company = company
+car.save
+
+company.cars # [#<Car:0x007f9b249b24d8>]
+```
+
 ##Callbacks
 Callbacks can be used to execute code on predetermined moments.
 
@@ -82,6 +130,7 @@ after_create do |obj|
   obj.do_something
 end
 ```
+`obj` refers to the instance your in
 
 ##Precautions
 CsvRecord creates a `db` folder in the root of your application. Be sure that it has permission to do so.

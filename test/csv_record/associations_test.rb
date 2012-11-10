@@ -36,10 +36,10 @@ describe CsvRecord::Associations do
   describe 'has_many behavior' do
     it 'has many jedis associated' do
       jedi_council.save
-      luke.jedi_order = jedi_council
-      luke.save
       yoda.jedi_order = jedi_council
       yoda.save
+      Jedi.create name: 'Qui-Gon Jinn', age: 37, midi_chlorians: '3k', jedi_order: jedi_council
+      luke.save
       jedis = jedi_council.jedis
       jedis.count.must_equal 2
       jedis.first.must_be_instance_of Jedi
