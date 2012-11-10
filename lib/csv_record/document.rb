@@ -1,5 +1,4 @@
-require 'linguistics'
-Linguistics.use :en
+require 'active_support/core_ext/string/inflections.rb'
 
 require 'csv_record/connector'
 require 'csv_record/writer'
@@ -17,16 +16,8 @@ module CsvRecord
     def self.included(receiver)
       klass = receiver.name
 
-      def klass.underscore
-        self.gsub(/::/, '/').
-        gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-        gsub(/([a-z\d])([A-Z])/,'\1_\2').
-        tr("-", "_").
-        downcase
-      end
-
-      receiver.const_set 'DATABASE_LOCATION',"db/#{klass.underscore.en.plural}.csv"
-      receiver.const_set 'DATABASE_LOCATION_TMP',"db/#{klass.underscore.en.plural}_tmp.csv"
+      receiver.const_set 'DATABASE_LOCATION',"db/#{klass.underscore.pluralize}.csv"
+      receiver.const_set 'DATABASE_LOCATION_TMP',"db/#{klass.underscore.pluralize}_tmp.csv"
 
       receiver.extend         CsvRecord::Connector
       receiver.extend         CsvRecord::Writer::ClassMethods

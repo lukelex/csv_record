@@ -7,7 +7,7 @@ module CsvRecord
         inst = new
         params.each do |key, value|
           inst.public_send("#{key}=", value)
-        end
+        end if params
         inst
       end
 

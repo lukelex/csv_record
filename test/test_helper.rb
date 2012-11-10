@@ -2,6 +2,8 @@ require 'minitest/spec'
 require 'minitest/autorun'
 require 'turn'
 
+require 'csv_record'
+
 module TestHelper
   BASE_PATH = File.expand_path("../fixtures", __FILE__)
 
@@ -31,6 +33,13 @@ class MiniTest::Spec
       name: 'Luke Skywalker',
       age: 18,
       midi_chlorians: '12k'
+    )
+  end
+  let(:yoda) do
+    Jedi.build(
+      name: 'Yoda the green',
+      age: 852,
+      midi_chlorians: '8k'
     )
   end
 end

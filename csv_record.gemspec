@@ -15,8 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = CsvRecord::VERSION
 
-  gem.add_dependency 'linguistics'
-  gem.add_dependency 'loggability'
+  gem.add_dependency 'activesupport'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'timecop'

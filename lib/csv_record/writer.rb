@@ -9,10 +9,12 @@ module CsvRecord
         instance
       end
 
-      def attr_accessor(*args)
-        @relevant_instance_variables ||= []
-        args.each { |arg| @relevant_instance_variables << arg }
-        super *args
+      [:attr_accessor, :attr_writer].each do |custom_accessor|
+        define_method custom_accessor do |*args|
+          @relevant_instance_variables ||= []
+          args.each { |arg| @relevant_instance_variables << arg }
+          super *args
+        end
       end
 
       alias :create :__create__
@@ -57,6 +59,9 @@ module CsvRecord
 
       def calculate_id
         @id = self.class.count + 1
+        # if self.respond_to? :jedi_order_id
+        #   p "#{self.class} -> #{@id} -> #{self.jedi_order_id}"
+        # end
       end
 
       def append_registry
