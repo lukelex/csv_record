@@ -93,7 +93,7 @@ company = Company.create :name => 'Chuts'
 car = Car.new :model => 'F450'
 
 car.company = company
-or
+# or
 car.company_id = company.id
 
 car.save
