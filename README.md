@@ -31,6 +31,8 @@ require 'csv_record'
 
 class Car
   include CsvRecord::Document
+
+  attr_accessor :year, :make, :model, :description, :price
 end
 ```
 
