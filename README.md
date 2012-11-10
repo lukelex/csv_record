@@ -27,7 +27,7 @@ $ gem install csv_record
 ## Usage
 
 ```ruby
-requite 'csv_record'
+require 'csv_record'
 
 class Car
   include CsvRecord::Document
