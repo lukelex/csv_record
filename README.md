@@ -102,7 +102,7 @@ car.company # #<Company:0x007f9b249b24d8>
 ```
 
 ###Has Many
-Extending the previous example, you can use the `has_many` method to stablish the inverse relationship:
+Extending the previous example, you can use the `has_many` method to establish the inverse relationship:
 ```ruby
 class Company
   include CsvRecord::Document
