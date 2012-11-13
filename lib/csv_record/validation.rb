@@ -1,13 +1,16 @@
 require 'pry'
 module CsvRecord
   module Validation
-    attr_reader :errors, :fields_to_validate
 
-    def __validates_presence_of__(*attr_names)
-      @fields_to_validate = attr_names
+
+    module ClassMethods
+      attr_reader :errors, :fields_to_validate
+      def __validates_presence_of__(*attr_names)
+        @fields_to_validate = attr_names
+      end
+
+      alias :validates_presence_of :__validates_presence_of__
     end
-
-    alias :validates_presence_of :__validates_presence_of__
 
     module InstanceMethods
 
@@ -24,5 +27,9 @@ module CsvRecord
 
     end
 
+    def self.included(receiver)
+      receiver.extend ClassMethods
+      receiver.send :include, InstanceMethods
+    end
   end
 end

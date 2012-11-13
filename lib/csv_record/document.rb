@@ -24,11 +24,10 @@ module CsvRecord
       receiver.extend         CsvRecord::Writer::ClassMethods
       receiver.extend         CsvRecord::Reader::ClassMethods
       receiver.extend         CsvRecord::Associations
-      receiver.extend         CsvRecord::Validation
       receiver.send :include, CsvRecord::Writer::InstanceMethods
       receiver.send :include, CsvRecord::Reader::InstanceMethods
-      receiver.send :include, CsvRecord::Validation::InstanceMethods
       receiver.send :include, CsvRecord::Timestamps
+      receiver.send :include, CsvRecord::Validation
       receiver.send :include, CsvRecord::Callbacks
     end
   end
