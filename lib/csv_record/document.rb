@@ -27,6 +27,7 @@ module CsvRecord
       receiver.extend         CsvRecord::Validation
       receiver.send :include, CsvRecord::Writer::InstanceMethods
       receiver.send :include, CsvRecord::Reader::InstanceMethods
+      receiver.send :include, CsvRecord::Validation::InstanceMethods
       receiver.send :include, CsvRecord::Timestamps
       receiver.send :include, CsvRecord::Callbacks
     end
