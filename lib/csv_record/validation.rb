@@ -3,16 +3,16 @@ module CsvRecord
   module Validation
     attr_reader :errors, :fields_to_validate
 
-    def __validated_fields_builder__(attr_names)
+    def __fields_to_validate_builder__(attr_names)
       @fields_to_validate = attr_names
     end
 
     def __validates_presence_of__(*attr_names)
-      validated_fields_builder(attr_names)
+      fields_to_validate_builder(attr_names)
     end
 
     alias :validates_presence_of :__validates_presence_of__
-    alias :validated_fields_builder :__validated_fields_builder__
+    alias :fields_to_validate_builder :__fields_to_validate_builder__
 
     module InstanceMethods
 
