@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-
 require_relative '../models/jedi'
 require_relative '../models/jedi_order'
 
