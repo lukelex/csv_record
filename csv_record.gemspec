@@ -2,8 +2,8 @@
 require File.expand_path('../lib/csv_record/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Lukas Alexandre"]
-  gem.email         = ["lukasalexandre@gmail.com"]
+  gem.authors       = ["Lukas Alexandre", "Uriel Juliatti"]
+  gem.email         = ["lukasalexandre@gmail.com", "uriel.juliattivalle@gmail.com"]
   gem.description   = %q{CSV Object-relational mapping for Ruby}
   gem.summary       = %q{CSV Record connects Ruby classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.}
   gem.homepage      = "https://github.com/lukasalexandre/csv_record"
@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'activesupport'
 
   gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'pry'
   gem.add_development_dependency 'timecop'
   gem.add_development_dependency 'turn'
 end

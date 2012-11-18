@@ -31,7 +31,7 @@ require 'csv_record'
 
 class Car
   include CsvRecord::Document
-
+  validates_presence_of :price, :model
   attr_accessor :year, :make, :model, :description, :price
 end
 ```
@@ -48,7 +48,7 @@ Car.create( # save the new record in the database
 )
 
 car.save # save the record in the database (either creating or changing)
-
+car.valid? # verifies its validity, specially if it is declared some of the available validators (e.x:validates_presence_of).
 car.update_attribute :year, 1999 # update a single field of an object
 car.update_attributes year: 1999, model: 'E762' # update multiple fields at the same time
 
@@ -133,6 +133,29 @@ after_create do |obj|
 end
 ```
 `obj` refers to the instance you are in
+
+##Validations
+
+Helpers available:
+
+`validates_presence_of`: Ensures if the specified attributes were filled
+
+```ruby
+class Company
+  include CsvRecord::Document
+  validates_presence_of :name
+  attr_accessor :name
+end
+
+company = Company.create :name => ''
+company.save
+# => false
+
+company = Company.create :name => ''
+company.valid?
+# => false
+
+```
 
 ##Precautions
 CsvRecord creates a `db` folder in the root of your application. Be sure that it has permission to do so.

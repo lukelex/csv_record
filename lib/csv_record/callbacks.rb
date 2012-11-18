@@ -1,5 +1,6 @@
 module CsvRecord
   module Callbacks
+
     CALLBACKS = [
       :after_create,
       :after_initialize,
