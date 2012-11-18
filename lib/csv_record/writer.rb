@@ -26,7 +26,15 @@ module CsvRecord
       end
 
       def __save__
-        self.new_record? ? self.append_registry : self.update_registry
+        if self.valid?
+          self.new_record? ? self.append_registry : self.update_registry
+        else
+          false
+        end
+      end
+
+      def valid?
+
       end
 
       def new_record?
