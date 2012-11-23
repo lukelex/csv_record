@@ -44,4 +44,13 @@ describe Object do
       (15.50).to_param.must_equal 15.50
     end
   end
+
+  describe 'underscored_class_name' do
+    it 'custom class' do
+      new_class = Class.new
+      MyCustomClass = new_class
+
+      MyCustomClass.new.underscored_class_name.must_equal 'my_custom_class'
+    end
+  end
 end
