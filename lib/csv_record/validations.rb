@@ -19,6 +19,10 @@ module CsvRecord
         end
       end
 
+      def invalid?
+        not self.__valid__?
+      end
+
       alias :valid? :__valid__?
 
       private
