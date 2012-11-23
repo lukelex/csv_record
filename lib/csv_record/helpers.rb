@@ -1,12 +1,12 @@
 class Object
   def integer?
-    self.to_s =~ /^\d+$/
-    !$0.empty?
+    /(?<number>^\d+$)/ =~ self.to_s
+    not number.nil?
   end
 
   def float?
-    self.to_s =~ /^\d+\.\d+$/
-    !$0.empty?
+    /(?<number>^\d+\.\d+)$/ =~ self.to_s
+    not number.nil?
   end
 
   def to_param
@@ -31,5 +31,11 @@ class String
     gsub(/([a-z\d])([A-Z])/,'\1_\2').
     tr("-", "_").
     downcase
+  end
+end
+
+class Array
+  def add(obj)
+    self << obj
   end
 end
