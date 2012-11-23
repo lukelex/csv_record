@@ -1,10 +1,6 @@
-require 'pry'
 module CsvRecord
-  module Validation
-
-
+  module Validations
     module ClassMethods
-
       attr_accessor :errors, :fields_to_validate
 
       def __validates_presence_of__(*attr_names)
@@ -15,7 +11,6 @@ module CsvRecord
     end
 
     module InstanceMethods
-
       def __valid__?
         if self.class.fields_to_validate
           validate_each(self.class.fields_to_validate)
@@ -30,12 +25,6 @@ module CsvRecord
       def validate_each(attrs)
         attrs.collect.none? { |attr| self.public_send(attr).nil? }
       end
-
-    end
-
-    def self.included(receiver)
-      receiver.extend ClassMethods
-      receiver.send :include, InstanceMethods
     end
   end
 end

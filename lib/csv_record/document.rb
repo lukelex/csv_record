@@ -7,7 +7,7 @@ require 'csv_record/timestamps'
 require 'csv_record/callbacks'
 require 'csv_record/helpers'
 require 'csv_record/associations'
-require 'csv_record/validation'
+require 'csv_record/validations'
 
 module CsvRecord
 
@@ -24,10 +24,11 @@ module CsvRecord
       receiver.extend         CsvRecord::Writer::ClassMethods
       receiver.extend         CsvRecord::Reader::ClassMethods
       receiver.extend         CsvRecord::Associations
+      receiver.extend         CsvRecord::Validations::ClassMethods
       receiver.send :include, CsvRecord::Writer::InstanceMethods
       receiver.send :include, CsvRecord::Reader::InstanceMethods
       receiver.send :include, CsvRecord::Timestamps
-      receiver.send :include, CsvRecord::Validation
+      receiver.send :include, CsvRecord::Validations::InstanceMethods
       receiver.send :include, CsvRecord::Callbacks
     end
   end
