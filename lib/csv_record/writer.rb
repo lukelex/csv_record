@@ -67,9 +67,6 @@ module CsvRecord
 
       def calculate_id
         @id = self.class.count + 1
-        # if self.respond_to? :jedi_order_id
-        #   p "#{self.class} -> #{@id} -> #{self.jedi_order_id}"
-        # end
       end
 
       def append_registry
