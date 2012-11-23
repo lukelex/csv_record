@@ -33,10 +33,6 @@ module CsvRecord
         end
       end
 
-      def valid?
-
-      end
-
       def new_record?
         self.created_at.nil? || self.id.nil?
       end

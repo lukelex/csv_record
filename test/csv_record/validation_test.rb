@@ -11,54 +11,66 @@ describe CsvRecord::Validations do
   end
 
   describe 'validates_presence_of :name and :age behavior' do
-    describe 'valid?' do
-      it 'is not valid without name' do
-        yoda.name = nil
-        yoda.valid?.wont_equal true
-      end
-
-      it 'is not valid without age' do
-        yoda.age = nil
-        yoda.valid?.wont_equal true
-      end
-
-      it "is valid with all attributes filled" do
-        yoda.valid?.must_equal true
-      end
-
-      it "saves with both attributes filled" do
-        yoda.save.must_equal true
-      end
-
-      it "doesn't save without name" do
-        yoda.name = nil
-        yoda.valid?.wont_equal true
-        yoda.save.wont_equal true
-      end
-
-      it "doesn't save without age" do
-        yoda.age = nil
-        yoda.valid?.wont_equal true
-        yoda.save.wont_equal true
-      end
-
-      it "doesn't save without both" do
-        yoda.age = nil
-        yoda.name = nil
-        yoda.valid?.wont_equal true
-        yoda.save.wont_equal true
-      end
+    it 'is not valid without name' do
+      yoda.name = nil
+      yoda.valid?.wont_equal true
     end
 
-    describe 'validates invalid? behavior' do
-      let (:invalid_jedi) { Jedi.new }
+    it 'is not valid without age' do
+      yoda.age = nil
+      yoda.valid?.wont_equal true
+    end
 
+    it "is valid with all attributes filled" do
+      yoda.valid?.must_equal true
+    end
+
+    it "saves with both attributes filled" do
+      yoda.save.must_equal true
+    end
+
+    it "doesn't save without name" do
+      yoda.name = nil
+      yoda.valid?.wont_equal true
+      yoda.save.wont_equal true
+    end
+
+    it "doesn't save without age" do
+      yoda.age = nil
+      yoda.valid?.wont_equal true
+      yoda.save.wont_equal true
+    end
+
+    it "doesn't save without both" do
+      yoda.age = nil
+      yoda.name = nil
+      yoda.valid?.wont_equal true
+      yoda.save.wont_equal true
+    end
+  end
+
+  describe 'default methods' do
+    let (:invalid_jedi) { Jedi.new }
+
+    describe 'invalid?' do
       it 'invalid object' do
         invalid_jedi.invalid?.must_equal true
       end
 
       it 'valid object' do
         yoda.invalid?.must_equal false
+      end
+    end
+
+    describe 'errors' do
+      it 'wont be empty when invalid' do
+        invalid_jedi.valid?
+        invalid_jedi.errors.wont_be_empty
+      end
+
+      it 'should have two erros' do
+        invalid_jedi.valid?
+        invalid_jedi.errors.length.must_equal 2
       end
     end
   end
