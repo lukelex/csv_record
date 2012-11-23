@@ -1,7 +1,7 @@
 require 'minitest/spec'
 require 'minitest/autorun'
 require 'turn'
-
+require 'pry'
 require 'csv_record'
 
 module TestHelper
