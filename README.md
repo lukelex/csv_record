@@ -31,8 +31,10 @@ require 'csv_record'
 
 class Car
   include CsvRecord::Document
-  validates_presence_of :price, :model
+
   attr_accessor :year, :make, :model, :description, :price
+
+  validates_presence_of :price, :model
 end
 ```
 
