@@ -5,6 +5,7 @@ describe Object do
     it ('responds to integer?') { Object.new.must_respond_to :integer? }
     it ('responds to float?') { Object.new.must_respond_to :float? }
     it ('responds to to_param?') { Object.new.must_respond_to :to_param }
+    it ('responds to underscored_class_name') { Object.new.must_respond_to :underscored_class_name }
   end
 
   describe 'integer?' do
