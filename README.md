@@ -154,6 +154,8 @@ company.save
 company = Company.create :name => ''
 company.valid?
 # => false
+company.invalid?
+# => true
 
 ```
 
