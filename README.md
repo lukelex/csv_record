@@ -33,8 +33,6 @@ class Car
   include CsvRecord::Document
 
   attr_accessor :year, :make, :model, :description, :price
-
-  validates_presence_of :price, :model
 end
 ```
 
@@ -145,15 +143,18 @@ Helpers available:
 ```ruby
 class Company
   include CsvRecord::Document
-  validates_presence_of :name
+
   attr_accessor :name
+
+  validates_presence_of :name
+  validates_uniqueness_of :name
 end
 
-company = Company.create :name => ''
+company = Company.create
 company.save
 # => false
 
-company = Company.create :name => ''
+company = Company.create
 company.valid?
 # => false
 company.invalid?
