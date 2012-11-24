@@ -66,7 +66,6 @@ module CsvRecord
       end
 
       def append_registry
-        self.class.initialize_db
         set_created_at
         write_object
       end

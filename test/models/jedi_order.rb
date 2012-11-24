@@ -1,7 +1,7 @@
-require 'csv_record'
-
 class JediOrder
   include CsvRecord::Document
+
+  attr_accessor :rank
 
   has_many :jedis
 
@@ -10,6 +10,4 @@ class JediOrder
       self.public_send("#{key}=", value)
     end
   end
-
-  attr_accessor :rank
 end

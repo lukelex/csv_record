@@ -6,6 +6,7 @@ require_relative '../models/jedi_order'
 describe CsvRecord::Validations do
   describe 'initializing class methods' do
     it ('responds to validates_presence_of') { Jedi.must_respond_to :validates_presence_of }
+    it ('responds to validates_uniqueness_of') { Jedi.must_respond_to :validates_uniqueness_of }
     it ('responds to valid?') { Jedi.new.must_respond_to :valid? }
     it ('responds to invalid?') { Jedi.new.must_respond_to :invalid? }
   end
@@ -72,6 +73,18 @@ describe CsvRecord::Validations do
         invalid_jedi.valid?
         invalid_jedi.errors.length.must_equal 2
       end
+    end
+  end
+
+  describe 'validates_uniqueness_of' do
+    before { yoda.save }
+
+    let :fake_yoda do
+      fake_yoda = Jedi.new name: 'Yoda the green', age: 238, midi_chlorians: '1k'
+    end
+
+    it 'can`t have the same name' do
+      fake_yoda.valid?.must_equal false
     end
   end
 end

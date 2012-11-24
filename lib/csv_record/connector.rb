@@ -12,7 +12,7 @@ module CsvRecord
     end
 
     def __initialize_db__
-      initialize_db_directory
+      __initialize_db_directory__
       unless db_initialized?
         open_database_file WRITE_MODE do |csv|
           csv << fields
@@ -25,6 +25,7 @@ module CsvRecord
     end
 
     def __open_database_file__(mode=READ_MODE)
+      __initialize_db__ if mode == READ_MODE # fix this later
       CSV.open(self.const_get('DATABASE_LOCATION'), mode, headers: true) do |csv|
         yield(csv)
       end
