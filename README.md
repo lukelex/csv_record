@@ -36,7 +36,7 @@ class Car
 end
 ```
 
-##Persisting
+##Persistance
 ```ruby
 Car.create( # save the new record in the database
   year: 2007,
