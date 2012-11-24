@@ -58,6 +58,7 @@ car.new_record? # checks if the record is new
 
 ##Retrieving
 Records can be queried through the following methds:
+
 ```ruby
 Car.all # retrieves all saved records
 
@@ -75,11 +76,10 @@ Car.first # retrieves the first record in the database
 Car.last # retrieves the last record in the database
 ```
 
-
-
 ##Associations
 ###Belongs To
 A Belongs To association can be declared through the following method:
+
 ```ruby
 class Company
   include CsvRecord::Document
@@ -108,6 +108,7 @@ car.company # #<Company:0x007f9b249b24d8>
 
 ###Has Many
 Extending the previous example, you can use the `has_many` method to establish the inverse relationship:
+
 ```ruby
 class Company
   include CsvRecord::Document
@@ -144,6 +145,7 @@ end
 Helpers available:
 
 `validates_presence_of`: Ensures if the specified attributes were filled
+`validates_presence_of`: Ensures that the specified attribute(s) are unique within the database
 
 ```ruby
 class Company
