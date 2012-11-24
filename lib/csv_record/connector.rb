@@ -1,5 +1,7 @@
 module CsvRecord
   module Connector
+    APPEND_MODE = 'a'
+
     def __initialize_db_directory__
       unless Dir.exists? 'db'
         Dir.mkdir 'db'
