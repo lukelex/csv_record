@@ -146,7 +146,7 @@ Helpers available:
 
 `validates_presence_of`: Ensures if the specified attributes were filled
 
-`validates_presence_of`: Ensures that the specified attribute(s) are unique within the database
+`validates_uniqueness_of`: Ensures that the specified attribute(s) are unique within the database
 
 ```ruby
 class Company
