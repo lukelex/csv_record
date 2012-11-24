@@ -36,8 +36,7 @@ class Car
 end
 ```
 
-By including this module you will gain for free the following methods:
-
+##Persisting
 ```ruby
 Car.create( # save the new record in the database
   year: 2007,
@@ -48,14 +47,18 @@ Car.create( # save the new record in the database
 )
 
 car.save # save the record in the database (either creating or changing)
-car.valid? # verifies its validity, specially if it is declared some of the available validators (e.x:validates_presence_of).
+
 car.update_attribute :year, 1999 # update a single field of an object
 car.update_attributes year: 1999, model: 'E762' # update multiple fields at the same time
 
 car.destroy # removes the record from the database
 
 car.new_record? # checks if the record is new
+```
 
+##Retrieving
+Records can be queried through the following methds:
+```ruby
 Car.all # retrieves all saved records
 
 Car.find car.id # find through its id
@@ -71,6 +74,8 @@ Car.count # returns the amount of records in the database
 Car.first # retrieves the first record in the database
 Car.last # retrieves the last record in the database
 ```
+
+
 
 ##Associations
 ###Belongs To
