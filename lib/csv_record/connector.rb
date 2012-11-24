@@ -1,17 +1,20 @@
 module CsvRecord
   module Connector
-    APPEND_MODE = 'a'
+    DATABASE_FOLDER = 'db'.freeze
+    APPEND_MODE = 'a'.freeze
+    WRITE_MODE = 'wb'.freeze
+    READ_MODE = 'r'.freeze
 
     def __initialize_db_directory__
-      unless Dir.exists? 'db'
-        Dir.mkdir 'db'
+      unless Dir.exists? DATABASE_FOLDER
+        Dir.mkdir DATABASE_FOLDER
       end
     end
 
     def __initialize_db__
       initialize_db_directory
       unless db_initialized?
-        open_database_file 'wb' do |csv|
+        open_database_file WRITE_MODE do |csv|
           csv << fields
         end
       end
@@ -21,7 +24,7 @@ module CsvRecord
       File.exist? self.const_get('DATABASE_LOCATION')
     end
 
-    def __open_database_file__(mode='r')
+    def __open_database_file__(mode=READ_MODE)
       CSV.open(self.const_get('DATABASE_LOCATION'), mode, headers: true) do |csv|
         yield(csv)
       end
@@ -29,7 +32,7 @@ module CsvRecord
 
     def __parse_database_file__
       open_database_file do |csv|
-        CSV.open(self.const_get('DATABASE_LOCATION_TMP'), 'w', headers: true) do |copy|
+        CSV.open(self.const_get('DATABASE_LOCATION_TMP'), WRITE_MODE, headers: true) do |copy|
           copy << fields
           csv.entries.each do |entry|
             new_row = yield(entry)
