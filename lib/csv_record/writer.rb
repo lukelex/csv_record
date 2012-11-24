@@ -83,7 +83,7 @@ module CsvRecord
 
       def __write_object__
         calculate_id
-        self.class.open_database_file 'a' do |csv|
+        self.class.open_database_file CsvRecord::Connector::APPEND_MODE do |csv|
           csv << values
         end
         true
