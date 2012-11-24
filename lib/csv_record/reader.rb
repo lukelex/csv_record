@@ -105,6 +105,14 @@ module CsvRecord
         self.id
       end
 
+      def ==(obj)
+        self.class == obj.class && self.to_param == obj.to_param
+      end
+
+      def !=(obj)
+        self.class != obj.class || self.to_param != obj.to_param
+      end
+
       alias :attributes :__attributes__
       alias :values :__values__
       alias :to_param :__to_param__

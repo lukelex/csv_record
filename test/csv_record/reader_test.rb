@@ -1,6 +1,7 @@
 require_relative '../test_helper'
 
 require_relative '../models/car'
+require_relative '../models/jedi'
 
 describe CsvRecord::Reader do
   describe 'initializing class methods' do
@@ -11,6 +12,9 @@ describe CsvRecord::Reader do
   describe 'initializing instance methods' do
     it ('responds to values') { Car.new.must_respond_to :values }
     it ('responds to attributes') { Car.new.must_respond_to :attributes }
+    it ('responds to to_param') { Car.new.must_respond_to :to_param }
+    it ('responds to ==') { Car.new.must_respond_to :== }
+    it ('responds to !=') { Car.new.must_respond_to :!= }
   end
 
   describe 'validating the methods behavior' do
@@ -56,7 +60,7 @@ describe CsvRecord::Reader do
       Car.all.size.must_equal 2
     end
 
-    it "Retrieves all registries" do
+    it "counting the registries" do
       car.save
       Car.count.must_equal 1
       second_car.save
@@ -68,6 +72,46 @@ describe CsvRecord::Reader do
       car.to_param.wont_be_nil
       car.to_param.must_be_instance_of Fixnum
       car.to_param.must_equal 1
+    end
+
+    describe '==' do
+      before do
+        yoda.save
+        luke.save
+        jedi_council.save
+      end
+
+      it 'comparing with the same registry' do
+        (yoda == yoda).must_equal true
+      end
+
+      it 'comparing with a diferent registry' do
+        (yoda == luke).must_equal false
+      end
+
+      it 'comparing with another class registry' do
+        (yoda == jedi_council).must_equal false
+      end
+    end
+
+    describe '!=' do
+      before do
+        yoda.save
+        luke.save
+        jedi_council.save
+      end
+
+      it 'comparing with the same registry' do
+        (yoda != yoda).must_equal false
+      end
+
+      it 'comparing with a diferent registry' do
+        (yoda != luke).must_equal true
+      end
+
+      it 'comparing with another class registry' do
+        (yoda != jedi_council).must_equal true
+      end
     end
 
     describe 'simple query' do
