@@ -1,30 +1,33 @@
 module CsvRecord
   module Validations
     module ClassMethods
-      def fields_to_validate_presence
-        @fields_to_validate_presence || []
+      [:presence, :uniqueness].each do |kind|
+        define_method "fields_to_validate_#{kind}" do
+          eval "@fields_to_validate_#{kind} || []"
+        end
+
+        define_method "__validates_#{kind}_of__" do |*attr_names|
+          eval "@fields_to_validate_#{kind} = attr_names"
+        end
+
+        eval "alias :validates_#{kind}_of :__validates_#{kind}_of__"
       end
 
-      def fields_to_validate_uniqueness
-        @fields_to_validate_uniqueness || []
+      def custom_validators
+        @custom_validators || []
       end
 
-      def __validates_presence_of__(*attr_names)
-        @fields_to_validate_presence = attr_names
+      def validate(*args)
+        @custom_validators ||= []
+        args.each { |arg| @custom_validators << arg }
       end
-
-      def __validates_uniqueness_of__(*attr_names)
-        @fields_to_validate_uniqueness = attr_names
-      end
-
-      alias :validates_presence_of :__validates_presence_of__
-      alias :validates_uniqueness_of :__validates_uniqueness_of__
     end
 
     module InstanceMethods
       def __valid__?
         trigger_presence_validations
         trigger_uniqueness_validations
+        trigger_custom_validations
         errors.empty?
       end
 
@@ -55,6 +58,12 @@ module CsvRecord
           if records.any? { |record| record != self }
             @errors = self.errors.add attribute
           end
+        end
+      end
+
+      def trigger_custom_validations
+        self.class.custom_validators.each do |validator|
+          self.send validator
         end
       end
     end
