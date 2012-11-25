@@ -97,10 +97,14 @@ describe CsvRecord::Validations do
   describe 'custom_validator' do
     it ('responds to validate') { Jedi.must_respond_to :validate }
 
-    it 'addin a custom validator' do
-      yoda.valid?
-      yoda.custom_validator_checker.wont_be_nil
+    before { yoda.valid? }
+
+    it 'adding a custom validator' do
       yoda.custom_validator_checker.must_equal true
+    end
+
+    it 'validate can have a block' do
+      yoda.custom_validator_checker_with_block.must_equal true
     end
   end
 end
