@@ -148,6 +148,8 @@ Helpers available:
 
 `validates_uniqueness_of`: Ensures that the specified attribute(s) are unique within the database
 
+`validate`: Uses custom methods to validate the model
+
 ```ruby
 class Company
   include CsvRecord::Document
@@ -156,6 +158,12 @@ class Company
 
   validates_presence_of :name
   validates_uniqueness_of :name
+
+  validate :my_custom_validator_method
+
+  def my_custom_validator_method
+    @errors = self.errors.add attribute
+  end
 end
 
 company = Company.create
