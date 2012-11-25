@@ -73,6 +73,12 @@ describe CsvRecord::Validations do
         invalid_jedi.valid?
         invalid_jedi.errors.length.must_equal 2
       end
+
+      it 'should contain the errors found' do
+        invalid_jedi.valid?
+        invalid_jedi.errors.must_include :name
+        invalid_jedi.errors.must_include :age
+      end
     end
   end
 
