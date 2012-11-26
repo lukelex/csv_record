@@ -127,18 +127,32 @@ company.cars # [#<Car:0x007f9b249b24d8>]
 ```
 
 ##Callbacks
+###Overview
 Callbacks can be used to execute code on predetermined moments.
 
+####Usage
 ```ruby
-before_create do |obj|
-  obj.do_something
-end
-
 after_create do |obj|
   obj.do_something
 end
 ```
+
+###Avaiable Callbacks
+Here is a list with all the available callbacks, listed in the same order in which they will get called during the respective operations:
+
+####Creating an Object
+*before_create
+*before_validation
+*after_validation
+*after_create
+
+####Updating an Object
+*before_validation
+*after_validation
+```
 `obj` refers to the instance you are in
+
+
 
 ##Validations
 
