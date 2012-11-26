@@ -147,8 +147,8 @@ Here is a list with all the available callbacks, listed in the same order in whi
 * after_create
 
 ####Updating an Object
-*before_validation
-*after_validation
+* before_validation
+* after_validation
 ```
 `obj` refers to the instance you are in
 
