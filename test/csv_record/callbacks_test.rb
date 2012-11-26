@@ -19,6 +19,8 @@ describe CsvRecord::Callbacks do
 
     it ('run before_create callbacks') { klass.must_respond_to(:run_before_create_callbacks) }
     it ('run after_create callbacks') { klass.must_respond_to(:run_after_create_callbacks) }
+    it ('run before_validation callbacks') { klass.must_respond_to(:run_before_validation_callbacks) }
+    it ('run after_validation callbacks') { klass.must_respond_to(:run_after_validation_callbacks) }
     it ('run before_save callbacks') { klass.must_respond_to(:run_before_save_callbacks) }
     it ('run after_save callbacks') { klass.must_respond_to(:run_after_save_callbacks) }
     it ('run after_initialize callbacks') { klass.must_respond_to(:run_after_initialize_callbacks) }
@@ -32,6 +34,14 @@ describe CsvRecord::Callbacks do
     end
 
     it 'after_create' do
+      object_created.after_create_called.must_equal true
+    end
+
+    it 'before_validation' do
+      object_created.before_validation_called.must_equal true
+    end
+
+    it 'after_validation' do
       object_created.after_create_called.must_equal true
     end
   end

@@ -1,12 +1,13 @@
 module CsvRecord
   module Callbacks
-
     CALLBACKS = [
-      :after_create,
       :after_initialize,
-      :after_save,
+      :before_validation,
+      :after_validation,
       :before_create,
       :before_save,
+      :after_create,
+      :after_save
     ].freeze
 
     module ClassMethods
