@@ -141,10 +141,10 @@ end
 Here is a list with all the available callbacks, listed in the same order in which they will get called during the respective operations:
 
 ####Creating an Object
-*before_create
-*before_validation
-*after_validation
-*after_create
+* before_create
+* before_validation
+* after_validation
+* after_create
 
 ####Updating an Object
 *before_validation
