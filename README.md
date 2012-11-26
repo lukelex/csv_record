@@ -136,6 +136,7 @@ after_create do |obj|
   obj.do_something
 end
 ```
+`obj` refers to the instance you are in
 
 ###Avaiable Callbacks
 Here is a list with all the available callbacks, listed in the same order in which they will get called during the respective operations:
@@ -149,10 +150,6 @@ Here is a list with all the available callbacks, listed in the same order in whi
 ####Updating an Object
 * before_validation
 * after_validation
-```
-`obj` refers to the instance you are in
-
-
 
 ##Validations
 
