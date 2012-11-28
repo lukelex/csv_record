@@ -32,6 +32,13 @@ module CsvRecord
           end
         end
       end
+
+      def valid?
+        self.run_before_validation_callbacks
+        is_valid = super
+        self.run_after_validation_callbacks if is_valid
+        is_valid
+      end
     end
 
     def self.included(receiver)

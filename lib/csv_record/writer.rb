@@ -26,15 +26,11 @@ module CsvRecord
       end
 
       def __save__
-        result = nil
-        self.run_before_validation_callbacks
         if self.valid?
-          result = self.new_record? ? self.append_registry : self.update_registry
+          self.new_record? ? self.append_registry : self.update_registry
         else
-          result = false
+          false
         end
-        self.run_after_validation_callbacks
-        result
       end
 
       def new_record?
