@@ -16,6 +16,10 @@ class CallbackTestClass
     obj.before_create_called = true
   end
 
+  after_create do |obj|
+    obj.after_create_called = true
+  end
+
   before_validation do |obj|
     obj.before_validation_called = true
   end
@@ -24,15 +28,11 @@ class CallbackTestClass
     obj.after_validation_called = true
   end
 
-  after_create do |obj|
-    obj.after_create_called = true
-  end
-
   before_update do |obj|
     obj.before_update_called = true
   end
 
-  after_create do |obj|
+  after_update do |obj|
     obj.after_update_called = true
   end
 end

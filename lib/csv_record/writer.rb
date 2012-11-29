@@ -3,9 +3,7 @@ module CsvRecord
     module ClassMethods
       def __create__(attributes={})
         instance = self.build attributes
-        instance.run_before_create_callbacks
         result = instance.save
-        instance.run_after_create_callbacks if result
         instance
       end
 
