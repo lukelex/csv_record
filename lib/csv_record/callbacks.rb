@@ -35,6 +35,14 @@ module CsvRecord
         end
       end
 
+      [:build, :initialize].each do |initialize_method|
+        define_method initialize_method do |*args|
+          result = super(*args)
+          self.run_after_initialize_callbacks
+          result
+        end
+      end
+
       def valid?
         self.run_before_validation_callbacks
         is_valid = super

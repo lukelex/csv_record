@@ -35,6 +35,10 @@ describe CsvRecord::Callbacks do
       object_created
     end
 
+    it 'after_initialize' do
+      CallbackTestClass.new.after_initialize_called.must_equal true
+    end
+
     it 'before_create' do
       object_created.before_create_called.must_equal true
     end
