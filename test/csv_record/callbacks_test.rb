@@ -48,7 +48,7 @@ describe CsvRecord::Callbacks do
     end
 
     it 'after_validation' do
-      object_created.after_create_called.must_equal true
+      object_created.after_validation_called.must_equal true
     end
 
     it 'before_update' do
