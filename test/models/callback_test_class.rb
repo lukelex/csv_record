@@ -1,11 +1,11 @@
 class CallbackTestClass
   include CsvRecord::Document
 
-  def initialize(*args)
-  end
+  attr_accessor :sample_field
 
   attr_accessor :before_create_called, :after_create_called
   attr_accessor :before_validation_called, :after_validation_called
+  attr_accessor :before_update_called, :after_update_called
 
   before_create do |obj|
     obj.before_create_called = true
@@ -21,5 +21,13 @@ class CallbackTestClass
 
   after_create do |obj|
     obj.after_create_called = true
+  end
+
+  before_update do |obj|
+    obj.before_update_called = true
+  end
+
+  after_create do |obj|
+    obj.after_update_called = true
   end
 end

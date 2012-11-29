@@ -4,10 +4,12 @@ module CsvRecord
       :after_initialize,
       :before_validation,
       :after_validation,
-      :before_create,
       :before_save,
+      :after_save,
+      :before_create,
       :after_create,
-      :after_save
+      :before_update,
+      :after_update
     ].freeze
 
     module ClassMethods
@@ -38,6 +40,13 @@ module CsvRecord
         is_valid = super
         self.run_after_validation_callbacks if is_valid
         is_valid
+      end
+
+      def update_registry
+        self.run_before_update_callbacks
+        saved = super
+        self.run_after_update_callbacks if saved
+        saved
       end
     end
 
