@@ -50,7 +50,7 @@ module CsvRecord
         is_valid
       end
 
-      def write_object
+      def append_registry
         self.run_before_create_callbacks
         is_saved = super
         self.run_after_create_callbacks if is_saved
