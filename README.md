@@ -57,7 +57,7 @@ car.new_record? # checks if the record is new
 ```
 
 ##Retrieving
-Records can be queried through the following methds:
+Records can be queried through the following methods:
 
 ```ruby
 Car.all # retrieves all saved records
@@ -113,9 +113,9 @@ Extending the previous example, you can use the `has_many` method to establish t
 class Company
   include CsvRecord::Document
 
-  has_many :cars
-
   attr_accessor :name
+
+  has_many :cars
 end
 
 company = Company.create :name => 'Chutz'
@@ -158,11 +158,11 @@ Here is a list with all the available callbacks, listed in the same order in whi
 
 Helpers available:
 
-`validates_presence_of`: Ensures if the specified attributes were filled
+`validates_presence_of`: Ensures if the specified attribute(s) were filled
 
 `validates_uniqueness_of`: Ensures that the specified attribute(s) are unique within the database
 
-`validate`: Uses custom methods to validate the model
+`validate`: Uses custom method(s) to validate the model
 
 ```ruby
 class Company
@@ -181,14 +181,11 @@ class Company
 end
 
 company = Company.create
-company.save
-# => false
+company.save # => false
 
 company = Company.create
-company.valid?
-# => false
-company.invalid?
-# => true
+company.valid? # => false
+company.invalid? # => true
 
 ```
 
