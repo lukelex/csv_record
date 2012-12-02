@@ -40,11 +40,14 @@ module CsvRecord
         self.save
       end
 
-      def __update_attributes__(params={})
+      def __update_attributes__(params={validate: true})
+        validate = params[:validate]
+        params.delete(:validate)
+
         params.each do |field, value|
           self.public_send "#{field}=", value
         end
-        self.save
+        self.save validate
       end
 
       def __destroy__

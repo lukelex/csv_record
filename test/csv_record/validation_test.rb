@@ -113,5 +113,11 @@ describe CsvRecord::Validations do
       invalid_jedi.save(false)
       invalid_jedi.new_record?.must_equal false
     end
+
+    it 'on update_attributes' do
+      yoda.save
+      yoda.update_attributes name: nil, validate: false
+      yoda.name.must_be_nil
+    end
   end
 end
