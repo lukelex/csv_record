@@ -119,5 +119,11 @@ describe CsvRecord::Validations do
       yoda.update_attributes name: nil, validate: false
       yoda.name.must_be_nil
     end
+
+    it 'update_attribute by default skips validations' do
+      yoda.save
+      yoda.update_attribute :name, nil
+      Jedi.last.name.must_be_nil
+    end
   end
 end

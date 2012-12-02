@@ -37,7 +37,7 @@ module CsvRecord
 
       def __update_attribute__(field, value)
         self.public_send "#{field}=", value
-        self.save
+        self.save false
       end
 
       def __update_attributes__(params={validate: true})
