@@ -23,8 +23,8 @@ module CsvRecord
         receiver.send :attr_accessor, :id
       end
 
-      def __save__
-        if self.valid?
+      def __save__(validate=true)
+        if (not validate) || self.valid?
           self.new_record? ? self.append_registry : self.update_registry
         else
           false

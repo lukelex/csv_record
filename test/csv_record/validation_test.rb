@@ -4,6 +4,8 @@ require_relative '../models/jedi'
 require_relative '../models/jedi_order'
 
 describe CsvRecord::Validations do
+  let (:invalid_jedi) { Jedi.new }
+
   describe 'initializing class methods' do
     it ('responds to validates_presence_of') { Jedi.must_respond_to :validates_presence_of }
     it ('responds to validates_uniqueness_of') { Jedi.must_respond_to :validates_uniqueness_of }
@@ -51,8 +53,6 @@ describe CsvRecord::Validations do
   end
 
   describe 'default methods' do
-    let (:invalid_jedi) { Jedi.new }
-
     describe 'invalid?' do
       it 'invalid object' do
         invalid_jedi.invalid?.must_equal true
@@ -105,6 +105,13 @@ describe CsvRecord::Validations do
 
     it 'validate can have a block' do
       yoda.custom_validator_checker_with_block.must_equal true
+    end
+  end
+
+  describe 'skip validations' do
+    it 'on save' do
+      invalid_jedi.save(false)
+      invalid_jedi.new_record?.must_equal false
     end
   end
 end
