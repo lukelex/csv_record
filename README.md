@@ -145,14 +145,18 @@ Here is a list with all the available callbacks, listed in the same order in whi
 * after_initialize
 * before_validation
 * after_validation
+* before_save
 * before_create
 * after_create
+* after_save
 
 ####Updating an Object
 * before_validation
 * after_validation
+* before_save
 * before_update
 * after_update
+* after_save
 
 ##Validations
 
