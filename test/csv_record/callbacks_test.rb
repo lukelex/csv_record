@@ -62,5 +62,13 @@ describe CsvRecord::Callbacks do
     it 'after_update' do
       object_updated.after_update_called.must_equal true
     end
+
+    it 'before_save' do
+      object_created.before_save_called.must_equal true
+    end
+
+    it 'after_update' do
+      object_created.after_save_called.must_equal true
+    end
   end
 end

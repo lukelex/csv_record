@@ -50,6 +50,13 @@ module CsvRecord
         is_valid
       end
 
+      def save(*args)
+        self.run_before_save_callbacks
+        is_saved = super
+        self.run_after_save_callbacks if is_saved
+        is_saved
+      end
+
       def append_registry
         self.run_before_create_callbacks
         is_saved = super

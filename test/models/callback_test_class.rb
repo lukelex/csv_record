@@ -7,6 +7,7 @@ class CallbackTestClass
   attr_accessor :before_create_called, :after_create_called
   attr_accessor :before_validation_called, :after_validation_called
   attr_accessor :before_update_called, :after_update_called
+  attr_accessor :before_save_called, :after_save_called
 
   after_initialize do
     self.after_initialize_called = true
@@ -34,5 +35,13 @@ class CallbackTestClass
 
   after_update do
     self.after_update_called = true
+  end
+
+  before_save do
+    self.before_save_called = true
+  end
+
+  after_save do
+    self.after_save_called = true
   end
 end
