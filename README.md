@@ -132,11 +132,11 @@ Callbacks can be used to execute code on predetermined moments.
 
 ####Usage
 ```ruby
-after_create do |obj|
-  obj.do_something
+after_create do
+  self.do_something
 end
 ```
-`obj` refers to the instance you are in
+`self` refers to the instance you are in
 
 ###Avaiable Callbacks
 Here is a list with all the available callbacks, listed in the same order in which they will get called during the respective operations:

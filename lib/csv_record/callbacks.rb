@@ -29,7 +29,7 @@ module CsvRecord
           if self.class.const_defined? const_variable
             callbacks_collection = self.class.const_get("#{callback}_callbacks".upcase)
             callbacks_collection.each do |callback_proc|
-              callback_proc.call self
+              self.instance_eval &callback_proc
             end
           end
         end

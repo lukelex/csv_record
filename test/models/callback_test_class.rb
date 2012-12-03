@@ -8,31 +8,31 @@ class CallbackTestClass
   attr_accessor :before_validation_called, :after_validation_called
   attr_accessor :before_update_called, :after_update_called
 
-  after_initialize do |obj|
-    obj.after_initialize_called = true
+  after_initialize do
+    self.after_initialize_called = true
   end
 
-  before_create do |obj|
-    obj.before_create_called = true
+  before_create do
+    self.before_create_called = true
   end
 
-  after_create do |obj|
-    obj.after_create_called = true
+  after_create do
+    self.after_create_called = true
   end
 
-  before_validation do |obj|
-    obj.before_validation_called = true
+  before_validation do
+    self.before_validation_called = true
   end
 
-  after_validation do |obj|
-    obj.after_validation_called = true
+  after_validation do
+    self.after_validation_called = true
   end
 
-  before_update do |obj|
-    obj.before_update_called = true
+  before_update do
+    self.before_update_called = true
   end
 
-  after_update do |obj|
-    obj.after_update_called = true
+  after_update do
+    self.after_update_called = true
   end
 end
