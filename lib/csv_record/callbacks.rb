@@ -2,6 +2,7 @@ module CsvRecord
   module Callbacks
     CALLBACKS = [
       :after_initialize,
+      :after_find,
       :before_validation,
       :after_validation,
       :before_save,
@@ -69,6 +70,13 @@ module CsvRecord
         saved = super
         self.run_after_update_callbacks if saved
         saved
+      end
+
+      def where(*args)
+        result = super
+        p '********'
+        self.run_after_find_callbacks
+        result
       end
     end
 
