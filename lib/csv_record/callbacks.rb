@@ -21,6 +21,14 @@ module CsvRecord
           const_get(const_variable) << block if block
         end
       end
+
+      def __where__(*args)
+        results = super
+        results.each do |result|
+          result.run_after_find_callbacks
+        end
+        results
+      end
     end
 
     module InstanceMethods
@@ -70,13 +78,6 @@ module CsvRecord
         saved = super
         self.run_after_update_callbacks if saved
         saved
-      end
-
-      def where(*args)
-        result = super
-        p '********'
-        self.run_after_find_callbacks
-        result
       end
     end
 

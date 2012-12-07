@@ -11,6 +11,8 @@ describe CsvRecord::Callbacks do
     it ('after_create callback') { klass.must_respond_to(:after_create) }
     it ('before_save callback') { klass.must_respond_to(:before_save) }
     it ('after_save callback') { klass.must_respond_to(:after_save) }
+    it ('before_update callback') { klass.must_respond_to(:before_update) }
+    it ('after_update callback') { klass.must_respond_to(:after_update) }
     it ('after_initialize callback') { klass.must_respond_to(:after_initialize) }
     it ('after_find callback') { klass.must_respond_to(:after_find) }
   end
@@ -73,7 +75,7 @@ describe CsvRecord::Callbacks do
       object_created.after_save_called.must_equal true
     end
 
-    it 'after_find' do
+    it 'after_find using FIND' do
       object_found = CallbackTestClass.find(object_created)
       object_found.after_find_called.must_equal true
     end

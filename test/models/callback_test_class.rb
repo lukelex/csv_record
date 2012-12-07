@@ -8,14 +8,13 @@ class CallbackTestClass
   attr_accessor :before_validation_called, :after_validation_called
   attr_accessor :before_update_called, :after_update_called
   attr_accessor :before_save_called, :after_save_called
-  attr_accessor :after_find_called
+  attr_accessor :after_find_called, :after_where_called
 
   after_initialize do
     self.after_initialize_called = true
   end
 
   after_find do
-    p '---------'
     self.after_find_called = true
   end
 
