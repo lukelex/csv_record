@@ -141,6 +141,10 @@ end
 ###Avaiable Callbacks
 Here is a list with all the available callbacks, listed in the same order in which they will get called during the respective operations:
 
+####Finding an Object
+* after_initialize
+* after_find
+
 ####Creating an Object
 * after_initialize
 * before_validation
