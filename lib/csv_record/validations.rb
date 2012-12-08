@@ -37,7 +37,14 @@ module CsvRecord
       end
 
       def errors
-        @errors ||= []
+        unless @errors
+          @errors = []
+          def @errors.add(attribute)
+            self << attribute
+          end
+        end
+
+        @errors
       end
 
       alias :valid? :__valid__?
@@ -46,7 +53,7 @@ module CsvRecord
       def trigger_presence_validations
         self.class.fields_to_validate_presence.each do |attribute|
           if self.public_send(attribute).nil?
-            @errors = self.errors.add attribute
+            self.errors.add attribute
           end
         end
       end
@@ -57,7 +64,7 @@ module CsvRecord
           condition[attribute] = self.public_send attribute
           records = self.class.__where__ condition
           if records.any? { |record| record != self }
-            @errors = self.errors.add attribute
+            self.errors.add attribute
           end
         end
       end
@@ -67,7 +74,7 @@ module CsvRecord
           if not validator.is_a? Proc
             self.send validator
           else
-            validator.call self
+            self.instance_eval &validator
           end
         end
       end

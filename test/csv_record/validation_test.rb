@@ -2,6 +2,7 @@ require_relative '../test_helper'
 require 'pry'
 require_relative '../models/jedi'
 require_relative '../models/jedi_order'
+require_relative '../models/custom_errors_class'
 
 describe CsvRecord::Validations do
   let (:invalid_jedi) { Jedi.new }
@@ -9,8 +10,12 @@ describe CsvRecord::Validations do
   describe 'initializing class methods' do
     it ('responds to validates_presence_of') { Jedi.must_respond_to :validates_presence_of }
     it ('responds to validates_uniqueness_of') { Jedi.must_respond_to :validates_uniqueness_of }
+  end
+
+  describe 'initializing instance methods' do
     it ('responds to valid?') { Jedi.new.must_respond_to :valid? }
     it ('responds to invalid?') { Jedi.new.must_respond_to :invalid? }
+    it ('responds to errors') { Jedi.new.must_respond_to :errors }
   end
 
   describe 'validates_presence_of :name and :age behavior' do
@@ -52,32 +57,42 @@ describe CsvRecord::Validations do
     end
   end
 
-  describe 'default methods' do
-    describe 'invalid?' do
-      it 'invalid object' do
-        invalid_jedi.invalid?.must_equal true
-      end
-
-      it 'valid object' do
-        yoda.invalid?.must_equal false
-      end
+  describe 'invalid?' do
+    it 'invalid object' do
+      invalid_jedi.invalid?.must_equal true
     end
 
-    describe 'errors' do
-      it 'wont be empty when invalid' do
-        invalid_jedi.valid?
-        invalid_jedi.errors.wont_be_empty
-      end
+    it 'valid object' do
+      yoda.invalid?.must_equal false
+    end
+  end
 
-      it 'should have two erros' do
-        invalid_jedi.valid?
-        invalid_jedi.errors.length.must_equal 2
-      end
+  describe 'errors' do
+    it 'wont be empty when invalid' do
+      invalid_jedi.valid?
+      invalid_jedi.errors.wont_be_empty
+    end
 
-      it 'should contain the errors found' do
-        invalid_jedi.valid?
-        invalid_jedi.errors.must_include :name
-        invalid_jedi.errors.must_include :age
+    it 'should have two erros' do
+      invalid_jedi.valid?
+      invalid_jedi.errors.length.must_equal 2
+    end
+
+    it 'should contain the errors found' do
+      invalid_jedi.valid?
+      invalid_jedi.errors.must_include :name
+      invalid_jedi.errors.must_include :age
+    end
+
+    describe 'add' do
+      it ('responds to add') { invalid_jedi.errors.must_respond_to :add }
+
+      it 'adding' do
+        invalid_jedi.instance_eval do
+          self.errors.add(:testing)
+          self.errors.wont_be_empty
+          self.errors.last.must_equal :testing
+        end
       end
     end
   end
@@ -95,16 +110,17 @@ describe CsvRecord::Validations do
   end
 
   describe 'custom_validator' do
-    it ('responds to validate') { Jedi.must_respond_to :validate }
+    it ('responds to validate') { CustomErrorsClass.must_respond_to :validate }
 
-    before { yoda.valid? }
+    let(:custom_error_class) { CustomErrorsClass.new }
+    before { custom_error_class.valid? }
 
     it 'adding a custom validator' do
-      yoda.custom_validator_checker.must_equal true
+      custom_error_class.errors.must_include :custom_error
     end
 
     it 'validate can have a block' do
-      yoda.custom_validator_checker_with_block.must_equal true
+      custom_error_class.errors.must_include :custom_error_with_block
     end
   end
 
