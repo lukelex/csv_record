@@ -158,6 +158,10 @@ Here is a list with all the available callbacks, listed in the same order in whi
 * after_update
 * after_save
 
+####Derstroying an Object
+* before_destroy
+* after_destroy
+
 ##Validations
 
 Helpers available:
