@@ -14,12 +14,12 @@ module CsvRecord
       end
 
       def custom_validators
-        @custom_validators || []
+        @custom_validators ||= []
       end
 
       def validate(*args, &block)
         @custom_validators ||= []
-        args.each { |arg| @custom_validators << arg }
+        @custom_validators += args
         @custom_validators << block if block_given?
       end
     end

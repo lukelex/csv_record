@@ -24,9 +24,7 @@ module CsvRecord
 
       def __where__(*args)
         results = super
-        results.each do |result|
-          result.run_after_find_callbacks
-        end
+        results.each &:run_after_find_callbacks
         results
       end
     end

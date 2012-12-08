@@ -10,10 +10,8 @@ class Jedi
   validates_uniqueness_of :name
 
   validate :my_custom_validator_method
-  validate do |obj|
-    obj.instance_eval do
-      @custom_validator_checker_with_block = true
-    end
+  validate do
+    @custom_validator_checker_with_block = true
   end
 
   def initialize(params={})
