@@ -37,7 +37,7 @@ module CsvRecord
       end
 
       def errors
-        @errors || []
+        @errors ||= []
       end
 
       alias :valid? :__valid__?
