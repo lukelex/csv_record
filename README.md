@@ -183,8 +183,12 @@ class Company
 
   validate :my_custom_validator_method
 
+  validate do
+    self.errors.add :attribute
+  end
+
   def my_custom_validator_method
-    @errors = self.errors.add attribute
+    self.errors.add :attribute
   end
 end
 
