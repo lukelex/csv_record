@@ -50,6 +50,7 @@ describe CsvRecord::Validations do
       yoda.valid?.wont_equal true
       yoda.save.wont_equal true
     end
+
   end
 
   describe 'default methods' do

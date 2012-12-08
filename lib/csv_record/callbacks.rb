@@ -6,6 +6,7 @@ module CsvRecord
       :after_validation,
       :before_save,
       :after_save,
+      :after_destroy,
       :before_create,
       :after_create,
       :before_update,
@@ -50,6 +51,12 @@ module CsvRecord
         is_valid
       end
 
+      def destroy
+        is_destroyed = super
+        self.run_after_destroy_callbacks if is_destroyed
+        is_destroyed
+      end
+
       def save(*args)
         self.run_before_save_callbacks
         is_saved = super
@@ -60,6 +67,7 @@ module CsvRecord
       def append_registry
         self.run_before_create_callbacks
         is_saved = super
+        self.run_after_destroy_callbacks if is_saved
         self.run_after_create_callbacks if is_saved
         is_saved
       end
@@ -67,6 +75,7 @@ module CsvRecord
       def update_registry
         self.run_before_update_callbacks
         saved = super
+        self.run_after_destroy_callbacks if saved
         self.run_after_update_callbacks if saved
         saved
       end

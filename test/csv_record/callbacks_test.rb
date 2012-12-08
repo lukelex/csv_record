@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-
 require_relative '../models/car'
 require_relative '../models/callback_test_class'
 
@@ -12,13 +11,14 @@ describe CsvRecord::Callbacks do
     it ('before_save callback') { klass.must_respond_to(:before_save) }
     it ('after_save callback') { klass.must_respond_to(:after_save) }
     it ('after_initialize callback') { klass.must_respond_to(:after_initialize) }
+    it ('after_destroy callback') { klass.must_respond_to(:after_destroy) }
   end
 
   describe "Check the run callback definitions" do
     let (:klass) { CallbackTestClass.new }
-
     it ('run before_create callbacks') { klass.must_respond_to(:run_before_create_callbacks) }
     it ('run after_create callbacks') { klass.must_respond_to(:run_after_create_callbacks) }
+    it ('run after_destroy callback') { klass.must_respond_to(:run_after_destroy_callbacks) }
     it ('run before_validation callbacks') { klass.must_respond_to(:run_before_validation_callbacks) }
     it ('run after_validation callbacks') { klass.must_respond_to(:run_after_validation_callbacks) }
     it ('run before_save callbacks') { klass.must_respond_to(:run_before_save_callbacks) }
@@ -34,6 +34,7 @@ describe CsvRecord::Callbacks do
       object_created.update_attribute :sample_field, 'something'
       object_created
     end
+    let (:yoda) { Jedi.create(:name => "Yoda", :age => 200) }
 
     it 'after_initialize' do
       CallbackTestClass.new.after_initialize_called.must_equal true
@@ -69,6 +70,9 @@ describe CsvRecord::Callbacks do
 
     it 'after_update' do
       object_created.after_save_called.must_equal true
+    end
+    it 'after_destroy' do
+      object_created.after_destroy_called.must_equal true
     end
   end
 end
