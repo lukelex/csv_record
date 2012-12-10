@@ -36,7 +36,11 @@ describe CsvRecord::Callbacks do
       object_created.update_attribute :sample_field, 'something'
       object_created
     end
-    let (:yoda) { Jedi.create(:name => "Yoda", :age => 200) }
+
+    let (:object_destroyed) do
+      object_created.destroy
+      object_created
+    end
 
     it 'after_initialize' do
       CallbackTestClass.new.after_initialize_called.must_equal true
@@ -74,10 +78,10 @@ describe CsvRecord::Callbacks do
       object_created.after_save_called.must_equal true
     end
     it 'after_destroy' do
-      object_created.after_destroy_called.must_equal true
+      object_destroyed.after_destroy_called.must_equal true
     end
     it 'before_destroy' do
-      object_created.before_destroy_called.must_equal true
+      object_destroyed.before_destroy_called.must_equal true
     end
   end
 end

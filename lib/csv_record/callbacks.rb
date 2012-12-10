@@ -67,10 +67,8 @@ module CsvRecord
       end
 
       def append_registry
-        self.run_before_destroy_callbacks
         self.run_before_create_callbacks
         is_saved = super
-        self.run_after_destroy_callbacks if is_saved
         self.run_after_create_callbacks if is_saved
         is_saved
       end
