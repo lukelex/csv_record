@@ -126,6 +126,26 @@ car.save
 company.cars # [#<Car:0x007f9b249b24d8>]
 ```
 
+###Has One
+The same as has_many but limited to one associated record.
+
+```ruby
+class Company
+  include CsvRecord::Document
+
+  attr_accessor :name
+
+  has_one :car
+end
+
+company = Company.create :name => 'Chutz'
+
+car.save
+company.car = car
+
+company.car # #<Car:0x007f9b249b24d8>
+```
+
 ##Callbacks
 ###Overview
 Callbacks can be used to execute code on predetermined moments.
@@ -140,6 +160,10 @@ end
 
 ###Avaiable Callbacks
 Here is a list with all the available callbacks, listed in the same order in which they will get called during the respective operations:
+
+####Finding an Object
+* after_initialize
+* after_find
 
 ####Creating an Object
 * after_initialize
@@ -183,8 +207,12 @@ class Company
 
   validate :my_custom_validator_method
 
+  validate do
+    self.errors.add :attribute
+  end
+
   def my_custom_validator_method
-    @errors = self.errors.add attribute
+    self.errors.add :attribute
   end
 end
 

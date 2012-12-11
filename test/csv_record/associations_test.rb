@@ -1,19 +1,21 @@
 require_relative '../test_helper'
 require_relative '../models/jedi'
 require_relative '../models/jedi_order'
+require_relative '../models/padawan'
 
 describe CsvRecord::Associations do
-  describe 'initializing class methods' do
+  describe 'belongs_to' do
     it ('responds to belongs_to') { Jedi.must_respond_to :belongs_to }
+
     it ('responds to jedi_order') { Jedi.new.must_respond_to :jedi_order }
     it ('responds to jedi_order=') { Jedi.new.must_respond_to :jedi_order= }
     it ('responds to jedi_order_id') { Jedi.new.must_respond_to :jedi_order_id }
-    it ('responds to has_many') { JediOrder.must_respond_to :has_many }
-  end
 
-  describe 'belongs_to behavior' do
-    it 'checking to param extraction' do
+    before do
       jedi_council.save
+    end
+
+    it 'checking to param extraction' do
       luke.save
       luke.jedi_order = jedi_council
       luke.jedi_order_id.wont_be_nil
@@ -22,7 +24,6 @@ describe CsvRecord::Associations do
     end
 
     it 'has a single jedi order associated' do
-      jedi_council.save
       luke.jedi_order = jedi_council
       luke.save.must_equal true
       first_jedi = Jedi.first
@@ -32,7 +33,9 @@ describe CsvRecord::Associations do
     end
   end
 
-  describe 'has_many behavior' do
+  describe 'has_many' do
+    it ('responds to has_many') { JediOrder.must_respond_to :has_many }
+
     it 'has many jedis associated' do
       jedi_council.save
       yoda.jedi_order = jedi_council
@@ -42,6 +45,18 @@ describe CsvRecord::Associations do
       jedis = jedi_council.jedis
       jedis.count.must_equal 2
       jedis.first.must_be_instance_of Jedi
+    end
+  end
+
+  describe 'has_one' do
+    it ('responds to has_one') { Jedi.must_respond_to :has_one }
+
+    it 'has_one padawan' do
+      qui_gon_jinn.save
+      obi_wan_kenobi_padawan.save
+      qui_gon_jinn.padawan = obi_wan_kenobi_padawan
+      qui_gon_jinn.padawan.must_equal obi_wan_kenobi_padawan
+      qui_gon_jinn.padawan.must_be_instance_of Padawan
     end
   end
 end

@@ -11,8 +11,11 @@ describe CsvRecord::Callbacks do
     it ('before_save callback') { klass.must_respond_to(:before_save) }
     it ('before_destroy callback') {klass.must_respond_to(:before_destroy)}
     it ('after_save callback') { klass.must_respond_to(:after_save) }
+    it ('before_update callback') { klass.must_respond_to(:before_update) }
+    it ('after_update callback') { klass.must_respond_to(:after_update) }
     it ('after_initialize callback') { klass.must_respond_to(:after_initialize) }
     it ('after_destroy callback') { klass.must_respond_to(:after_destroy) }
+    it ('after_find callback') { klass.must_respond_to(:after_find) }
   end
 
   describe "Check the run callback definitions" do
@@ -28,6 +31,7 @@ describe CsvRecord::Callbacks do
     it ('run before_update callbacks') { klass.must_respond_to(:run_before_update_callbacks) }
     it ('run after_update callbacks') { klass.must_respond_to(:run_after_update_callbacks) }
     it ('run before_destroy callbacks ') { klass.must_respond_to(:run_before_destroy_callbacks) }
+    it ('run after_find callbacks') { klass.must_respond_to(:run_after_find_callbacks) }
   end
 
   describe 'Checking the callbacks execution' do
@@ -77,11 +81,17 @@ describe CsvRecord::Callbacks do
     it 'after_update' do
       object_created.after_save_called.must_equal true
     end
+
     it 'after_destroy' do
       object_destroyed.after_destroy_called.must_equal true
     end
     it 'before_destroy' do
       object_destroyed.before_destroy_called.must_equal true
+    end
+
+    it 'after_find using FIND' do
+      object_found = CallbackTestClass.find(object_created)
+      object_found.after_find_called.must_equal true
     end
   end
 end

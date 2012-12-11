@@ -2,6 +2,7 @@ module CsvRecord
   module Callbacks
     CALLBACKS = [
       :after_initialize,
+      :after_find,
       :before_validation,
       :after_validation,
       :before_save,
@@ -21,6 +22,12 @@ module CsvRecord
           const_set(const_variable, []) unless const_defined? const_variable
           const_get(const_variable) << block if block
         end
+      end
+
+      def __where__(*args)
+        results = super
+        results.each &:run_after_find_callbacks
+        results
       end
     end
 

@@ -7,16 +7,10 @@ class Jedi
   after_destroy :my_after_destroy_method
   after_save :my_after_save_method
   belongs_to :jedi_order
+  has_one :padawan
 
   validates_presence_of :name, :age
   validates_uniqueness_of :name
-
-  validate :my_custom_validator_method
-  validate do |obj|
-    obj.instance_eval do
-      @custom_validator_checker_with_block = true
-    end
-  end
 
   def initialize(params={})
     params.each do |key, value|
@@ -34,4 +28,5 @@ class Jedi
   def my_after_save_method
     @after_save_value = true
   end
+
 end

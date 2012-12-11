@@ -8,6 +8,8 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{CSV Record connects Ruby classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.}
   gem.homepage      = "https://github.com/lukasalexandre/csv_record"
 
+  gem.license = 'MIT'
+
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})

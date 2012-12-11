@@ -46,6 +46,22 @@ module CsvRecord
         end
       end
 
+      def method_missing(meth, *args, &block)
+        if meth.to_s =~ DYNAMIC_FINDER_PATTERN
+          dynamic_finder $1, *args, &block
+        else
+          super # You *must* call super if you don't handle the
+                # method, otherwise you'll mess up Ruby's method
+                # lookup.
+        end
+      end
+
+      def respond_to?(meth)
+        (meth.to_s =~ DYNAMIC_FINDER_PATTERN) || super
+      end
+
+      protected
+
       def search_for(csv, params)
         conditions = handle_params params
         csv.entries.select do |attributes|
@@ -63,22 +79,6 @@ module CsvRecord
         end
         conditions
       end
-
-      def method_missing(meth, *args, &block)
-        if meth.to_s =~ DYNAMIC_FINDER_PATTERN
-          dynamic_finder $1, *args, &block
-        else
-          super # You *must* call super if you don't handle the
-                # method, otherwise you'll mess up Ruby's method
-                # lookup.
-        end
-      end
-
-      def respond_to?(meth)
-        (meth.to_s =~ DYNAMIC_FINDER_PATTERN) || super
-      end
-
-      protected
 
       def dynamic_finder(meth, *args, &block)
         properties = meth.split '_and_'
@@ -102,7 +102,7 @@ module CsvRecord
       end
 
       def __to_param__
-        self.id
+        self.id.to_s
       end
 
       def ==(obj)

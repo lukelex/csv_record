@@ -48,4 +48,11 @@ class MiniTest::Spec
       midi_chlorians: '3k'
     )
   end
+  let(:obi_wan_kenobi_padawan) do
+    Padawan.build(
+      name: 'Qui-Gon Jinn',
+      age: 22,
+      midi_chlorians: '4k'
+    )
+  end
 end
