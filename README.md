@@ -182,7 +182,7 @@ Here is a list with all the available callbacks, listed in the same order in whi
 * after_update
 * after_save
 
-####Derstroying an Object
+####Destroying an Object
 * before_destroy
 * after_destroy
 
