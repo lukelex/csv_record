@@ -70,8 +70,7 @@ describe CsvRecord::Reader do
     it 'checking to_param' do
       car.save
       car.to_param.wont_be_nil
-      car.to_param.must_be_instance_of Fixnum
-      car.to_param.must_equal 1
+      car.to_param.must_equal '1'
     end
 
     describe '==' do

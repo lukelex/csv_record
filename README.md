@@ -126,6 +126,26 @@ car.save
 company.cars # [#<Car:0x007f9b249b24d8>]
 ```
 
+###Has One
+The same as has_many but limited to one associated record.
+
+```ruby
+class Company
+  include CsvRecord::Document
+
+  attr_accessor :name
+
+  has_one :car
+end
+
+company = Company.create :name => 'Chutz'
+
+car.save
+company.car = car
+
+company.car # #<Car:0x007f9b249b24d8>
+```
+
 ##Callbacks
 ###Overview
 Callbacks can be used to execute code on predetermined moments.

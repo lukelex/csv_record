@@ -102,7 +102,7 @@ module CsvRecord
       end
 
       def __to_param__
-        self.id
+        self.id.to_s
       end
 
       def ==(obj)

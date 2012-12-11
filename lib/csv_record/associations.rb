@@ -19,11 +19,21 @@ module CsvRecord
     end
 
     def has_many(klass)
-      klass_name = klass.to_s
-
       self.class_eval do
         define_method klass do
-          klass_name.to_class.where :"#{self.underscored_class_name}_id" => self.id
+          klass.to_s.to_class.where :"#{self.underscored_class_name}_id" => self.id
+        end
+      end
+    end
+
+    def has_one(klass)
+      self.class_eval do
+        define_method "#{klass}=" do |obj|
+          obj.send "#{self.underscored_class_name}_id=", self.id
+          obj.save
+        end
+        define_method klass do
+          klass.to_s.to_class.where("#{self.underscored_class_name}_id" => self.id).first
         end
       end
     end

@@ -4,6 +4,7 @@ class Jedi
   attr_accessor :name, :age, :midi_chlorians
 
   belongs_to :jedi_order
+  has_one :padawan
 
   validates_presence_of :name, :age
   validates_uniqueness_of :name
