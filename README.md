@@ -15,7 +15,7 @@ wiki.github.com/lukasalexandre/csv_record
 
 ##Bug reports
 
-If you discover a problem with Devise, we would like to know about it. However, we ask that you please review these guidelines before submitting a bug report:
+If you discover a problem with CSV_Record, we would like to know about it. However, we ask that you please review these guidelines before submitting a bug report:
 
 ##Contributing
 
