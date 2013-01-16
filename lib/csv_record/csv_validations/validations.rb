@@ -14,8 +14,7 @@ module CsvRecord::Validations
       end
 
       define_method "add_to_#{validator_collection}" do |value|
-        eval "@#{validator_collection} ||= []"
-        (eval "@#{validator_collection}") << value
+        (eval "@#{validator_collection} ||= []") << value
       end
 
       define_method "__#{class_macro}__" do |*field_names|
