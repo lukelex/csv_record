@@ -16,10 +16,12 @@ module CsvRecord::Validations
       @custom_validators ||= []
     end
 
-    def validate(*args, &block)
+    def validate(*methods, &block)
       @custom_validators ||= []
-      @custom_validators += args
-      @custom_validators << block if block_given?
+      methods.each do |method|
+        @custom_validators << (CsvRecord::Validation.new method)
+      end
+      @custom_validators << (CsvRecord::Validation.new block) if block_given?
     end
   end
 
@@ -70,11 +72,7 @@ module CsvRecord::Validations
 
     def trigger_custom_validations
       self.class.custom_validators.each do |validator|
-        if not validator.is_a? Proc
-          self.send validator
-        else
-          self.instance_eval &validator
-        end
+        validator.run_on self
       end
     end
   end

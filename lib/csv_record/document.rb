@@ -10,6 +10,7 @@ require 'csv_record/associations'
 require 'csv_record/csv_validations/validations'
 
 require 'csv_record/callback'
+require 'csv_record/csv_validations/validation'
 
 module CsvRecord
 
