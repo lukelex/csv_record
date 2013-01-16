@@ -9,6 +9,8 @@ require 'csv_record/helpers'
 require 'csv_record/associations'
 require 'csv_record/validations'
 
+require 'csv_record/callback'
+
 module CsvRecord
 
   # This is the base module for all domain objects that need to be persisted to

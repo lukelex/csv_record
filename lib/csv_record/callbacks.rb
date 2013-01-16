@@ -1,6 +1,6 @@
 module CsvRecord
   module Callbacks
-    CALLBACKS = [
+    CALLBACK_TYPES = [
       :after_initialize,
       :after_find,
       :before_validation,
@@ -16,11 +16,13 @@ module CsvRecord
     ].freeze
 
     module ClassMethods
-      CALLBACKS.each do |callback|
-        define_method callback do |*args, &block|
-          const_variable = "#{callback}_callbacks".upcase
+      CALLBACK_TYPES.each do |callback_type|
+        define_method callback_type do |*args, &block|
+          const_variable = "#{callback_type}_callbacks".upcase
           const_set(const_variable, []) unless const_defined? const_variable
-          const_get(const_variable) << block if block
+          if block
+            const_get(const_variable) << (CsvRecord::Callback.new callback_type, block)
+          end
         end
       end
 
@@ -32,13 +34,13 @@ module CsvRecord
     end
 
     module InstanceMethods
-      CALLBACKS.each do |callback|
+      CALLBACK_TYPES.each do |callback|
         define_method "run_#{callback}_callbacks" do
           const_variable = "#{callback}_callbacks".upcase
           if self.class.const_defined? const_variable
-            callbacks_collection = self.class.const_get("#{callback}_callbacks".upcase)
-            callbacks_collection.each do |callback_proc|
-              self.instance_eval &callback_proc
+            callbacks_collection = self.class.const_get(const_variable)
+            callbacks_collection.each do |callback|
+              callback.run_on(self)
             end
           end
         end
