@@ -1,3 +1,5 @@
+require 'csv_record/csv_validations/validation'
+
 module CsvRecord::Validations
   module ClassMethods
     [:presence, :uniqueness].each do |kind|

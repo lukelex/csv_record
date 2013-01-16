@@ -1,3 +1,5 @@
+require 'csv_record/callback'
+
 module CsvRecord
   module Callbacks
     CALLBACK_TYPES = [
