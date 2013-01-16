@@ -1,17 +1,31 @@
-require 'csv_record/csv_validations/validation'
+require 'csv_record/csv_validations/custom_validation'
+require 'csv_record/csv_validations/uniqueness_validation'
+require 'csv_record/csv_validations/presence_validation'
 
 module CsvRecord::Validations
   module ClassMethods
     [:presence, :uniqueness].each do |kind|
-      define_method "fields_to_validate_#{kind}" do
-        eval "@fields_to_validate_#{kind} || []"
+      validator_collection = "fields_to_validate_#{kind}"
+      class_macro = "validates_#{kind}_of"
+      validation_class_name = eval "CsvRecord::#{kind.to_s.capitalize}Validation"
+
+      define_method validator_collection do
+        eval "@#{validator_collection} ||= []"
       end
 
-      define_method "__validates_#{kind}_of__" do |*attr_names|
-        eval "@fields_to_validate_#{kind} = attr_names"
+      define_method "add_to_#{validator_collection}" do |value|
+        eval "@#{validator_collection} ||= []"
+        (eval "@#{validator_collection}") << value
       end
 
-      eval "alias :validates_#{kind}_of :__validates_#{kind}_of__"
+      define_method "__#{class_macro}__" do |*field_names|
+        field_names.each do |field|
+          validation_obj = validation_class_name.new field
+          self.public_send("add_to_#{validator_collection}", validation_obj)
+        end
+      end
+
+      eval "alias :#{class_macro} :__#{class_macro}__"
     end
 
     def custom_validators
@@ -21,9 +35,9 @@ module CsvRecord::Validations
     def validate(*methods, &block)
       @custom_validators ||= []
       methods.each do |method|
-        @custom_validators << (CsvRecord::Validation.new method)
+        @custom_validators << (CsvRecord::CustomValidation.new method)
       end
-      @custom_validators << (CsvRecord::Validation.new block) if block_given?
+      @custom_validators << (CsvRecord::CustomValidation.new block) if block_given?
     end
   end
 
@@ -54,21 +68,14 @@ module CsvRecord::Validations
 
     private
     def trigger_presence_validations
-      self.class.fields_to_validate_presence.each do |attribute|
-        if self.public_send(attribute).nil?
-          self.errors.add attribute
-        end
+      self.class.fields_to_validate_presence.each do |validator|
+        validator.run_on self
       end
     end
 
     def trigger_uniqueness_validations
-      self.class.fields_to_validate_uniqueness.each do |attribute|
-        condition = {}
-        condition[attribute] = self.public_send attribute
-        records = self.class.__where__ condition
-        if records.any? { |record| record != self }
-          self.errors.add attribute
-        end
+      self.class.fields_to_validate_uniqueness.each do |validator|
+        validator.run_on self
       end
     end
 
