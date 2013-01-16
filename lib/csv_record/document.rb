@@ -7,7 +7,7 @@ require 'csv_record/timestamps'
 require 'csv_record/callbacks'
 require 'csv_record/helpers'
 require 'csv_record/associations'
-require 'csv_record/validations'
+require 'csv_record/csv_validations/validations'
 
 require 'csv_record/callback'
 
