@@ -1,76 +1,65 @@
 require_relative '../test_helper'
 
-require_relative '../models/car'
 require_relative '../models/jedi'
 
 describe CsvRecord::Reader do
   describe 'initializing class methods' do
-    it ('responds to fields') { Car.must_respond_to :fields }
-    it ('responds to all') { Car.must_respond_to :all }
+    it ('responds to fields') { Jedi.must_respond_to :fields }
+    it ('responds to all') { Jedi.must_respond_to :all }
   end
 
   describe 'initializing instance methods' do
-    it ('responds to values') { Car.new.must_respond_to :values }
-    it ('responds to attributes') { Car.new.must_respond_to :attributes }
-    it ('responds to to_param') { Car.new.must_respond_to :to_param }
-    it ('responds to ==') { Car.new.must_respond_to :== }
-    it ('responds to !=') { Car.new.must_respond_to :!= }
+    let (:klass) { Jedi.new }
+
+    it ('responds to values') { klass.must_respond_to :values }
+    it ('responds to attributes') { klass.must_respond_to :attributes }
+    it ('responds to to_param') { klass.must_respond_to :to_param }
+    it ('responds to ==') { klass.must_respond_to :== }
+    it ('responds to !=') { klass.must_respond_to :!= }
   end
 
   describe 'validating the methods behavior' do
-    let(:second_car) do
-      Car.build(
-        year: 2007,
-        make: 'Chevrolet',
-        model: 'F450',
-        description: 'ac, abs, moon',
-        price: 5000.00
-      )
-    end
-
     it 'building an instance' do
-      new_car = Car.build(
-        year: 2007,
-        make: 'Chevrolet',
-        model: 'F450',
-        description: 'ac, abs, moon',
-        price: 5000.00
+      new_jedi = Jedi.build(
+        name: 'Yoda the red',
+        age: 148,
+        midi_chlorians: '0.5k'
       )
-      new_car.wont_be_nil
-      new_car.must_be_instance_of Car
+      new_jedi.wont_be_nil
+      new_jedi.must_be_instance_of Jedi
     end
 
-    it "Check the current fields" do
-      Car.fields.must_equal [:id, :created_at, :updated_at, :year, :make, :model, :description, :price]
+    it 'Check the current fields' do
+      Jedi.fields.must_equal [:id, :created_at, :updated_at, :name, :age, :midi_chlorians, "jedi_order_id"]
     end
 
-    it "Check the current values" do
-      car.values.must_equal [nil, nil, nil, 1997, 'Ford', 'E350', 'ac, abs, moon', 3000.00]
+    it 'Check the current values' do
+      luke.values.must_equal [nil, nil, nil, "Luke Skywalker", 18, "12k", 0]
     end
 
-    it "Check the current attributes" do
-      expected_result = {id: nil, created_at: nil, updated_at: nil, year: 1997, make: 'Ford', model: 'E350', description: 'ac, abs, moon', price: 3000.0}
-      car.attributes.must_equal expected_result
+    it 'Check the current attributes' do
+      expected_result = {:id=>nil, :created_at=>nil, :updated_at=>nil, :name=>"Luke Skywalker", age: 18, midi_chlorians: '12k', 'jedi_order_id' => 0}
+      luke.attributes.must_equal expected_result
     end
 
     it "Retrieves all registries" do
-      car.save
-      Car.all.size.must_equal 1
-      second_car.save
-      Car.all.size.must_equal 2
+      luke.save
+      Jedi.all.size.must_equal 1
+      yoda.save
+      Jedi.all.size.must_equal 2
     end
 
     it "counting the registries" do
-      car.save
-      Car.count.must_equal 1
-      second_car.save
-      Car.count.must_equal 2
+      luke.save
+      Jedi.count.must_equal 1
+      yoda.save
+      Jedi.count.must_equal 2
     end
 
     it 'checking to_param' do
-      car.save
-      car.to_param.wont_be_nil
-      car.to_param.must_equal '1'
+      luke.save
+      luke.to_param.wont_be_nil
+      luke.to_param.must_equal '1'
     end
 
     describe '==' do
@@ -114,78 +103,78 @@ describe CsvRecord::Reader do
     end
 
     describe 'simple query' do
-      let (:cars) { [] }
+      let (:jedis) { [] }
 
       before do
         3.times do
-          cars << car.clone
-          cars.last.save
+          jedis << luke.clone
+          jedis.last.save
         end
       end
 
       it 'querying by id' do
-        Car.find(cars.first.id).wont_be_nil
-        Car.find(cars.first.id).must_be_instance_of Car
+        Jedi.find(jedis.first.id).wont_be_nil
+        Jedi.find(jedis.first.id).must_be_instance_of Jedi
       end
 
       it 'querying by object' do
-        Car.find(cars.first).wont_be_nil
-        Car.find(cars.first.id).must_be_instance_of Car
+        Jedi.find(jedis.first).wont_be_nil
+        Jedi.find(jedis.first.id).must_be_instance_of Jedi
       end
 
       it 'gets the first' do
-        first_car = Car.first
-        first_car.wont_be_nil
-        first_car.must_be_instance_of Car
+        first_jedi = Jedi.first
+        first_jedi.wont_be_nil
+        first_jedi.must_be_instance_of Jedi
       end
 
       it 'gets the last' do
-        last_car = Car.last
-        last_car.wont_be_nil
-        last_car.must_be_instance_of Car
+        last_jedi = Jedi.last
+        last_jedi.wont_be_nil
+        last_jedi.must_be_instance_of Jedi
       end
     end
 
     describe 'complex queries' do
       before do
-        car.save
-        second_car.save
+        luke.save
+        qui_gon_jinn.save
       end
 
       it 'with a single parameter' do
-        result = Car.where year: 2007
+        result = Jedi.where age: 37
         result.wont_be_empty
-        result.first.year.must_equal '2007'
+        result.first.age.must_equal '37'
       end
 
       it 'with multiple parameters' do
-        result = Car.where year: 2007, make: 'Chevrolet', model: 'F450'
+        result = Jedi.where age: 37, name: 'Qui-Gon Jinn', midi_chlorians: '3k'
         result.wont_be_empty
-        result.first.year.must_equal '2007'
+        result.first.age.must_equal '37'
       end
 
       it 'with invalid parameter' do
-        result = Car.where year: 2008, make: 'Chevroletion'
+        result = Jedi.where age: 22, name: 'Obi Wan Kenobi'
         result.must_be_empty
       end
     end
 
     describe 'dynamic finders' do
       before do
-        car.save
-        second_car.save
+        luke.save
+        yoda.save
       end
 
-      let (:properties) { Car.fields }
+      let (:properties) { Jedi.fields }
 
       it 'respond to certain dynamic methods' do
-        Car.must_respond_to "find_by_#{properties.sample}"
+        Jedi.must_respond_to "find_by_#{properties.sample}"
       end
 
       it 'finding with a single field' do
-        found_cars = Car.find_by_year 2007
-        found_cars.wont_be_empty
-        found_cars.first.must_be_instance_of Car
+        found_jedis = Jedi.find_by_age 852
+        found_jedis.wont_be_empty
+        found_jedis.first.must_be_instance_of Jedi
       end
 
       it 'finding with multiple fields' do
@@ -194,12 +183,12 @@ describe CsvRecord::Reader do
           values = []
           i.times do |k|
             conditions[i] = conditions[i] ? "#{conditions[i]}_and_#{properties[k]}" : properties[k]
-            values << car.send(properties[k])
+            values << luke.send(properties[k])
           end
           if conditions[i]
-            found_cars = Car.public_send "find_by_#{conditions[i]}", *values
-            found_cars.wont_be_empty
-            found_cars.first.must_be_instance_of Car
+            found_jedis = Jedi.public_send "find_by_#{conditions[i]}", *values
+            found_jedis.wont_be_empty
+            found_jedis.first.must_be_instance_of Jedi
           end
         end
       end

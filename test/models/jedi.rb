@@ -18,7 +18,7 @@ class Jedi
     end
   end
 
-  private
+private
   def my_custom_validator_method
     @custom_validator_checker = true
   end
@@ -28,5 +28,4 @@ class Jedi
   def my_after_save_method
     @after_save_value = true
   end
-
 end

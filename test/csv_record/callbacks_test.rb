@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-require_relative '../models/car'
 require_relative '../models/callback_test_class'
 
 describe CsvRecord::Callbacks do

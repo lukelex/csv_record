@@ -16,16 +16,6 @@ class MiniTest::Spec
     FileUtils.rm_rf 'db'
   end
 
-  let(:car) do
-    Car.build(
-      year: 1997,
-      make: 'Ford',
-      model: 'E350',
-      description: 'ac, abs, moon',
-      price: 3000.00
-    )
-  end
-
   let(:jedi_council) { JediOrder.build rank: 'council' }
   let(:luke) do
     Jedi.build(
@@ -50,7 +40,7 @@ class MiniTest::Spec
   end
   let(:obi_wan_kenobi_padawan) do
     Padawan.build(
-      name: 'Qui-Gon Jinn',
+      name: 'Obi Wan Kenobi',
       age: 22,
       midi_chlorians: '4k'
     )
