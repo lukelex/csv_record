@@ -3,11 +3,6 @@ require_relative '../test_helper'
 require 'timecop'
 
 describe CsvRecord::Timestamps do
-  describe 'initializing instance methods' do
-    it ('responds to created_at') { luke.must_respond_to :created_at }
-    it ('responds to set_created_at') { luke.must_respond_to :set_created_at }
-  end
-
   describe 'checking if it`s extracting the right fields' do
     it ('checking created_at') { Jedi.fields.must_include :created_at }
   end

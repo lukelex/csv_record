@@ -1,69 +1,67 @@
-module CsvRecord
-  module Connector
-    DATABASE_FOLDER = 'db'.freeze
-    APPEND_MODE = 'a'.freeze
-    WRITE_MODE = 'wb'.freeze
-    READ_MODE = 'r'.freeze
+module CsvRecord::Connector
+  DATABASE_FOLDER = 'db'.freeze
+  APPEND_MODE = 'a'.freeze
+  WRITE_MODE = 'wb'.freeze
+  READ_MODE = 'r'.freeze
 
-    # Checks wheter the database directory exists
-    def __initialize_db_directory__
-      unless Dir.exists? DATABASE_FOLDER
-        Dir.mkdir DATABASE_FOLDER
-      end
+  # Checks wheter the database directory exists
+  def __initialize_db_directory__
+    unless Dir.exists? DATABASE_FOLDER
+      Dir.mkdir DATABASE_FOLDER
     end
-
-    # Initialize the database file with its headers
-    def __initialize_db__
-      __initialize_db_directory__
-      unless db_initialized?
-        open_database_file WRITE_MODE do |csv|
-          csv << fields
-        end
-      end
-    end
-
-    # Checks wheter the database file exists
-    def db_initialized?
-      File.exist? self.const_get('DATABASE_LOCATION')
-    end
-
-    # Open the database file
-    # Params:
-    # +mode+:: the operation mode (defaults to READ_MODE)
-    def __open_database_file__(mode=READ_MODE)
-      __initialize_db__ if mode == READ_MODE # fix this later
-      CSV.open(self.const_get('DATABASE_LOCATION'), mode, headers: true) do |csv|
-        yield(csv)
-      end
-    end
-
-    # Creates a modified copy of the database file with the new data and then replaces the original
-    def __parse_database_file__
-      open_database_file do |csv|
-        CSV.open(self.const_get('DATABASE_LOCATION_TMP'), WRITE_MODE, headers: true) do |copy|
-          copy << fields
-          csv.entries.each do |entry|
-            new_row = yield(entry)
-            copy << new_row if new_row
-          end
-        end
-      end
-      rename_database
-    end
-
-    protected
-
-    # Rename the TMP database file to replace the original
-    def rename_database
-      old_file = self.const_get('DATABASE_LOCATION')
-      tmp_file = self.const_get('DATABASE_LOCATION_TMP')
-      File.delete old_file
-      File.rename(tmp_file, old_file)
-    end
-
-    alias :initialize_db_directory :__initialize_db_directory__
-    alias :initialize_db :__initialize_db__
-    alias :open_database_file :__open_database_file__
-    alias :parse_database_file :__parse_database_file__
   end
+
+  # Initialize the database file with its headers
+  def __initialize_db__
+    __initialize_db_directory__
+    unless db_initialized?
+      open_database_file WRITE_MODE do |csv|
+        csv << fields
+      end
+    end
+  end
+
+  # Checks wheter the database file exists
+  def db_initialized?
+    File.exist? self.const_get('DATABASE_LOCATION')
+  end
+
+  # Open the database file
+  # Params:
+  # +mode+:: the operation mode (defaults to READ_MODE)
+  def __open_database_file__(mode=READ_MODE)
+    __initialize_db__ if mode == READ_MODE # fix this later
+    CSV.open(self.const_get('DATABASE_LOCATION'), mode, headers: true) do |csv|
+      yield(csv)
+    end
+  end
+
+  # Creates a modified copy of the database file with the new data and then replaces the original
+  def __parse_database_file__
+    open_database_file do |csv|
+      CSV.open(self.const_get('DATABASE_LOCATION_TMP'), WRITE_MODE, headers: true) do |copy|
+        copy << fields
+        csv.entries.each do |entry|
+          new_row = yield(entry)
+          copy << new_row if new_row
+        end
+      end
+    end
+    rename_database
+  end
+
+  protected
+
+  # Rename the TMP database file to replace the original
+  def rename_database
+    old_file = self.const_get('DATABASE_LOCATION')
+    tmp_file = self.const_get('DATABASE_LOCATION_TMP')
+    File.delete old_file
+    File.rename(tmp_file, old_file)
+  end
+
+  alias :initialize_db_directory :__initialize_db_directory__
+  alias :initialize_db :__initialize_db__
+  alias :open_database_file :__open_database_file__
+  alias :parse_database_file :__parse_database_file__
 end
