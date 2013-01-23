@@ -5,12 +5,14 @@ module CsvRecord
     WRITE_MODE = 'wb'.freeze
     READ_MODE = 'r'.freeze
 
+    # Checks wheter the database directory exists
     def __initialize_db_directory__
       unless Dir.exists? DATABASE_FOLDER
         Dir.mkdir DATABASE_FOLDER
       end
     end
 
+    # Initialize the database file with its headers
     def __initialize_db__
       __initialize_db_directory__
       unless db_initialized?
@@ -20,10 +22,14 @@ module CsvRecord
       end
     end
 
+    # Checks wheter the database file exists
     def db_initialized?
       File.exist? self.const_get('DATABASE_LOCATION')
     end
 
+    # Open the database file
+    # Params:
+    # +mode+:: the operation mode (defaults to READ_MODE)
     def __open_database_file__(mode=READ_MODE)
       __initialize_db__ if mode == READ_MODE # fix this later
       CSV.open(self.const_get('DATABASE_LOCATION'), mode, headers: true) do |csv|
@@ -31,6 +37,7 @@ module CsvRecord
       end
     end
 
+    # Creates a modified copy of the database file with the new data and then replaces the original
     def __parse_database_file__
       open_database_file do |csv|
         CSV.open(self.const_get('DATABASE_LOCATION_TMP'), WRITE_MODE, headers: true) do |copy|
@@ -46,6 +53,7 @@ module CsvRecord
 
     protected
 
+    # Rename the TMP database file to replace the original
     def rename_database
       old_file = self.const_get('DATABASE_LOCATION')
       tmp_file = self.const_get('DATABASE_LOCATION_TMP')
