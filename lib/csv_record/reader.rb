@@ -86,7 +86,7 @@ module CsvRecord::Reader
     end
 
     def ==(obj)
-      self.class == obj.class && self.to_param == obj.to_param
+      self.class == obj.class and self.to_param == obj.to_param
     end
 
     def !=(obj)
