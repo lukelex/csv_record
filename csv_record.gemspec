@@ -17,11 +17,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = CsvRecord::VERSION
 
-  gem.add_dependency 'activesupport'
+  gem.add_dependency 'activesupport', '~> 3.2.9'
 
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'pry'
-  gem.add_development_dependency 'timecop'
-  gem.add_development_dependency 'turn'
-  gem.add_development_dependency 'minitest'
+  gem.add_development_dependency 'rake', '~> 0.9.2.2'
+  gem.add_development_dependency 'timecop', '~> 0.5.3'
+  gem.add_development_dependency 'turn', '~> 0.9.6'
+  gem.add_development_dependency 'minitest', '~> 4.3.1'
 end
