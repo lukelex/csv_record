@@ -1,6 +1,6 @@
 # CsvRecord
 
-[![Build Status](https://secure.travis-ci.org/lukasalexandre/csv_record.png)](http://travis-ci.org/lukasalexandre/csv_record) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lukasalexandre/csv_record) [![Dependency Status](https://gemnasium.com/lukasalexandre/csv_record.png)](https://gemnasium.com/lukasalexandre/csv_record) [![Gem Version](https://fury-badge.herokuapp.com/rb/csv_record.png)](http://badge.fury.io/rb/csv_record)
+[[![Build Status](https://travis-ci.org/lukelex/csv_record.png?branch=2.0.0)](https://travis-ci.org/lukelex/csv_record) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lukelex/csv_record) [![Dependency Status](https://gemnasium.com/lukasalexandre/csv_record.png)](https://gemnasium.com/lukasalexandre/csv_record) [![Gem Version](https://fury-badge.herokuapp.com/rb/csv_record.png)](http://badge.fury.io/rb/csv_record)
 
 
 CSV Record connects Ruby classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.
