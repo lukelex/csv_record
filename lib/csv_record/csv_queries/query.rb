@@ -11,12 +11,19 @@ class CsvRecord::Query
     end
   end
 
+  def __where__(params)
+    self.conditions << params
+    self
+  end
+
   def trigger
     klass.open_database_file do |csv|
       rows = search_for csv, self.conditions
       rows.map { |row| klass.build row.to_hash }
     end
   end
+
+  alias :where :__where__
 
 protected
 
@@ -29,7 +36,7 @@ protected
   def conditions_as_string
     conditions_string = ''
     self.conditions.each_with_index do |condition, index|
-      conditions_string << condition.to_s
+      conditions_string << condition.to_code
       conditions_string << ' and ' if first_or_last? index
     end
     conditions_string
