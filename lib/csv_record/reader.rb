@@ -41,7 +41,7 @@ module CsvRecord::Reader
     end
 
     def __where__(params)
-      (CsvRecord::Query.new self, params).trigger
+      CsvRecord::Query.new self, params
     end
 
     def method_missing(meth, *args, &block)

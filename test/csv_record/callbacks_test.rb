@@ -84,6 +84,7 @@ describe CsvRecord::Callbacks do
     it 'after_destroy' do
       object_destroyed.after_destroy_called.must_equal true
     end
+
     it 'before_destroy' do
       object_destroyed.before_destroy_called.must_equal true
     end

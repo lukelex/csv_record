@@ -27,10 +27,10 @@ module CsvRecord::Callbacks
       end
     end
 
-    def __where__(*args)
-      results = super
-      results.each &:run_after_find_callbacks
-      results
+    def find(*args)
+      result = super
+      result.send :run_after_find_callbacks
+      result
     end
   end
 

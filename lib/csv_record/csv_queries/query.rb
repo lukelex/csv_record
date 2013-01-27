@@ -1,6 +1,8 @@
 require_relative 'condition'
 
 class CsvRecord::Query
+  include Enumerable
+
   attr_reader :klass, :conditions
 
   def initialize(klass, conditions)
@@ -17,7 +19,7 @@ class CsvRecord::Query
     self
   end
 
-  def trigger
+  def __trigger__
     klass.open_database_file do |csv|
       rows = search_for csv, self.conditions
       rows.map { |row| klass.build row.to_hash }
@@ -28,17 +30,25 @@ class CsvRecord::Query
     to_a.inspect
   end
 
-  def to_a
+  def __to_a__
     trigger
   end
 
-  %w(first last).each do |array_accessor|
-    define_method array_accessor do
-      eval "to_a.#{array_accessor}"
-    end
+  def last
+    to_a.last
+  end
+
+  def each(&block)
+    to_a.each(&block)
+  end
+
+  def empty?
+    to_a.empty?
   end
 
   alias :where :__where__
+  alias :trigger :__trigger__
+  alias :to_a :__to_a__
 
 protected
 
