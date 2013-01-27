@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["lukasalexandre@gmail.com"]
   gem.description   = %q{CSV Object-relational mapping for Ruby}
   gem.summary       = %q{CSV Record connects Ruby classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.}
-  gem.homepage      = "https://github.com/lukasalexandre/csv_record"
+  gem.homepage      = "https://github.com/lukelex/csv_record"
 
   gem.license = 'MIT'
 

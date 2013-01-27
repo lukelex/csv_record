@@ -1,6 +1,6 @@
 # CsvRecord
 
-[[![Build Status](https://travis-ci.org/lukelex/csv_record.png?branch=2.0.0)](https://travis-ci.org/lukelex/csv_record) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lukelex/csv_record) [![Dependency Status](https://gemnasium.com/lukasalexandre/csv_record.png)](https://gemnasium.com/lukasalexandre/csv_record) [![Gem Version](https://fury-badge.herokuapp.com/rb/csv_record.png)](http://badge.fury.io/rb/csv_record)
+[![Build Status](https://travis-ci.org/lukelex/csv_record.png?branch=2.0.0)](https://travis-ci.org/lukelex/csv_record) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lukelex/csv_record) [![Dependency Status](https://gemnasium.com/lukasalexandre/csv_record.png)](https://gemnasium.com/lukasalexandre/csv_record) [![Gem Version](https://fury-badge.herokuapp.com/rb/csv_record.png)](http://badge.fury.io/rb/csv_record)
 
 
 CSV Record connects Ruby classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.
@@ -11,7 +11,7 @@ CSV Record connects Ruby classes to CSV documents database to establish an almos
 
 The CSV_Record Wiki has lots of additional information about CSV_Record. Please browse the Wiki after finishing this README:
 
-wiki.github.com/lukasalexandre/csv_record
+https://github.com/lukelex/csv_record/wiki
 
 ##Bug reports
 
@@ -21,7 +21,7 @@ If you discover a problem with CSV_Record, we would like to know about it. Howev
 
 We hope that you will consider contributing to CSV_Record. Please read this short overview for some information about how to get started:
 
-https://github.com/lukasalexandre/csv_record/wiki/Contributing
+https://github.com/lukelex/csv_record/wiki/Contributing
 
 You will usually want to write tests for your changes. To run the test suite, go into CSV_Record's top-level directory and run "bundle install" and "rake". For the tests to pass.
 
