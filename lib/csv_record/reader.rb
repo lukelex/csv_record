@@ -1,3 +1,5 @@
+require_relative 'csv_queries/query'
+
 module CsvRecord::Reader
   module ClassMethods
     DYNAMIC_FINDER_PATTERN = /^find_by_(.+)$/
