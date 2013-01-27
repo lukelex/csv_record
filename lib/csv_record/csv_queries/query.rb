@@ -37,12 +37,12 @@ protected
     conditions_string = ''
     self.conditions.each_with_index do |condition, index|
       conditions_string << condition.to_code
-      conditions_string << ' and ' if first_or_last? index
+      conditions_string << ' and ' if first_and_not_last? index
     end
     conditions_string
   end
 
-  def first_or_last?(index)
+  def first_and_not_last?(index)
     (self.conditions.size > 1) and (index != self.conditions.size - 1)
   end
 end
