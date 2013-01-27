@@ -41,10 +41,7 @@ module CsvRecord::Reader
     end
 
     def __where__(params)
-      open_database_file do |csv|
-        rows = search_for csv, params
-        rows.map { |row| self.build row.to_hash }
-      end
+      (CsvRecord::Query.new self, params).trigger
     end
 
     def method_missing(meth, *args, &block)
@@ -62,24 +59,6 @@ module CsvRecord::Reader
     end
 
     protected
-
-    def search_for(csv, params)
-      conditions = handle_params params
-      csv.entries.select do |attributes|
-        eval conditions
-      end
-    end
-
-    def handle_params(params)
-      conditions = ''
-      index = 0
-      params.each_pair do |property, value|
-        conditions << "attributes['#{property}'] == '#{value}'"
-        conditions << ' && ' if (params.size > 1) && (index != params.size - 1)
-        index += 1
-      end
-      conditions
-    end
 
     def dynamic_finder(meth, *args, &block)
       properties = meth.split '_and_'

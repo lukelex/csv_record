@@ -5,4 +5,8 @@ class CsvRecord::Condition
     @field = field
     @value = value
   end
+
+  def to_s
+    "attributes['#{@field}'] == '#{@value}'"
+  end
 end
