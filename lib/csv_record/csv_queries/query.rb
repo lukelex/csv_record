@@ -12,7 +12,8 @@ class CsvRecord::Query
   end
 
   def __where__(params)
-    self.conditions << params
+    new_conditions = (CsvRecord::Condition.create_from_hashes params)
+    @conditions = (@conditions << new_conditions).flatten # figure out a way to solve this later
     self
   end
 
@@ -20,6 +21,20 @@ class CsvRecord::Query
     klass.open_database_file do |csv|
       rows = search_for csv, self.conditions
       rows.map { |row| klass.build row.to_hash }
+    end
+  end
+
+  def inspect
+    to_a.inspect
+  end
+
+  def to_a
+    trigger
+  end
+
+  %w(first last).each do |array_accessor|
+    define_method array_accessor do
+      eval "to_a.#{array_accessor}"
     end
   end
 

@@ -33,4 +33,26 @@ describe CsvRecord::Query do
       end
     end
   end
+
+  describe 'lazy querying' do
+    before do
+      yoda.save
+      qui_gon_jinn.save
+    end
+
+    describe 'should trigger the query' do
+      it 'when calling the to_a' do
+        query.to_a.must_be_instance_of Array
+        query.to_a.first.must_be_instance_of Jedi
+      end
+
+      it 'when calling the first' do
+        query.last.must_be_instance_of Jedi
+      end
+
+      it 'when calling the last' do
+        query.first.must_be_instance_of Jedi
+      end
+    end
+  end
 end

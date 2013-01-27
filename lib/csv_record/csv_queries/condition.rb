@@ -6,6 +6,12 @@ class CsvRecord::Condition
     @value = value
   end
 
+  def self.create_from_hashes(hashes)
+    hashes.map do |hash|
+      new *hash
+    end
+  end
+
   def to_code
     "attributes['#{@field}'] == '#{@value}'"
   end
