@@ -21,9 +21,8 @@ class CsvRecord::Query
 protected
 
   def search_for(csv, params)
-    conditions_string = self.conditions_as_string
     csv.entries.select do |attributes|
-      eval conditions_string
+      eval conditions_as_string
     end
   end
 
@@ -31,12 +30,12 @@ protected
     conditions_string = ''
     self.conditions.each_with_index do |condition, index|
       conditions_string << condition.to_s
-      conditions_string << ' && ' if first_or_last? index
+      conditions_string << ' and ' if first_or_last? index
     end
     conditions_string
   end
 
   def first_or_last?(index)
-    (self.conditions.size > 1) && (index != self.conditions.size - 1)
+    (self.conditions.size > 1) and (index != self.conditions.size - 1)
   end
 end
