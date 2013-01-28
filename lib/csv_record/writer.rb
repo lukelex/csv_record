@@ -46,6 +46,9 @@ module CsvRecord::Writer
       params.each do |field, value|
         self.public_send "#{field}=", value
       end
+
+      yield self if block_given?
+
       self.save validate
     end
 
