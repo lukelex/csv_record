@@ -12,12 +12,14 @@ describe CsvRecord::Validations do
   end
 
   describe 'initializing instance methods' do
-    it ('responds to valid?') { Jedi.new.must_respond_to :valid? }
-    it ('responds to invalid?') { Jedi.new.must_respond_to :invalid? }
-    it ('responds to errors') { Jedi.new.must_respond_to :errors }
+    let (:jedi) { Jedi.new }
+
+    it ('responds to valid?') { jedi.must_respond_to :valid? }
+    it ('responds to invalid?') { jedi.must_respond_to :invalid? }
+    it ('responds to errors') { jedi.must_respond_to :errors }
   end
 
-  describe 'validates_presence_of' do
+  describe '.validates_presence_of' do
     it 'all fields valid' do
       yoda.valid?.must_equal true
     end
@@ -36,7 +38,7 @@ describe CsvRecord::Validations do
     end
   end
 
-  describe 'invalid?' do
+  describe '#invalid?' do
     it 'invalid object' do
       invalid_jedi.invalid?.must_equal true
     end
@@ -46,7 +48,7 @@ describe CsvRecord::Validations do
     end
   end
 
-  describe 'errors' do
+  describe '#errors' do
     it 'wont be empty when invalid' do
       invalid_jedi.valid?
       invalid_jedi.errors.wont_be_empty
@@ -76,7 +78,7 @@ describe CsvRecord::Validations do
     end
   end
 
-  describe 'validates_uniqueness_of' do
+  describe '.validates_uniqueness_of' do
     before { yoda.save }
 
     let :fake_yoda do
@@ -88,11 +90,12 @@ describe CsvRecord::Validations do
     end
   end
 
-  describe 'custom_validator' do
-    it ('responds to validate') { CustomErrorsClass.must_respond_to :validate }
-
+  describe '.custom_validator' do
     let(:custom_error_class) { CustomErrorsClass.new }
+
     before { custom_error_class.valid? }
+
+    it ('responds to validate') { CustomErrorsClass.must_respond_to :validate }
 
     it 'adding a custom validator' do
       custom_error_class.errors.must_include :custom_error

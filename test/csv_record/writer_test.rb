@@ -69,9 +69,7 @@ describe CsvRecord::Writer do
     end
 
     describe 'updates' do
-      before do
-        luke.save
-      end
+      before { luke.save }
 
       describe '#update_attribute' do
         it "Updates a single field" do
@@ -108,15 +106,16 @@ describe CsvRecord::Writer do
     end
 
     describe 'destroy' do
-      it 'remove the object from the database' do
+      before do
         luke.save
         luke.destroy
+      end
+
+      it 'remove the object from the database' do
         Jedi.count.must_equal 0
       end
 
       it 'by destroying the object its timestamps and id should be empty' do
-        luke.save
-        luke.destroy
         luke.id.must_be_nil
         luke.created_at.must_be_nil
         luke.updated_at.must_be_nil

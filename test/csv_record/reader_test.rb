@@ -42,24 +42,25 @@ describe CsvRecord::Reader do
       luke.attributes.must_equal expected_result
     end
 
-    it "Retrieves all registries" do
-      luke.save
-      Jedi.all.size.must_equal 1
-      yoda.save
-      Jedi.all.size.must_equal 2
-    end
+    describe 'retrieving resources' do
+      before { luke.save }
 
-    it "counting the registries" do
-      luke.save
-      Jedi.count.must_equal 1
-      yoda.save
-      Jedi.count.must_equal 2
-    end
+      it "Retrieves all registries" do
+        Jedi.all.size.must_equal 1
+        yoda.save
+        Jedi.all.size.must_equal 2
+      end
 
-    it 'checking to_param' do
-      luke.save
-      luke.to_param.wont_be_nil
-      luke.to_param.must_equal '1'
+      it "counting the registries" do
+        Jedi.count.must_equal 1
+        yoda.save
+        Jedi.count.must_equal 2
+      end
+
+      it 'checking to_param' do
+        luke.to_param.wont_be_nil
+        luke.to_param.must_equal '1'
+      end
     end
 
     describe '==' do

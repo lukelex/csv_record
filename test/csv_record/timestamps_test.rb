@@ -10,19 +10,16 @@ describe CsvRecord::Timestamps do
   describe 'defines on create' do
     before do
       Timecop.freeze(Time.now.utc)
+      luke.save
     end
 
-    after do
-      Timecop.return
-    end
+    after { Timecop.return }
 
     it 'sets the time wich the object was created' do
-      luke.save
       luke.created_at.must_equal Time.now.utc
     end
 
     it 'sets the updated time on created' do
-      luke.save
       luke.updated_at.must_equal Time.now.utc
     end
   end

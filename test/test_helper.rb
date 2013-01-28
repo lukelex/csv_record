@@ -3,15 +3,11 @@ require 'minitest/autorun'
 require 'turn'
 require 'csv_record'
 
-module TestHelper
-  BASE_PATH = File.expand_path("../fixtures", __FILE__)
-
-  def fetch_fixture_path(path)
-    File.join(BASE_PATH, path)
-  end
-end
+require_relative 'helpers'
 
 class MiniTest::Spec
+  include Helpers
+
   after :each do
     FileUtils.rm_rf 'db'
   end
