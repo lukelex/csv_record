@@ -46,7 +46,7 @@ describe CsvRecord::Writer do
       end
     end
 
-    describe 'new_record' do
+    describe '#new_record' do
       it "Checks whether is a new record" do
         luke.new_record?.must_equal true
         luke.save
@@ -64,15 +64,28 @@ describe CsvRecord::Writer do
         luke.save
       end
 
-      it "Updates a single field" do
-        luke.update_attribute :age, 24
-        Jedi.find(luke).age.must_equal '24'
+      describe '#update_attribute' do
+        it "Updates a single field" do
+          luke.update_attribute :age, 24
+          Jedi.find(luke).age.must_equal '24'
+        end
       end
 
-      it "Updates multiple fields at the same time" do
-        luke.update_attributes name: 'lukas', midi_chlorians: '99999k'
-        Jedi.find(luke).name.must_equal 'lukas'
-        Jedi.find(luke).midi_chlorians.must_equal '99999k'
+      describe '#update_attributes' do
+        it "Updates multiple fields at the same time" do
+          luke.update_attributes name: 'lukas', midi_chlorians: '99999k'
+          Jedi.find(luke).name.must_equal 'lukas'
+          Jedi.find(luke).midi_chlorians.must_equal '99999k'
+        end
+
+        it 'should take a block' do
+          luke.update_attributes do |jedi|
+            jedi.age = 25
+            jedi.name = 'Lukas Skywalker'
+          end
+          luke.age.must_equal 25
+          luke.name.must_equal 'Lukas Skywalker'
+        end
       end
 
       it "Updates multiple fields using save" do
@@ -82,15 +95,6 @@ describe CsvRecord::Writer do
         retrieved_jedi = Jedi.find(luke)
         retrieved_jedi.name.must_equal 'lukas'
         retrieved_jedi.age.must_equal '24'
-      end
-
-      it 'should take a block' do
-        luke.update_attributes do |jedi|
-          jedi.age = 25
-          jedi.name = 'Lukas Skywalker'
-        end
-        luke.age.must_equal 25
-        luke.name.must_equal 'Lukas Skywalker'
       end
     end
 
