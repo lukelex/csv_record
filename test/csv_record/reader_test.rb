@@ -19,14 +19,26 @@ describe CsvRecord::Reader do
   end
 
   describe 'validating the methods behavior' do
-    it 'building an instance' do
-      new_jedi = Jedi.build(
-        name: 'Yoda the red',
-        age: 148,
-        midi_chlorians: '0.5k'
-      )
-      new_jedi.wont_be_nil
-      new_jedi.must_be_instance_of Jedi
+    describe '#build' do
+      it 'traditionally' do
+        new_jedi = Jedi.build(
+          name: 'Yoda the red',
+          age: 148,
+          midi_chlorians: '0.5k'
+        )
+        new_jedi.wont_be_nil
+        new_jedi.must_be_instance_of Jedi
+      end
+
+      it 'with a block' do
+        new_jedi = Jedi.build do |jedi|
+          jedi.name = 'Yoda the red',
+          jedi.age = 148,
+          jedi.midi_chlorians = '0.5k'
+        end
+        new_jedi.wont_be_nil
+        new_jedi.must_be_instance_of Jedi
+      end
     end
 
     it 'Check the current fields' do

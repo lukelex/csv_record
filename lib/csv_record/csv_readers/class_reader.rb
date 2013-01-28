@@ -9,6 +9,7 @@ module CsvRecord::Reader
       params.each do |key, value|
         inst.public_send("#{key}=", value)
       end if params
+      yield inst if block_given?
       inst
     end
 
