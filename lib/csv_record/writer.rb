@@ -2,6 +2,7 @@ module CsvRecord::Writer
   module ClassMethods
     def __create__(attributes={})
       instance = self.build attributes
+      yield instance if block_given?
       result = instance.save
       instance
     end

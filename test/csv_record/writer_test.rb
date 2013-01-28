@@ -19,7 +19,7 @@ describe CsvRecord::Writer do
   end
 
   describe 'validating the methods behavior' do
-    describe 'create' do
+    describe '.create' do
       it "Creates more than one registry" do
         luke.save
         yoda.save
@@ -43,6 +43,15 @@ describe CsvRecord::Writer do
         luke.id.must_equal 1
         yoda.save
         yoda.id.must_equal 2
+      end
+
+      it 'should take a block' do
+        jedi = Jedi.create do |jedi|
+          jedi.name = 'Lukas Alexandre'
+          jedi.age = '24'
+          jedi.midi_chlorians = '99k'
+        end
+        jedi.new_record?.must_equal false
       end
     end
 
