@@ -2,7 +2,7 @@ require 'active_support/core_ext/string/inflections.rb'
 
 require 'csv_record/connector'
 require 'csv_record/csv_writers/writer'
-require 'csv_record/reader'
+require 'csv_record/csv_readers/reader'
 require 'csv_record/timestamps'
 require 'csv_record/callbacks'
 require 'csv_record/helpers'
@@ -19,11 +19,10 @@ module CsvRecord::Document
     receiver.const_set 'DATABASE_LOCATION_TMP',"db/#{klass.underscore.pluralize}_tmp.csv"
 
     receiver.extend         CsvRecord::Connector
-    receiver.extend         CsvRecord::Reader::ClassMethods
     receiver.extend         CsvRecord::Associations
     receiver.extend         CsvRecord::Validations::ClassMethods
     receiver.send :include, CsvRecord::Writer
-    receiver.send :include, CsvRecord::Reader::InstanceMethods
+    receiver.send :include, CsvRecord::Reader
     receiver.send :include, CsvRecord::Timestamps
     receiver.send :include, CsvRecord::Validations::InstanceMethods
     receiver.send :include, CsvRecord::Callbacks
