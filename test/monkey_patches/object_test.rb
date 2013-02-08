@@ -41,7 +41,7 @@ describe Object do
       'abc'.to_param.must_equal 'abc'
     end
 
-    it 'passing a string' do
+    it 'passing a float' do
       (15.50).to_param.must_equal 15.50
     end
   end
