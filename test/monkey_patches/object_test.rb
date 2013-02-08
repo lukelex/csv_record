@@ -48,9 +48,7 @@ describe Object do
 
   describe 'underscored_class_name' do
     it 'custom class' do
-      new_class = Class.new
-      MyCustomClass = new_class
-
+      MyCustomClass = Class.new
       MyCustomClass.new.underscored_class_name.must_equal 'my_custom_class'
     end
   end
