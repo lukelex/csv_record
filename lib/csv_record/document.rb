@@ -23,8 +23,8 @@ module CsvRecord::Document
     receiver.extend         CsvRecord::Validations::ClassMethods
     receiver.send :include, CsvRecord::Writer
     receiver.send :include, CsvRecord::Reader
-    receiver.send :include, CsvRecord::Timestamps
     receiver.send :include, CsvRecord::Validations::InstanceMethods
     receiver.send :include, CsvRecord::Callbacks
+    receiver.send :include, CsvRecord::Timestamps
   end
 end

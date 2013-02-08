@@ -51,12 +51,10 @@ module CsvRecord::Writer
     end
 
     def append_registry
-      set_created_at
       write_object
     end
 
     def update_registry
-      set_updated_at
       self.class.parse_database_file do |row|
         new_row = row
         new_row = self.values if self.id.to_i == row.field('id').to_i

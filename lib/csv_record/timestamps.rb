@@ -2,8 +2,17 @@
 # timestamp.
 module CsvRecord::Timestamps
   def self.included(receiver)
-    receiver.send :attr_accessor, :created_at
-    receiver.send :attr_accessor, :updated_at
+    receiver.class_eval do
+      attr_accessor :created_at, :updated_at
+
+      before_create do
+        set_created_at
+      end
+
+      after_update do
+        set_updated_at
+      end
+    end
   end
 
 private
