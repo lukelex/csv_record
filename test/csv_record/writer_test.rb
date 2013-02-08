@@ -10,8 +10,6 @@ describe CsvRecord::Writer do
   describe 'initializing instance methods' do
     it ('responds to save') { luke.must_respond_to :save }
     it ('responds to new_record?') { luke.must_respond_to :new_record? }
-    it ('responds to calculate_id') { luke.must_respond_to :calculate_id }
-    it ('responds to write_object') { luke.must_respond_to :write_object }
     it ('responds to id') { luke.must_respond_to :id }
     it ('responds to update_attribute') { luke.must_respond_to :update_attribute }
     it ('responds to update_attributes') { luke.must_respond_to :update_attributes }
