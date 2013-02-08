@@ -20,7 +20,7 @@ module CsvRecord::Validations
       define_method "__#{class_macro}__" do |*field_names|
         field_names.each do |field|
           validation_obj = validation_class_name.new field
-          self.public_send("add_to_#{validator_collection}", validation_obj)
+          self.public_send "add_to_#{validator_collection}", validation_obj
         end
       end
 
@@ -55,7 +55,7 @@ module CsvRecord::Validations
     def errors
       unless @errors
         @errors = []
-        def @errors.add(attribute)
+        def @errors.add attribute
           self << attribute
         end
       end

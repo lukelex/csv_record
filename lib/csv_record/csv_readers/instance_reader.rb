@@ -1,7 +1,7 @@
 module CsvRecord::Reader
   module InstanceMethods
     def __values__
-      self.class.fields.map { |attribute| self.public_send(attribute) }
+      self.class.fields.map { |attribute| self.public_send attribute }
     end
 
     def __attributes__

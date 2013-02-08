@@ -23,7 +23,7 @@ module CsvRecord::Writer
 
     def __update_attributes__(params={validate: true})
       validate = params[:validate]
-      params.delete(:validate)
+      params.delete :validate
 
       params.each do |field, value|
         self.public_send "#{field}=", value

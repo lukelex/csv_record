@@ -23,7 +23,7 @@ module CsvRecord::Connector
 
   # Checks wheter the database file exists
   def db_initialized?
-    File.exist? self.const_get('DATABASE_LOCATION')
+    File.exist? self.const_get 'DATABASE_LOCATION'
   end
 
   # Open the database file
@@ -32,7 +32,7 @@ module CsvRecord::Connector
   def __open_database_file__(mode=READ_MODE)
     __initialize_db__ if mode == READ_MODE # fix this later
     CSV.open(self.const_get('DATABASE_LOCATION'), mode, headers: true) do |csv|
-      yield(csv)
+      yield csv
     end
   end
 
@@ -42,7 +42,7 @@ module CsvRecord::Connector
       CSV.open(self.const_get('DATABASE_LOCATION_TMP'), WRITE_MODE, headers: true) do |copy|
         copy << fields
         csv.entries.each do |entry|
-          new_row = yield(entry)
+          new_row = yield entry
           copy << new_row if new_row
         end
       end
@@ -54,10 +54,10 @@ module CsvRecord::Connector
 
   # Rename the TMP database file to replace the original
   def rename_database
-    old_file = self.const_get('DATABASE_LOCATION')
-    tmp_file = self.const_get('DATABASE_LOCATION_TMP')
+    old_file = self.const_get 'DATABASE_LOCATION'
+    tmp_file = self.const_get 'DATABASE_LOCATION_TMP'
     File.delete old_file
-    File.rename(tmp_file, old_file)
+    File.rename tmp_file, old_file
   end
 
   alias :initialize_db_directory :__initialize_db_directory__

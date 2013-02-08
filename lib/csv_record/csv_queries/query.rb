@@ -39,7 +39,7 @@ class CsvRecord::Query
   end
 
   def each(&block)
-    to_a.each(&block)
+    to_a.each &block
   end
 
   def empty?

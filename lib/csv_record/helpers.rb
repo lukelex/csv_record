@@ -20,7 +20,7 @@ end
 
 class String
   def constantize
-    self.split('_').map {|w| w.capitalize}.join
+    self.split('_').map { |w| w.capitalize }.join
   end
   def to_class
     Object.const_get self.constantize.singularize
