@@ -13,10 +13,10 @@ require 'csv_record/csv_validations/validations'
 # the database.
 module CsvRecord::Document
   def self.included(receiver)
-    klass = receiver.name
+    table_name = receiver.name.underscore.pluralize
 
-    receiver.const_set 'DATABASE_LOCATION',"db/#{klass.underscore.pluralize}.csv"
-    receiver.const_set 'DATABASE_LOCATION_TMP',"db/#{klass.underscore.pluralize}_tmp.csv"
+    receiver.const_set 'DATABASE_LOCATION',"db/#{table_name}.csv"
+    receiver.const_set 'DATABASE_LOCATION_TMP',"db/#{table_name}_tmp.csv"
 
     receiver.extend         CsvRecord::Connector
     receiver.extend         CsvRecord::Associations
