@@ -10,6 +10,7 @@ require_relative 'models/jedi_order'
 require_relative 'models/padawan'
 require_relative 'models/callback_test_class'
 require_relative 'models/custom_errors_class'
+require_relative 'models/customized_class'
 
 class MiniTest::Spec
   include Helpers

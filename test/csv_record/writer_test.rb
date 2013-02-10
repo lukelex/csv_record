@@ -103,7 +103,7 @@ describe CsvRecord::Writer do
       end
     end
 
-    describe 'destroy' do
+    describe '#destroy' do
       before do
         luke.save
         luke.destroy
@@ -118,6 +118,16 @@ describe CsvRecord::Writer do
         luke.created_at.must_be_nil
         luke.updated_at.must_be_nil
       end
+    end
+  end
+
+  describe '.store_as' do
+    it 'uses the default class name' do
+      Jedi.table_name.must_equal 'jedis'
+    end
+
+    it 'uses a custom database name' do
+      CustomizedClass.table_name.must_equal 'modifications'
     end
   end
 end
