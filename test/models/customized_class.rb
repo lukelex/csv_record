@@ -1,5 +1,5 @@
 class CustomizedClass
   include CsvRecord::Document
 
-  store_as :modification
+  store_as :wierd_name
 end

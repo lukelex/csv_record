@@ -127,7 +127,7 @@ describe CsvRecord::Writer do
     end
 
     it 'uses a custom database name' do
-      CustomizedClass.table_name.must_equal 'modifications'
+      CustomizedClass.table_name.must_equal 'wierd_names'
     end
   end
 end
