@@ -16,7 +16,7 @@ module CsvRecord::Connector
     __initialize_db_directory__
     unless db_initialized?
       open_database_file WRITE_MODE do |csv|
-        csv << fields
+        csv << doppelganger_fields
       end
     end
   end

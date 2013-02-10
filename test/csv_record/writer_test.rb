@@ -133,11 +133,7 @@ describe CsvRecord::Writer do
 
   describe '.mapping' do
     it 'qwe' do
-      CustomizedClass.create name: 'Edward Scissorhands'
-
-      # CSV.open(CustomizedClass.const_get('DATABASE_LOCATION_TMP'), CustomizedClass::WRITE_MODE, headers: true) do |csv|
-      #   p csv.entries
-      # end
+      CustomizedClass.fields.must_include :wierd_field
     end
   end
 end

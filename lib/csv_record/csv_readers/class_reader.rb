@@ -14,7 +14,11 @@ module CsvRecord::Reader
     end
 
     def __fields__
-      @relevant_instance_variables
+      @fields ||= CsvRecord::CsvFields.new
+    end
+
+    def doppelganger_fields
+      self.__fields__.map &:doppelganger
     end
 
     def all

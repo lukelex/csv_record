@@ -8,10 +8,11 @@ module CsvRecord::Writer
     end
 
     [:attr_accessor, :attr_writer].each do |custom_accessor|
-      define_method custom_accessor do |*args|
-        @relevant_instance_variables ||= []
-        args.each { |arg| @relevant_instance_variables << arg }
-        super *args
+      define_method custom_accessor do |*attributes|
+        attributes.each do |attribute|
+          self.fields << CsvRecord::Field.new(attribute)
+        end
+        super *attributes
       end
     end
 
@@ -26,7 +27,13 @@ module CsvRecord::Writer
       @table_name ||= store_as name
     end
 
-    alias :create :__create__
+    def mapping(config=[])
+      config.each do |field, doppelganger|
+        unless self.fields.include? field
+          self.fields << (CsvRecord::Field.new field, doppelganger)
+        end
+      end
+    end
 
     def redefine_database_location
       if const_defined?('DATABASE_LOCATION') || const_defined?('DATABASE_LOCATION_TMP')
@@ -37,5 +44,7 @@ module CsvRecord::Writer
       const_set 'DATABASE_LOCATION', "db/#{@table_name}.csv"
       const_set 'DATABASE_LOCATION_TMP', "db/#{@table_name}_tmp.csv"
     end
+
+    alias :create :__create__
   end
 end

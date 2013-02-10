@@ -1,0 +1,1 @@
+class UndefienedCsvField < Exception ; end

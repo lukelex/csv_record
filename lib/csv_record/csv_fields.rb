@@ -1,0 +1,39 @@
+class CsvRecord::CsvFields
+  include Enumerable
+
+  def fields
+    @fields ||= []
+  end
+
+  def <<(field)
+    self.fields << field
+  end
+
+  def include?(field)
+    self.has_doppelganger? field
+  end
+
+  [:field, :doppelganger].each do |attribute|
+    define_method "has_#{attribute}?" do |field|
+      self.fields.any? do |field_model|
+        field_model.public_send(attribute) == field
+      end
+    end
+  end
+
+  def each(&block)
+    self.fields.each &block
+  end
+
+  def method_missing(meth, *args, &block)
+    if self.to_a.respond_to? meth
+      self.to_a.public_send meth, *args, &block
+    else
+      super # You *must* call super if you don't handle the
+            # method, otherwise you'll mess up Ruby's method
+            # lookup.
+    end
+  end
+
+  alias :add :<<
+end
