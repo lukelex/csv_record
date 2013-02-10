@@ -130,4 +130,14 @@ describe CsvRecord::Writer do
       CustomizedClass.table_name.must_equal 'wierd_names'
     end
   end
+
+  describe '.mapping' do
+    it 'qwe' do
+      CustomizedClass.create name: 'Edward Scissorhands'
+
+      # CSV.open(CustomizedClass.const_get('DATABASE_LOCATION_TMP'), CustomizedClass::WRITE_MODE, headers: true) do |csv|
+      #   p csv.entries
+      # end
+    end
+  end
 end

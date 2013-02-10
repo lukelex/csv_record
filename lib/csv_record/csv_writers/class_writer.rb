@@ -17,9 +17,7 @@ module CsvRecord::Writer
 
     def store_as(name)
       @table_name = name.to_s.underscore.pluralize
-
-      self.const_set 'DATABASE_LOCATION', "db/#{@table_name}.csv"
-      self.const_set 'DATABASE_LOCATION_TMP', "db/#{@table_name}_tmp.csv"
+      redefine_database_location
 
       @table_name
     end
@@ -29,5 +27,15 @@ module CsvRecord::Writer
     end
 
     alias :create :__create__
+
+    def redefine_database_location
+      if const_defined?('DATABASE_LOCATION') || const_defined?('DATABASE_LOCATION_TMP')
+        send :remove_const, 'DATABASE_LOCATION'
+        send :remove_const, 'DATABASE_LOCATION_TMP'
+      end
+
+      const_set 'DATABASE_LOCATION', "db/#{@table_name}.csv"
+      const_set 'DATABASE_LOCATION_TMP', "db/#{@table_name}_tmp.csv"
+    end
   end
 end
