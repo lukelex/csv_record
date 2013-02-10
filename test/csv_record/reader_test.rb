@@ -190,7 +190,7 @@ describe CsvRecord::Reader do
         values = []
         i.times do |k|
           conditions[i] = conditions[i] ? "#{conditions[i]}_and_#{properties[k]}" : properties[k]
-          values << luke.send(properties[k].field)
+          values << luke.send(properties[k].name)
         end
         if conditions[i]
           found_jedis = Jedi.public_send "find_by_#{conditions[i]}", *values

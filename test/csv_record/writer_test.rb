@@ -132,11 +132,14 @@ describe CsvRecord::Writer do
   end
 
   describe '.mapping' do
-    it 'qwe' do
-      CustomizedClass.create name: 'lukas'
+    it 'checking the fields initialization' do
       CustomizedClass.fields.must_include :wierd_field
       CustomizedClass.doppelganger_fields.wont_include :name
-      CustomizedClass.fields.wont_include :name
+    end
+
+    it 'checking the recovery of the custom field' do
+      CustomizedClass.create name: 'Ruppert'
+      CustomizedClass.first.name.must_equal 'Ruppert'
     end
   end
 end

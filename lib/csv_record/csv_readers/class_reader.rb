@@ -7,7 +7,9 @@ module CsvRecord::Reader
     def build(params={})
       inst = new
       params.each do |key, value|
-        inst.public_send "#{key}=", value
+        attribute = fields.find_with_doppelganger(key)
+        attr_name = attribute ? attribute.name : key
+        inst.public_send "#{attr_name}=", value
       end if params
       yield inst if block_given?
       inst
