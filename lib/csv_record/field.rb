@@ -1,16 +1,16 @@
 class CsvRecord::Field
-  attr_reader :field, :doppelganger
+  attr_reader :name, :doppelganger
 
-  def initialize(field, doppelganger=nil)
-    @field = field
+  def initialize(name, doppelganger=nil)
+    @name = name
     @doppelganger = doppelganger
   end
 
   def doppelganger
-    @doppelganger || @field
+    @doppelganger || @name
   end
 
   def to_s
-    self.field.to_s
+    self.name.to_s
   end
 end
