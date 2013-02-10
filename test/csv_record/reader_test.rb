@@ -1,7 +1,5 @@
 require_relative '../test_helper'
 
-require_relative '../models/jedi'
-
 describe CsvRecord::Reader do
   describe 'initializing class methods' do
     it ('responds to fields') { Jedi.must_respond_to :fields }

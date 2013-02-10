@@ -5,6 +5,12 @@ require 'csv_record'
 
 require_relative 'helpers'
 
+require_relative 'models/jedi'
+require_relative 'models/jedi_order'
+require_relative 'models/padawan'
+require_relative 'models/callback_test_class'
+require_relative 'models/custom_errors_class'
+
 class MiniTest::Spec
   include Helpers
 

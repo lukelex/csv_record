@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-require_relative '../models/jedi'
 
 describe CsvRecord::Query do
   let (:query) { CsvRecord::Query.new Jedi, age: 37 }

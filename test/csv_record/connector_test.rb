@@ -1,7 +1,5 @@
 require_relative '../test_helper'
 
-require_relative '../models/jedi'
-
 describe CsvRecord::Connector do
   describe 'initializing methods' do
     it ('responds to initialize_db_directory') { Jedi.must_respond_to :initialize_db_directory }

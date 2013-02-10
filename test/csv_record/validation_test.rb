@@ -1,7 +1,4 @@
 require_relative '../test_helper'
-require_relative '../models/jedi'
-require_relative '../models/jedi_order'
-require_relative '../models/custom_errors_class'
 
 describe CsvRecord::Validations do
   let (:invalid_jedi) { Jedi.new }
