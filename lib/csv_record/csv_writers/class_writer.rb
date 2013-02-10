@@ -10,7 +10,9 @@ module CsvRecord::Writer
     [:attr_accessor, :attr_writer].each do |custom_accessor|
       define_method custom_accessor do |*attributes|
         attributes.each do |attribute|
-          self.fields << CsvRecord::Field.new(attribute)
+          unless self.fields.has_field? attribute
+            self.fields << CsvRecord::Field.new(attribute)
+          end
         end
         super *attributes
       end

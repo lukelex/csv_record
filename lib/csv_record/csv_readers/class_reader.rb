@@ -17,7 +17,7 @@ module CsvRecord::Reader
       @fields ||= CsvRecord::CsvFields.new
     end
 
-    def doppelganger_fields
+    def __doppelganger_fields__
       self.__fields__.map &:doppelganger
     end
 
@@ -75,5 +75,6 @@ module CsvRecord::Reader
     alias :find :__find__
     alias :count :__count__
     alias :where :__where__
+    alias :doppelganger_fields :__doppelganger_fields__
   end
 end
