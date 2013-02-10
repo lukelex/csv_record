@@ -24,15 +24,15 @@ Or install it yourself as:
 $ gem install csv_record
 ```
 
-And inside your Ruby models just require and include the CSV_Record lib and start using it in the same way as your are used to:
+And inside your Ruby models just require and include the CSVRecord lib and start using it in the same way as your are used to:
 
 ```ruby
 require 'csv_record'
 
-class Car
+class Jedi
   include CsvRecord::Document
 
-  attr_accessor :year, :make, :model, :description, :price
+  attr_accessor :name, :age, :midi_chlorians
 end
 ```
 
@@ -40,42 +40,40 @@ end
 To persist the data objects created in your application your can use the following methods:
 
 ```ruby
-Car.create( # save the new record in the database
-  year: 2007,
-  make: 'Chevrolet',
-  model: 'F450',
-  description: 'ac, abs, moon',
-  price: 5000.00
+Jedi.create( # save the new record in the database
+  name: 'Luke Skywalker',
+  age: 18,
+  midi_chlorians: '12k'
 )
 
-car.save # save the record in the database (either creating or changing)
+jedi.save # save the record in the database (either creating or changing)
 
-car.update_attribute :year, 1999 # update a single field of an object
-car.update_attributes year: 1999, model: 'E762' # update multiple fields at the same time
+jedi.update_attribute :age, 29 # update a single field of an object
+jedi.update_attributes age: 29, midi_chlorians: '18k' # update multiple fields at the same time
 
-car.destroy # removes the record from the database
+jedi.destroy # removes the record from the database
 
-car.new_record? # checks if the record is new
+jedi.new_record? # checks if the record is new
 ```
 
 ##Querying
 Records can be queried through the following methods:
 
 ```ruby
-Car.all # retrieves all saved records
+Jedi.all # retrieves all saved records
 
-Car.find car.id # find through its id
-Car.find car # find through the record
+Jedi.find jedi.id # find through its id
+Jedi.find jedi # find through the record
 
-Car.find_by_model 'F450' # find dynamically with a property
-Car.find_by_model_and_price 'F450', 5000.00 # find dynamically with multiple properties
+Jedi.find_by_age 18 # find dynamically with a property
+Jedi.find_by_name_and_age 'Luke Skywalker', 18 # find dynamically with multiple properties
 
-Car.where year: 2007, make: 'Chevrolet', model: 'F450' # find with a multiple parameters hash
+Jedi.where age: 18, name: 'Luke Skywalker', midi_chlorians: 12k # find with a multiple parameters hash
 
-Car.count # returns the amount of records in the database
+Jedi.count # returns the amount of records in the database
 
-Car.first # retrieves the first record in the database
-Car.last # retrieves the last record in the database
+Jedi.first # retrieves the first record in the database
+Jedi.last # retrieves the last record in the database
 ```
 
 Lazy querying is the default behavior now Yey!!
@@ -92,69 +90,78 @@ query.first # #<Jedi:0x007f9df6cea478>
 A Belongs To association can be declared through the following method:
 
 ```ruby
-class Company
+class JediOrder
   include CsvRecord::Document
+
+  attr_accessor :rank
+end
+
+class Jedi
+  include CsvRecord::Document
+
+  belongs_to :jedi_order
 
   attr_accessor :name
 end
 
-class Car
-  include CsvRecord::Document
+jedi_order = JediOrder.create rank: 'council'
 
-  belongs_to :company
-end
+jedi = Jedi.new name: 'Lukas Alexandre'
 
-company = Company.create :name => 'Chuts'
-
-car = Car.new :model => 'F450'
-
-car.company = company
+jedi.jedi_order = jedi_order
 # or
-car.company_id = company.id
+jedi.jedi_order_id = jedi_order.id
 
-car.save
+jedi.save
 
-car.company # #<Company:0x007f9b249b24d8>
+jedi.jedi_order # #<JediOrder:0x007f9b249b24d8>
 ```
 
 ###Has Many
 Extending the previous example, you can use the `has_many` method to establish the inverse relationship:
 
 ```ruby
-class Company
+class JediOrder
   include CsvRecord::Document
 
-  attr_accessor :name
+  attr_accessor :rank
 
-  has_many :cars
+  has_many :jedis
 end
 
-company = Company.create :name => 'Chutz'
+jedi_order = JediOrder.create rank: 'council'
 
-car.company = company
-car.save
+jedi.jedi_order = jedi_order
+jedi.save
 
-company.cars # [#<Car:0x007f9b249b24d8>]
+jedi_order.jedis # [#<Jedi:0x007f9b249b24d8>]
 ```
 
 ###Has One
 The same as has_many but limited to one associated record.
 
 ```ruby
-class Company
+class jedi
   include CsvRecord::Document
 
   attr_accessor :name
 
-  has_one :car
+  has_one :padawan
 end
 
-company = Company.create :name => 'Chutz'
+class Padawan
+  include CsvRecord::Document
 
-car.save
-company.car = car
+  attr_accessor :name
 
-company.car # #<Car:0x007f9b249b24d8>
+  belongs_to :jedi
+end
+
+padawan = Padawan.create name: 'Lukas Alexandre'
+
+jedi.padawan = padawan
+
+jedi.padawan # #<Padawan:0x007f9b249b24d8>
 ```
 
 ##Callbacks
@@ -164,7 +171,7 @@ Callbacks can be used to execute code on predetermined moments.
 ####Usage
 ```ruby
 after_create do
-  self.do_something
+  # learn the way of the force
 end
 ```
 `self` refers to the instance you are in
@@ -207,7 +214,7 @@ Here is a list with all the available callbacks, listed in the same order in whi
 `validate`: Uses custom method(s) to validate the model
 
 ```ruby
-class Company
+class Jedi
   include CsvRecord::Document
 
   attr_accessor :name
@@ -218,20 +225,19 @@ class Company
   validate :my_custom_validator_method
 
   validate do
-    self.errors.add :attribute
+    self.errors.add :attribute if self.using_dark_force?
   end
 
   def my_custom_validator_method
-    self.errors.add :attribute
+    self.errors.add :attribute if self.attacking_instead_of_defending?
   end
 end
 
-company = Company.create
-company.save # => false
+jedi = Jedi.new
 
-company = Company.create
-company.valid? # => false
-company.invalid? # => true
+jedi.valid? # => false
+jedi.invalid? # => true
+jedi.save # => false
 ```
 
 ##Customizations
