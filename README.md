@@ -68,7 +68,7 @@ Jedi.find jedi # find through the record
 Jedi.find_by_age 18 # find dynamically with a property
 Jedi.find_by_name_and_age 'Luke Skywalker', 18 # find dynamically with multiple properties
 
-Jedi.where age: 18, name: 'Luke Skywalker', midi_chlorians: 12k # find with a multiple parameters hash
+Jedi.where age: 18, name: 'Luke Skywalker', midi_chlorians: '12k' # find with a multiple parameters hash
 
 Jedi.count # returns the amount of records in the database
 
@@ -242,7 +242,7 @@ jedi.save # => false
 
 ##Customizations
 
-Someday you will want to go "out of the rail" that we propose. Here is what you can do now:
+Someday you might want to go "out of the rail" that we propose. Here is what you can do now:
 
 ###Changing the table_name
 ```ruby
@@ -255,7 +255,7 @@ mapping :name => :wierd_field
 
 ##Bug reports
 
-If you discover a problem with CSV_Record, we would like to know about it. However, we ask that you please review these guidelines before submitting a bug report:
+If you discover a problem with CSV_Record, we would like to know about it. Please let us know on the project issues page.
 
 ##Contributing
 
