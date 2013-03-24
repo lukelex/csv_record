@@ -23,9 +23,9 @@
 
 require 'csv'
 
-require 'csv_record/document'
+require 'csv_record/version'
 
-require "csv_record/version"
+require 'csv_record/document'
 
 module CsvRecord
   # Sets the CsvRecord configuration options. Best used by passing a block.
