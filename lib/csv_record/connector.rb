@@ -1,3 +1,5 @@
+require 'lockfile'
+
 module CsvRecord::Connector
   DATABASE_FOLDER = 'db'.freeze
   APPEND_MODE = 'a'.freeze
@@ -31,7 +33,8 @@ module CsvRecord::Connector
   # +mode+:: the operation mode (defaults to READ_MODE)
   def __open_database_file__(mode=READ_MODE)
     __initialize_db__ if mode == READ_MODE # fix this later
-    CSV.open(self.const_get('DATABASE_LOCATION'), mode, headers: true) do |csv|
+    db_location = self.const_get('DATABASE_LOCATION')
+    CSV.open(db_location, mode, headers: true) do |csv|
       yield csv
     end
   end
@@ -56,6 +59,7 @@ module CsvRecord::Connector
   def rename_database
     old_file = self.const_get 'DATABASE_LOCATION'
     tmp_file = self.const_get 'DATABASE_LOCATION_TMP'
+    while not File.exists?(old_file) ; sleep(10) ; end
     File.delete old_file
     File.rename tmp_file, old_file
   end
