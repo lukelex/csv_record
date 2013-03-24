@@ -1,5 +1,3 @@
-require 'lockfile'
-
 module CsvRecord::Connector
   DATABASE_FOLDER = 'db'.freeze
   APPEND_MODE = 'a'.freeze
