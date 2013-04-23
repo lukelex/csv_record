@@ -36,7 +36,7 @@ class Jedi
 end
 ```
 
-##Persistance
+##Persistence
 To persist the data objects created in your application your can use the following methods:
 
 ```ruby
