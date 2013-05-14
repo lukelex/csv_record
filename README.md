@@ -176,7 +176,7 @@ end
 ```
 `self` refers to the instance you are in
 
-###Avaiable Callbacks
+###Available Callbacks
 Here is a list with all the available callbacks, listed in the same order in which they will get called during the respective operations:
 
 ####Finding an Object
