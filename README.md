@@ -37,7 +37,7 @@ end
 ```
 
 ##Persistence
-To persist the data objects created in your application your can use the following methods:
+To persist the data objects created in your application you can use the following methods:
 
 ```ruby
 Jedi.create( # save the new record in the database
