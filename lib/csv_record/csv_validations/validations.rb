@@ -66,15 +66,12 @@ module CsvRecord::Validations
     alias :valid? :__valid__?
 
     private
-    def trigger_presence_validations
-      self.class.fields_to_validate_presence.each do |validator|
-        validator.run_on self
-      end
-    end
-
-    def trigger_uniqueness_validations
-      self.class.fields_to_validate_uniqueness.each do |validator|
-        validator.run_on self
+    [:presence, :uniqueness].each do |type|
+      define_method "trigger_#{type}_validations" do
+        fields_to_validate = self.class.public_send "fields_to_validate_#{type}"
+        fields_to_validate.each do |validator|
+          validator.run_on self
+        end
       end
     end
 
