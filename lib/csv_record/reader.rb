@@ -1,4 +1,4 @@
-require 'csv_record/csv_queries/query'
+require 'csv_record/query'
 
 module CsvRecord::Reader
   module ClassMethods
