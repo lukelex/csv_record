@@ -79,4 +79,37 @@ module CsvRecord::Reader
     alias :where :__where__
     alias :doppelganger_fields :__doppelganger_fields__
   end
+
+  module InstanceMethods
+    def __values__
+      self.class.fields.map do |attribute|
+        self.public_send attribute.name
+      end
+    end
+
+    def __attributes__
+      Hash[self.class.fields.zip self.values]
+    end
+
+    def __to_param__
+      self.id.to_s
+    end
+
+    def ==(obj)
+      self.class == obj.class and self.to_param == obj.to_param
+    end
+
+    def !=(obj)
+      self.class != obj.class || self.to_param != obj.to_param
+    end
+
+    alias :attributes :__attributes__
+    alias :values :__values__
+    alias :to_param :__to_param__
+  end
+
+  def self.included(receiver)
+    receiver.extend         ClassMethods
+    receiver.send :include, InstanceMethods
+  end
 end

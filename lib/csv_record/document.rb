@@ -2,7 +2,7 @@ require 'active_support/core_ext/string/inflections.rb'
 
 require 'csv_record/connector'
 require 'csv_record/writer'
-require 'csv_record/csv_readers/reader'
+require 'csv_record/reader'
 require 'csv_record/timestamps'
 require 'csv_record/callbacks'
 require 'csv_record/helpers'
