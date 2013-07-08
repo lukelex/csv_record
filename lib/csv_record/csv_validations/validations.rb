@@ -53,19 +53,22 @@ module CsvRecord::Validations
     end
 
     def errors
-      unless @errors
-        @errors = []
-        def @errors.add attribute
-          self << attribute
-        end
-      end
-
+      initialize_errors
       @errors
     end
 
     alias :valid? :__valid__?
 
     private
+    def initialize_errors
+      unless @errors
+        @errors = []
+        def @errors.add attribute
+          self << attribute
+        end
+      end
+    end
+
     [:presence, :uniqueness].each do |type|
       define_method "trigger_#{type}_validations" do
         fields_to_validate = self.class.public_send "fields_to_validate_#{type}"
