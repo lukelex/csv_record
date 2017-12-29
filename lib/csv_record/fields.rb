@@ -1,4 +1,4 @@
-class CsvRecord::CsvFields
+class CsvRecord::Fields
   include Enumerable
 
   def fields
@@ -28,16 +28,14 @@ class CsvRecord::CsvFields
   end
 
   def each(&block)
-    self.fields.each &block
+    self.fields.each(&block)
   end
 
   def method_missing(meth, *args, &block)
-    if self.to_a.respond_to? meth
-      self.to_a.public_send meth, *args, &block
+    if self.to_a.respond_to?(meth)
+      self.to_a.public_send(meth, *args, &block)
     else
-      super # You *must* call super if you don't handle the
-            # method, otherwise you'll mess up Ruby's method
-            # lookup.
+      super
     end
   end
 

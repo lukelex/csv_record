@@ -16,7 +16,7 @@ module CsvRecord::Reader
     end
 
     def __fields__
-      @fields ||= CsvRecord::CsvFields.new
+      @fields ||= ::CsvRecord::Fields.new
     end
 
     def __doppelganger_fields__

@@ -9,7 +9,7 @@ require 'csv_record/helpers'
 require 'csv_record/associations'
 require 'csv_record/csv_validations/validations'
 
-require 'csv_record/csv_fields'
+require 'csv_record/fields'
 require 'csv_record/field'
 require 'csv_record/exceptions'
 
