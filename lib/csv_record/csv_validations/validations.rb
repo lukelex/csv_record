@@ -32,11 +32,10 @@ module CsvRecord::Validations
     end
 
     def validate(*methods, &block)
-      @custom_validators ||= []
       methods.each do |method|
-        @custom_validators << (CsvRecord::CustomValidation.new method)
+        custom_validators << (CsvRecord::CustomValidation.new method)
       end
-      @custom_validators << (CsvRecord::CustomValidation.new block) if block_given?
+      custom_validators << (CsvRecord::CustomValidation.new block) if block_given?
     end
   end
 
