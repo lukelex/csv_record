@@ -3,7 +3,7 @@ module CsvRecord::Writer
     def __create__(attributes={})
       instance = self.build attributes
       yield instance if block_given?
-      result = instance.save
+      instance.save
       instance
     end
 
@@ -14,7 +14,7 @@ module CsvRecord::Writer
             self.fields << CsvRecord::Field.new(attribute)
           end
         end
-        super *attributes
+        super(*attributes)
       end
     end
 

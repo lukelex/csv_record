@@ -9,7 +9,7 @@ class CsvRecord::Query
     @klass = klass
 
     @conditions = conditions.map do |condition|
-      CsvRecord::Condition.new *condition
+      CsvRecord::Condition.new(*condition)
     end
   end
 
@@ -39,7 +39,7 @@ class CsvRecord::Query
   end
 
   def each(&block)
-    to_a.each &block
+    to_a.each(&block)
   end
 
   def empty?

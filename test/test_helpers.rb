@@ -1,4 +1,4 @@
-module Helpers
+module TestHelpers
   BASE_PATH = File.expand_path("../fixtures", __FILE__)
 
   def fetch_fixture_path(path)

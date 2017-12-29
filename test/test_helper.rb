@@ -3,7 +3,7 @@ require 'minitest/autorun'
 require 'turn'
 require 'csv_record'
 
-require_relative 'helpers'
+require_relative 'test_helpers'
 
 require_relative 'models/jedi'
 require_relative 'models/jedi_order'
@@ -13,7 +13,7 @@ require_relative 'models/custom_errors_class'
 require_relative 'models/customized_class'
 
 class MiniTest::Spec
-  include Helpers
+  include TestHelpers
 
   after :each do
     FileUtils.rm_rf 'db'

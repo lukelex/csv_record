@@ -7,6 +7,6 @@ class CsvRecord::Callback
   end
 
   def run_on(obj)
-    obj.instance_eval &self.code
+    obj.instance_eval(&self.code)
   end
 end

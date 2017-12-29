@@ -8,7 +8,7 @@ class CsvRecord::Condition
 
   def self.create_from_hashes(hashes)
     hashes.map do |hash|
-      new *hash
+      new(*hash)
     end
   end
 

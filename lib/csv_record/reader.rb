@@ -20,7 +20,7 @@ module CsvRecord::Reader
     end
 
     def __doppelganger_fields__
-      self.__fields__.map &:doppelganger
+      self.__fields__.map(&:doppelganger)
     end
 
     def all

@@ -79,7 +79,7 @@ describe CsvRecord::Validations do
     before { yoda.save }
 
     let :fake_yoda do
-      fake_yoda = Jedi.new name: 'Yoda the green', age: 238, midi_chlorians: '1k'
+      Jedi.new name: 'Yoda the green', age: 238, midi_chlorians: '1k'
     end
 
     it 'can`t have the same name' do

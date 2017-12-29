@@ -6,8 +6,8 @@ class CsvRecord::CustomValidation
   end
 
   def run_on(obj)
-    if self.message.is_a? Proc
-      obj.instance_eval &self.message
+    if self.message.is_a?(Proc)
+      obj.instance_eval(&self.message)
     else
       obj.send self.message
     end

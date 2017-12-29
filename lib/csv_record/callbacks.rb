@@ -35,9 +35,9 @@ module CsvRecord::Callbacks
   end
 
   module InstanceMethods
-    CALLBACK_TYPES.each do |callback|
-      define_method "run_#{callback}_callbacks" do
-        const_variable = "#{callback}_callbacks".upcase
+    CALLBACK_TYPES.each do |type|
+      define_method "run_#{type}_callbacks" do
+        const_variable = "#{type}_callbacks".upcase
         if self.class.const_defined? const_variable
           callbacks_collection = self.class.const_get const_variable
           callbacks_collection.each do |callback|
@@ -49,7 +49,7 @@ module CsvRecord::Callbacks
 
     [:build, :initialize].each do |initialize_method|
       define_method initialize_method do |*args|
-        result = super *args
+        result = super(*args)
         self.run_after_initialize_callbacks
         result
       end
