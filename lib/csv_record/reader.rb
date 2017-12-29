@@ -68,7 +68,7 @@ module CsvRecord::Reader
     def dynamic_finder(meth, *args, &block)
       properties = meth.split '_and_'
       conditions = Hash[properties.zip args]
-      __where__ conditions
+      __where__(conditions).first
     end
 
     alias :fields :__fields__

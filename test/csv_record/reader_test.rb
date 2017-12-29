@@ -179,9 +179,9 @@ describe CsvRecord::Reader do
     end
 
     it 'finding with a single field' do
-      found_jedis = Jedi.find_by_age 852
-      found_jedis.wont_be_empty
-      found_jedis.first.must_be_instance_of Jedi
+      found_jedi = Jedi.find_by_age(852)
+      found_jedi.wont_be_nil
+      found_jedi.must_be_instance_of Jedi
     end
 
     it 'finding with multiple fields' do
@@ -194,8 +194,8 @@ describe CsvRecord::Reader do
         end
         if conditions[i]
           found_jedis = Jedi.public_send "find_by_#{conditions[i]}", *values
-          found_jedis.wont_be_empty
-          found_jedis.first.must_be_instance_of Jedi
+          found_jedis.wont_be_nil
+          found_jedis.must_be_instance_of Jedi
         end
       end
     end
