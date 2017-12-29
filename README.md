@@ -1,10 +1,14 @@
 # CsvRecord
 
-[![Build Status](https://travis-ci.org/lukelex/csv_record.png?branch=2.0.0)](https://travis-ci.org/lukelex/csv_record) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lukelex/csv_record) [![Gem Version](https://fury-badge.herokuapp.com/rb/csv_record.png)](http://badge.fury.io/rb/csv_record)
+[![Build Status](https://travis-ci.org/lukelex/csv_record.png?branch=2.0.0)](https://travis-ci.org/lukelex/csv_record)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lukelex/csv_record)
+[![Gem Version](https://fury-badge.herokuapp.com/rb/csv_record.png)](http://badge.fury.io/rb/csv_record)
 
-CSV Record connects Ruby classes to CSV documents database to establish an almost zero-configuration persistence layer for applications.
+CSV Record connects Ruby classes to CSV documents database to
+establish an almost zero-configuration persistence layer for
+applications.
 
-##Getting Started
+## Getting Started
 
 Add this line to your application's Gemfile:
 
@@ -24,7 +28,8 @@ Or install it yourself as:
 $ gem install csv_record
 ```
 
-And inside your Ruby models just require and include the CSVRecord lib and start using it in the same way as your are used to:
+And inside your Ruby models just require and include the CSVRecord
+lib and start using it in the same way as your are used to:
 
 ```ruby
 require 'csv_record'
@@ -36,8 +41,9 @@ class Jedi
 end
 ```
 
-##Persistence
-To persist the data objects created in your application you can use the following methods:
+## Persistence
+To persist the data objects created in your application you can
+use the following methods:
 
 ```ruby
 Jedi.create( # save the new record in the database
@@ -56,7 +62,7 @@ jedi.destroy # removes the record from the database
 jedi.new_record? # checks if the record is new
 ```
 
-##Querying
+## Querying
 Records can be queried through the following methods:
 
 ```ruby
@@ -85,8 +91,8 @@ query # #<CsvRecord::Query:0x007fdff3d31aa0>
 query.first # #<Jedi:0x007f9df6cea478>
 ```
 
-##Associations
-###Belongs To
+## Associations
+### Belongs To
 A Belongs To association can be declared through the following method:
 
 ```ruby
@@ -117,7 +123,7 @@ jedi.save
 jedi.jedi_order # #<JediOrder:0x007f9b249b24d8>
 ```
 
-###Has Many
+### Has Many
 Extending the previous example, you can use the `has_many` method to establish the inverse relationship:
 
 ```ruby
@@ -137,7 +143,7 @@ jedi.save
 jedi_order.jedis # [#<Jedi:0x007f9b249b24d8>]
 ```
 
-###Has One
+### Has One
 The same as has_many but limited to one associated record.
 
 ```ruby
@@ -164,11 +170,11 @@ jedi.padawan = padawan
 jedi.padawan # #<Padawan:0x007f9b249b24d8>
 ```
 
-##Callbacks
-###Overview
+## Callbacks
+### Overview
 Callbacks can be used to execute code on predetermined moments.
 
-####Usage
+#### Usage
 ```ruby
 after_create do
   # learn the way of the force
@@ -176,14 +182,14 @@ end
 ```
 `self` refers to the instance you are in
 
-###Available Callbacks
+### Available Callbacks
 Here is a list with all the available callbacks, listed in the same order in which they will get called during the respective operations:
 
-####Finding an Object
+#### Finding an Object
 * after_initialize
 * after_find
 
-####Creating an Object
+#### Creating an Object
 * after_initialize
 * before_validation
 * after_validation
@@ -192,7 +198,7 @@ Here is a list with all the available callbacks, listed in the same order in whi
 * after_create
 * after_save
 
-####Updating an Object
+#### Updating an Object
 * before_validation
 * after_validation
 * before_save
@@ -200,12 +206,12 @@ Here is a list with all the available callbacks, listed in the same order in whi
 * after_update
 * after_save
 
-####Destroying an Object
+#### Destroying an Object
 * before_destroy
 * after_destroy
 
-##Validations
-###Helpers available:
+## Validations
+### Helpers available:
 
 `validates_presence_of`: Ensures if the specified attribute(s) were filled
 
@@ -240,30 +246,36 @@ jedi.invalid? # => true
 jedi.save # => false
 ```
 
-##Customizations
+## Customizations
 
-Someday you might want to go "out of the rail" that we propose. Here is what you can do now:
+Someday you might want to go "out of the rail" that we propose.
+Here is what you can do now:
 
-###Changing the table_name
+### Changing the table_name
 ```ruby
 store_as :wierd_table_name
 ```
-###Changing the field column name
+### Changing the field column name
 ```ruby
 mapping :name => :wierd_field
 ```
 
-##Bug reports
+## Bug reports
 
-If you discover a problem with CSV_Record, we would like to know about it. Please let us know on the project issues page.
+If you discover a problem with CSV_Record, we would like to know
+about it. Please let us know on the project issues page.
 
-##Contributing
+## Contributing
 
-We hope that you will consider contributing to CSV_Record. Please read this short overview for some information about how to get started:
+We hope that you will consider contributing to CSV_Record. Please
+read this short overview for some information about how to get started:
 
 https://github.com/lukelex/csv_record/wiki/Contributing
 
-You will usually want to write tests for your changes. To run the test suite, go into CSV_Record's top-level directory and run "bundle install" and "rake". For the tests to pass.
+You will usually want to write tests for your changes. To run the
+test suite, go into CSV_Record's top-level directory and run
+"bundle install" and "rake". For the tests to pass.
 
-##Precautions
-CsvRecord creates a `db` folder in the root of your application. Be sure that it has permission to do so.
+## Precautions
+CsvRecord creates a `db` folder in the root of your application.
+Be sure that it has permission to do so.
