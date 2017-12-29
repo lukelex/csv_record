@@ -48,16 +48,14 @@ module CsvRecord::Reader
     end
 
     def __where__(params)
-      CsvRecord::Query.new self, params
+      ::CsvRecord::Query.new self, params
     end
 
     def method_missing(meth, *args, &block)
       if meth.to_s =~ DYNAMIC_FINDER_PATTERN
         dynamic_finder $1, *args, &block
       else
-        super # You *must* call super if you don't handle the
-              # method, otherwise you'll mess up Ruby's method
-              # lookup.
+        super
       end
     end
 
