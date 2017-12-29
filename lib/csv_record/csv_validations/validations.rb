@@ -52,21 +52,12 @@ module CsvRecord::Validations
     end
 
     def errors
-      initialize_errors
-      @errors
+      @errors ||= Errors.new
     end
 
     alias :valid? :__valid__?
 
     private
-    def initialize_errors
-      unless @errors
-        @errors = []
-        def @errors.add attribute
-          self << attribute
-        end
-      end
-    end
 
     [:presence, :uniqueness].each do |type|
       define_method "trigger_#{type}_validations" do
@@ -82,5 +73,9 @@ module CsvRecord::Validations
         validator.run_on self
       end
     end
+  end
+
+  class Errors < Array
+    alias_method :add, :<<
   end
 end
