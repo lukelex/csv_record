@@ -6,7 +6,7 @@ module CsvRecord::Connector
 
   # Checks wheter the database directory exists
   def __initialize_db_directory__
-    unless Dir.exists? DATABASE_FOLDER
+    unless Dir.exist?(DATABASE_FOLDER)
       Dir.mkdir DATABASE_FOLDER
     end
   end
@@ -15,7 +15,7 @@ module CsvRecord::Connector
   def __initialize_db__
     __initialize_db_directory__
     unless db_initialized?
-      open_database_file WRITE_MODE do |csv|
+      open_database_file(WRITE_MODE) do |csv|
         csv << doppelganger_fields
       end
     end
@@ -23,7 +23,7 @@ module CsvRecord::Connector
 
   # Checks wheter the database file exists
   def db_initialized?
-    File.exist? self.const_get 'DATABASE_LOCATION'
+    File.exist? self.const_get('DATABASE_LOCATION')
   end
 
   # Open the database file
@@ -43,7 +43,7 @@ module CsvRecord::Connector
       CSV.open(self.const_get('DATABASE_LOCATION_TMP'), WRITE_MODE, headers: true) do |copy|
         copy << fields
         csv.entries.each do |entry|
-          new_row = yield entry
+          new_row = yield(entry)
           copy << new_row if new_row
         end
       end
@@ -57,7 +57,7 @@ module CsvRecord::Connector
   def rename_database
     old_file = self.const_get 'DATABASE_LOCATION'
     tmp_file = self.const_get 'DATABASE_LOCATION_TMP'
-    while not File.exists?(old_file) ; sleep(10) ; end
+    while not File.exist?(old_file) ; sleep(10) ; end
     File.delete old_file
     File.rename tmp_file, old_file
   end
