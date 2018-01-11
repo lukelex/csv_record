@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvRecord::Connector
   DATABASE_FOLDER = 'db'.freeze
   APPEND_MODE = 'a'.freeze

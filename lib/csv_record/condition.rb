@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CsvRecord::Condition
   attr_reader :field, :value
 

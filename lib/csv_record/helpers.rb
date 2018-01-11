@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Object
   def integer?
     /(?<number>^\d+$)/ =~ self.to_s

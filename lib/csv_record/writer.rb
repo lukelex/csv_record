@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvRecord::Writer
   module ClassMethods
     def __create__(attributes={})

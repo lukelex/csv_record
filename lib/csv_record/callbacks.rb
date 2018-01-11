@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv_record/callback'
 
 module CsvRecord::Callbacks
