@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This module handles the behaviour for setting up document created at
 # timestamp.
 module CsvRecord::Timestamps

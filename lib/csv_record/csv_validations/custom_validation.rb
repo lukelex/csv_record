@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CsvRecord::CustomValidation
   attr_accessor :message
 

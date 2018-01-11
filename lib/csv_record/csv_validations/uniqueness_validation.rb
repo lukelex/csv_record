@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CsvRecord::UniquenessValidation
   attr_accessor :field
 

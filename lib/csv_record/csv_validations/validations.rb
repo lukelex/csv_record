@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'custom_validation'
 require_relative 'uniqueness_validation'
 require_relative 'presence_validation'
