@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require File.expand_path('../lib/csv_record/version', __FILE__)
 
 Gem::Specification.new do |gem|
@@ -17,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = CsvRecord::VERSION
 
-  gem.add_dependency 'activesupport', '~> 3.2.9'
+  gem.add_dependency 'activesupport'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'timecop'
@@ -25,4 +24,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'minitest'
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'pry-nav'
+  gem.add_development_dependency 'm'
 end
