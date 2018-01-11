@@ -1,17 +1,17 @@
 require 'active_support/core_ext/string/inflections.rb'
 
-require 'csv_record/connector'
-require 'csv_record/writer'
-require 'csv_record/reader'
-require 'csv_record/timestamps'
-require 'csv_record/callbacks'
-require 'csv_record/helpers'
-require 'csv_record/associations'
-require 'csv_record/csv_validations/validations'
+require_relative 'connector'
+require_relative 'writer'
+require_relative 'reader'
+require_relative 'timestamps'
+require_relative 'callbacks'
+require_relative 'helpers'
+require_relative 'associations'
+require_relative 'csv_validations/validations'
 
-require 'csv_record/fields'
-require 'csv_record/field'
-require 'csv_record/exceptions'
+require_relative 'fields'
+require_relative 'field'
+require_relative 'exceptions'
 
 # This is the base module for all domain objects that need to be persisted to
 # the database.

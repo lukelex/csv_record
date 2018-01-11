@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv_record/callback'
+require_relative 'callback'
 
 module CsvRecord::Callbacks
   CALLBACK_TYPES = [

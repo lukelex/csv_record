@@ -1,6 +1,6 @@
-require 'csv_record/csv_validations/custom_validation'
-require 'csv_record/csv_validations/uniqueness_validation'
-require 'csv_record/csv_validations/presence_validation'
+require_relative 'custom_validation'
+require_relative 'uniqueness_validation'
+require_relative 'presence_validation'
 
 module CsvRecord::Validations
   module ClassMethods
