@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/lukelex/csv_record)
 [![Gem Version](https://fury-badge.herokuapp.com/rb/csv_record.png)](http://badge.fury.io/rb/csv_record)
 
-CSV Record connects Ruby classes to CSV documents database to
+CSV Record connects Ruby classes to CSV documents in order to
 establish an almost zero-configuration persistence layer for
 applications.
 
@@ -46,18 +46,18 @@ To persist the data objects created in your application you can
 use the following methods:
 
 ```ruby
-Jedi.create( # save the new record in the database
+Jedi.create( # save the new record in its CSV file
   name: 'Luke Skywalker',
   age: 18,
   midi_chlorians: '12k'
 )
 
-jedi.save # save the record in the database (either creating or changing)
+jedi.save # save the record in its CSV file (either creating or changing)
 
 jedi.update_attribute :age, 29 # update a single field of an object
 jedi.update_attributes age: 29, midi_chlorians: '18k' # update multiple fields at the same time
 
-jedi.destroy # removes the record from the database
+jedi.destroy # removes the record from its CSV file
 
 jedi.new_record? # checks if the record is new
 ```
@@ -76,10 +76,10 @@ Jedi.find_by_name_and_age 'Luke Skywalker', 18 # find dynamically with multiple 
 
 Jedi.where age: 18, name: 'Luke Skywalker', midi_chlorians: '12k' # find with a multiple parameters hash
 
-Jedi.count # returns the amount of records in the database
+Jedi.count # returns the amount of records in its CSV file
 
-Jedi.first # retrieves the first record in the database
-Jedi.last # retrieves the last record in the database
+Jedi.first # retrieves the first record in its CSV file
+Jedi.last # retrieves the last record in its CSV file
 ```
 
 Lazy querying is the default behavior now Yey!!
@@ -215,7 +215,7 @@ Here is a list with all the available callbacks, listed in the same order in whi
 
 `validates_presence_of`: Ensures if the specified attribute(s) were filled
 
-`validates_uniqueness_of`: Ensures that the specified attribute(s) are unique within the database
+`validates_uniqueness_of`: Ensures that the specified attribute(s) are unique within its CSV file
 
 `validate`: Uses custom method(s) to validate the model
 
