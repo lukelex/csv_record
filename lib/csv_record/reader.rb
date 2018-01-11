@@ -5,14 +5,17 @@ module CsvRecord::Reader
     DYNAMIC_FINDER_PATTERN = /^find_by_(.+)$/
 
     def build(params={})
-      inst = new
-      params.each do |key, value|
-        attribute = fields.find_with_doppelganger(key)
-        attr_name = attribute ? attribute.name : key
-        inst.public_send "#{attr_name}=", value
-      end if params
-      yield inst if block_given?
-      inst
+      new.tap do |inst|
+        break unless params
+
+        params.each do |key, value|
+          attribute = fields.find_with_doppelganger(key)
+          attr_name = attribute ? attribute.name : key
+          inst.public_send "#{attr_name}=", value
+        end
+
+        yield inst if block_given?
+      end
     end
 
     def __fields__
