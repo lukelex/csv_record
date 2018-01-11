@@ -14,11 +14,12 @@ class Jedi
 
   def initialize(params={})
     params.each do |key, value|
-      self.public_send("#{key}=", value)
+      public_send "#{key}=", value
     end
   end
 
-private
+  private
+
   def my_custom_validator_method
     @custom_validator_checker = true
   end

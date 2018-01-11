@@ -23,7 +23,7 @@ module CsvRecord::Reader
     end
 
     def __doppelganger_fields__
-      self.__fields__.map(&:doppelganger)
+      __fields__.map(&:doppelganger)
     end
 
     def all
@@ -84,24 +84,24 @@ module CsvRecord::Reader
   module InstanceMethods
     def __values__
       self.class.fields.map do |attribute|
-        self.public_send attribute.name
+        public_send attribute.name
       end
     end
 
     def __attributes__
-      Hash[self.class.fields.zip self.values]
+      Hash[self.class.fields.zip(values)]
     end
 
     def __to_param__
-      self.id.to_s
+      id.to_s
     end
 
     def ==(obj)
-      self.class == obj.class and self.to_param == obj.to_param
+      self.class == obj.class and to_param == obj.to_param
     end
 
     def !=(obj)
-      self.class != obj.class || self.to_param != obj.to_param
+      self.class != obj.class || to_param != obj.to_param
     end
 
     alias :attributes :__attributes__

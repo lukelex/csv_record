@@ -7,7 +7,7 @@ class JediOrder
 
   def initialize(params={})
     params.each do |key, value|
-      self.public_send("#{key}=", value)
+      public_send "#{key}=", value
     end
   end
 end

@@ -1,7 +1,7 @@
 module CsvRecord::Writer
   module ClassMethods
     def __create__(attributes={})
-      instance = self.build attributes
+      instance = build attributes
       yield instance if block_given?
       instance.save
       instance
@@ -10,8 +10,8 @@ module CsvRecord::Writer
     [:attr_accessor, :attr_writer].each do |custom_accessor|
       define_method custom_accessor do |*attributes|
         attributes.each do |attribute|
-          unless self.fields.has_name? attribute
-            self.fields << CsvRecord::Field.new(attribute)
+          unless fields.has_name? attribute
+            fields << CsvRecord::Field.new(attribute)
           end
         end
         super(*attributes)
@@ -31,8 +31,8 @@ module CsvRecord::Writer
 
     def mapping(config=[])
       config.each do |field, doppelganger|
-        unless self.fields.include? field
-          self.fields << (CsvRecord::Field.new field, doppelganger)
+        unless fields.include? field
+          fields << CsvRecord::Field.new(field, doppelganger)
         end
       end
     end
@@ -56,20 +56,20 @@ module CsvRecord::Writer
     end
 
     def __save__(validate=true)
-      if (not validate) || self.valid?
-        self.new_record? ? self.append_registry : self.update_registry
+      if (not validate) || valid?
+        new_record? ? append_registry : update_registry
       else
         false
       end
     end
 
     def new_record?
-      self.created_at.nil? || self.id.nil?
+      created_at.nil? || id.nil?
     end
 
     def __update_attribute__(field, value)
-      self.public_send "#{field}=", value
-      self.save false
+      public_send "#{field}=", value
+      save false
     end
 
     def __update_attributes__(params={validate: true})
@@ -77,18 +77,18 @@ module CsvRecord::Writer
       params.delete :validate
 
       params.each do |field, value|
-        self.public_send "#{field}=", value
+        public_send "#{field}=", value
       end
 
       yield self if block_given?
 
-      self.save validate
+      save validate
     end
 
     def __destroy__
       self.class.parse_database_file do |row|
         new_row = row
-        new_row = nil if self.id.to_i == row.field('id').to_i
+        new_row = nil if id.to_i == row.field('id').to_i
         new_row
       end
       empty_fields
@@ -108,7 +108,7 @@ module CsvRecord::Writer
     def update_registry
       self.class.parse_database_file do |row|
         new_row = row
-        new_row = self.values if self.id.to_i == row.field('id').to_i
+        new_row = values if id.to_i == row.field('id').to_i
         new_row
       end
       true
@@ -124,7 +124,7 @@ module CsvRecord::Writer
 
     def empty_fields
       %w(id created_at updated_at).each do |field|
-        self.public_send "#{field}=", nil
+        public_send "#{field}=", nil
       end
     end
 

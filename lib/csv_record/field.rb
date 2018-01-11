@@ -11,11 +11,11 @@ class CsvRecord::Field
   end
 
   def to_s
-    self.name.to_s
+    name.to_s
   end
 
   def is?(value)
-    self.doppelganger.to_sym == value.to_sym ||
-      self.name.to_sym == value.to_sym
+    doppelganger.to_sym == value.to_sym ||
+      name.to_sym == value.to_sym
   end
 end

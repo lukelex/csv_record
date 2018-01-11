@@ -21,7 +21,7 @@ class CsvRecord::Query
 
   def __trigger__
     klass.open_database_file do |csv|
-      rows = search_for csv, self.conditions
+      rows = search_for csv, conditions
       rows.map { |row| klass.build row.to_hash }
     end
   end
@@ -50,7 +50,7 @@ class CsvRecord::Query
   alias :trigger :__trigger__
   alias :to_a :__to_a__
 
-protected
+  protected
 
   def search_for(csv, params)
     csv.entries.select do |attributes|
@@ -60,7 +60,7 @@ protected
 
   def conditions_as_string
     conditions_string = ''
-    self.conditions.each_with_index do |condition, index|
+    conditions.each_with_index do |condition, index|
       conditions_string << condition.to_code
       conditions_string << ' and ' if first_and_not_last? index
     end
@@ -68,6 +68,6 @@ protected
   end
 
   def first_and_not_last?(index)
-    (self.conditions.size > 1) and (index != self.conditions.size - 1)
+    (conditions.size > 1) and (index != conditions.size - 1)
   end
 end

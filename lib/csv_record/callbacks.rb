@@ -50,44 +50,44 @@ module CsvRecord::Callbacks
     [:build, :initialize].each do |initialize_method|
       define_method initialize_method do |*args|
         result = super(*args)
-        self.run_after_initialize_callbacks
+        run_after_initialize_callbacks
         result
       end
     end
 
     def valid?
-      self.run_before_validation_callbacks
+      run_before_validation_callbacks
       is_valid = super
-      self.run_after_validation_callbacks if is_valid
+      run_after_validation_callbacks if is_valid
       is_valid
     end
 
     def destroy
-      self.run_before_destroy_callbacks
+      run_before_destroy_callbacks
       is_destroyed = super
-      self.run_after_destroy_callbacks if is_destroyed
+      run_after_destroy_callbacks if is_destroyed
       is_destroyed
     end
 
     def save(*args)
-      self.run_before_save_callbacks
+      run_before_save_callbacks
       is_saved = super
-      self.run_after_save_callbacks if is_saved
+      run_after_save_callbacks if is_saved
       is_saved
     end
 
     def append_registry
-      self.run_before_create_callbacks
+      run_before_create_callbacks
       is_saved = super
-      self.run_after_create_callbacks if is_saved
+      run_after_create_callbacks if is_saved
       is_saved
     end
 
     def update_registry
-      self.run_before_update_callbacks
+      run_before_update_callbacks
       saved = super
-      self.run_after_destroy_callbacks if saved
-      self.run_after_update_callbacks if saved
+      run_after_destroy_callbacks if saved
+      run_after_update_callbacks if saved
       saved
     end
   end
