@@ -24,7 +24,7 @@ module CsvRecord::Callbacks
         const_variable = "#{callback_type}_callbacks".upcase
         const_set(const_variable, []) unless const_defined? const_variable
         if block
-          const_get(const_variable) << (CsvRecord::Callback.new callback_type, block)
+          const_get(const_variable) << CsvRecord::Callback.new(callback_type, block)
         end
       end
     end

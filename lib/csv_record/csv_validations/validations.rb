@@ -33,9 +33,9 @@ module CsvRecord::Validations
 
     def validate(*methods, &block)
       methods.each do |method|
-        custom_validators << (CsvRecord::CustomValidation.new method)
+        custom_validators << CsvRecord::CustomValidation.new(method)
       end
-      custom_validators << (CsvRecord::CustomValidation.new block) if block_given?
+      custom_validators << CsvRecord::CustomValidation.new(block) if block_given?
     end
   end
 
@@ -69,9 +69,8 @@ module CsvRecord::Validations
     end
 
     def trigger_custom_validations
-      self.class.custom_validators.each do |validator|
-        validator.run_on self
-      end
+      self.class.custom_validators
+        .each { |validator| validator.run_on self }
     end
   end
 

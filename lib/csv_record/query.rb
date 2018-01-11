@@ -61,6 +61,6 @@ class CsvRecord::Query
   end
 
   def conditions_as_string
-    @_conditions_as_string ||= conditions.map(&:to_code).join(' and ')
+    @_conditions_as_string ||= conditions.map(&:to_code).join ' and '
   end
 end

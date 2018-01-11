@@ -30,7 +30,7 @@ module CsvRecord::Reader
 
     def all
       open_database_file do |csv|
-        csv.entries.map { |attributes| self.build attributes }
+        csv.entries.map(&method(:build))
       end
     end
 
@@ -99,11 +99,13 @@ module CsvRecord::Reader
     end
 
     def ==(obj)
-      self.class == obj.class and to_param == obj.to_param
+      self.class == obj.class and
+        to_param == obj.to_param
     end
 
     def !=(obj)
-      self.class != obj.class || to_param != obj.to_param
+      self.class != obj.class ||
+        to_param != obj.to_param
     end
 
     alias :attributes :__attributes__

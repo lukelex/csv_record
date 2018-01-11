@@ -24,9 +24,9 @@ class CsvRecord::Fields
   end
 
   def find_with_doppelganger(doppelganger)
-    self.fields.select do |field|
-      field.is? doppelganger
-    end.first
+    fields
+      .select { |field| field.is? doppelganger }
+      .first
   end
 
   def each(&block)
