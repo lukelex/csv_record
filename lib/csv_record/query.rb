@@ -52,7 +52,7 @@ class CsvRecord::Query
   alias :trigger :__trigger__
   alias :to_a :__to_a__
 
-  protected
+  private
 
   def search_for(csv, params)
     csv.entries.select do |attributes|

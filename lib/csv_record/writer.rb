@@ -96,7 +96,7 @@ module CsvRecord::Writer
       true
     end
 
-    protected
+    private
 
     def calculate_id
       @id = self.class.count + 1

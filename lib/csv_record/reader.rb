@@ -68,7 +68,7 @@ module CsvRecord::Reader
       (meth.to_s =~ DYNAMIC_FINDER_PATTERN) || super
     end
 
-    protected
+    private
 
     def dynamic_finder(meth, *args, &block)
       properties = meth.split '_and_'

@@ -53,7 +53,7 @@ module CsvRecord::Connector
     rename_database
   end
 
-  protected
+  private
 
   # Rename the TMP database file to replace the original
   def rename_database
