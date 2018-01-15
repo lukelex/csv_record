@@ -77,6 +77,6 @@ module CsvRecord::Validations
   end
 
   class Errors < Array
-    alias_method :add, :<<
+    alias :add :<<
   end
 end
