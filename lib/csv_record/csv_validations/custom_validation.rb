@@ -8,14 +8,15 @@ class CsvRecord::CustomValidation
   end
 
   def run_on(obj)
-    if self.message.is_a?(Proc)
+    if message.is_a?(Proc)
       obj.instance_eval(&self.message)
     else
-      obj.send self.message
+      obj.send message
     end
   end
 
-private
+  private
+
   def get_correct_block_type
     self.class.send "#{self.type}_block"
   end

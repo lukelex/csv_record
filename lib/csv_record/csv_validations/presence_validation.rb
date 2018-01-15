@@ -8,8 +8,8 @@ class CsvRecord::PresenceValidation
   end
 
   def run_on(obj)
-    if obj.public_send(self.field).nil?
-      obj.errors.add self.field
-    end
+    return unless obj.public_send(field).nil?
+
+    obj.errors.add field
   end
 end

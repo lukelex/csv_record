@@ -17,7 +17,7 @@ module CsvRecord::Timestamps
     end
   end
 
-private
+  private
 
   # Update the created_at field on the Document to the current time. This is
   # only called on create.

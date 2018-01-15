@@ -58,5 +58,4 @@ class CallbackTestClass
   before_destroy do
     self.before_destroy_called = true
   end
-
 end

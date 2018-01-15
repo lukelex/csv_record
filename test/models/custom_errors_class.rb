@@ -7,6 +7,7 @@ class CustomErrorsClass
   end
 
   private
+
   def my_custom_validator_method
     self.errors.add :custom_error
   end

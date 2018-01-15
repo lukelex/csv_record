@@ -2,12 +2,12 @@
 
 class Object
   def integer?
-    /(?<number>^\d+$)/ =~ self.to_s
+    /(?<number>^\d+$)/ =~ to_s
     not number.nil?
   end
 
   def float?
-    /(?<number>^\d+\.\d+)$/ =~ self.to_s
+    /(?<number>^\d+\.\d+)$/ =~ to_s
     not number.nil?
   end
 
@@ -22,13 +22,15 @@ end
 
 class String
   def constantize
-    self.split('_').map { |w| w.capitalize }.join
+    split('_').map { |w| w.capitalize }.join
   end
+
   def to_class
-    Object.const_get self.constantize.singularize
+    Object.const_get constantize.singularize
   end
+
   def underscore
-    self.gsub(/::/, '/').
+    gsub(/::/, '/').
     gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
     gsub(/([a-z\d])([A-Z])/,'\1_\2').
     tr("-", "_").

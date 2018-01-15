@@ -9,10 +9,11 @@ class CsvRecord::UniquenessValidation
 
   def run_on(obj)
     condition = {}
-    condition[self.field] = obj.public_send field
+    condition[field] = obj.public_send field
     records = obj.class.__where__ condition
-    if records.any? { |record| record != obj }
-      obj.errors.add field
-    end
+
+    return unless records.any? { |record| record != obj }
+
+    obj.errors.add field
   end
 end
