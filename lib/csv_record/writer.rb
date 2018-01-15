@@ -3,10 +3,10 @@
 module CsvRecord::Writer
   module ClassMethods
     def __create__(attributes={})
-      instance = build attributes
-      yield instance if block_given?
-      instance.save
-      instance
+      build(attributes).tap do |instance|
+        yield instance if block_given?
+        instance.save
+      end
     end
 
     [:attr_accessor, :attr_writer].each do |custom_accessor|
