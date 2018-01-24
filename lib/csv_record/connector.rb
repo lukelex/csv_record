@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module CsvRecord::Connector
-  DATABASE_FOLDER = 'db'.freeze
+  BASE_PATH = ENV['ARCHIVE_PATH'].nil? ? "." : ENV['ARCHIVE_PATH']
+  DATABASE_FOLDER =  File.join(BASE_PATH, 'db')
   APPEND_MODE = 'a'.freeze
   WRITE_MODE = 'wb'.freeze
   READ_MODE = 'r'.freeze
