@@ -16,7 +16,7 @@ class MiniTest::Spec
   include TestHelpers
 
   after :each do
-    FileUtils.rm_rf 'db'
+    FileUtils.rm_rf CsvRecord::Connector::database_folder
   end
 
   let(:jedi_council) { JediOrder.build rank: 'council' }
