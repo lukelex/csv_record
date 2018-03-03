@@ -11,7 +11,8 @@ describe CsvRecord::Connector do
   describe 'validating the methods behavior' do
     it "Creates the database folder" do
       Jedi.initialize_db_directory.wont_be_nil
-      Dir.exist?('db').must_equal true
+
+      Dir.exist?(CsvRecord::Connector::database_folder).must_equal true
     end
 
     it "Checks the database initialization state" do

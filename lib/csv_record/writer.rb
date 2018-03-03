@@ -45,8 +45,8 @@ module CsvRecord::Writer
         send :remove_const, 'DATABASE_LOCATION_TMP'
       end
 
-      const_set 'DATABASE_LOCATION', "db/#{@table_name}.csv"
-      const_set 'DATABASE_LOCATION_TMP', "db/#{@table_name}_tmp.csv"
+      const_set 'DATABASE_LOCATION', "#{CsvRecord::Connector::database_folder}/#{@table_name}.csv"
+      const_set 'DATABASE_LOCATION_TMP', "#{CsvRecord::Connector::database_folder}/#{@table_name}_tmp.csv"
     end
 
     alias :create :__create__

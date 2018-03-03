@@ -1,15 +1,20 @@
 # frozen_string_literal: true
 
 module CsvRecord::Connector
-  DATABASE_FOLDER = 'db'.freeze
   APPEND_MODE = 'a'.freeze
   WRITE_MODE = 'wb'.freeze
   READ_MODE = 'r'.freeze
 
+  # Return the folder where the archive will be stored.
+  def self.database_folder
+    root_folder =  ENV['CSV_RECORD_ARCHIVE_PATH'] || "."
+    return File.join( root_folder, 'db')
+  end
+
   # Checks wheter the database directory exists
   def __initialize_db_directory__
-    unless Dir.exist?(DATABASE_FOLDER)
-      Dir.mkdir DATABASE_FOLDER
+    unless Dir.exist?(CsvRecord::Connector.database_folder)
+      Dir.mkdir CsvRecord::Connector.database_folder
     end
   end
 
